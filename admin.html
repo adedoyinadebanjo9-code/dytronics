@@ -258,8 +258,11 @@
         <option value="Robotics">Robotics</option>
         <option value="Displays">Displays</option>
       </select>
-      <label for="productImage">Image filename (e.g. images/products/arduino-uno-r3.jpg)</label>
-      <input type="text" id="productImage" placeholder="images/products/example.jpg">
+      <label for="productImageFile">Product photo</label>
+      <input type="hidden" id="productImageUrl">
+      <img id="productImagePreview" src="" alt="" style="display:none;width:100%;max-height:160px;object-fit:cover;border-radius:8px;border:1px solid var(--border);margin-bottom:10px;">
+      <input type="file" id="productImageFile" accept="image/*">
+      <div id="productImageHint" style="font-size:.78rem;color:var(--text2);margin:-10px 0 16px;"></div>
       <label for="productDescription">Description</label>
       <textarea id="productDescription" rows="4" placeholder="What it is, key specs, what it's used for..."></textarea>
       <label for="productActive">Status</label>
@@ -523,28 +526,78 @@ function openProductModal(product) {
     document.getElementById('productSku').value = product ? product.sku : '';
     document.getElementById('productPrice').value = product ? product.price : '';
     document.getElementById('productCategory').value = product ? product.category : 'Development Boards';
-    document.getElementById('productImage').value = product ? (product.image_url || '') : '';
+    document.getElementById('productImageUrl').value = product ? (product.image_url || '') : '';
+    document.getElementById('productImageFile').value = '';
+    const preview = document.getElementById('productImagePreview');
+    const hint = document.getElementById('productImageHint');
+    if (product && product.image_url) {
+        preview.src = product.image_url;
+        preview.style.display = 'block';
+        hint.textContent = 'Choose a new file to replace this photo, or leave blank to keep it.';
+    } else {
+        preview.src = '';
+        preview.style.display = 'none';
+        hint.textContent = 'Optional — you can add a photo later.';
+    }
     document.getElementById('productDescription').value = product ? (product.description || '') : '';
     document.getElementById('productActive').value = product && product.active === false ? 'false' : 'true';
     productModalOverlay.classList.add('active');
 }
+document.getElementById('productImageFile').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    const preview = document.getElementById('productImagePreview');
+    const hint = document.getElementById('productImageHint');
+    if (!file) return;
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = 'block';
+    hint.textContent = `Selected: ${file.name} — will upload when you save.`;
+});
 document.getElementById('addProductBtn').addEventListener('click', () => openProductModal(null));
 document.getElementById('cancelProductBtn').addEventListener('click', () => productModalOverlay.classList.remove('active'));
 productModalOverlay.addEventListener('click', (e) => { if (e.target === productModalOverlay) productModalOverlay.classList.remove('active'); });
 
+const IMAGE_BUCKET = 'product-images';
+
+async function uploadProductImage(file) {
+    const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+    const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+    const { error: uploadError } = await supa.storage.from(IMAGE_BUCKET).upload(path, file, {
+        cacheControl: '3600',
+        upsert: false,
+    });
+    if (uploadError) throw uploadError;
+    const { data } = supa.storage.from(IMAGE_BUCKET).getPublicUrl(path);
+    return data.publicUrl;
+}
+
 productForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const id = document.getElementById('productId').value;
+    const btn = document.getElementById('saveProductBtn');
+    const file = document.getElementById('productImageFile').files[0];
+    let imageUrl = document.getElementById('productImageUrl').value;
+
+    if (file) {
+        btn.textContent = 'Uploading photo…'; btn.disabled = true;
+        try {
+            imageUrl = await uploadProductImage(file);
+        } catch (err) {
+            btn.textContent = 'Save Product'; btn.disabled = false;
+            showToast('Photo upload failed — check the product-images bucket exists');
+            console.error(err);
+            return;
+        }
+    }
+
     const payload = {
         name: document.getElementById('productName').value,
         sku: document.getElementById('productSku').value,
         price: Number(document.getElementById('productPrice').value),
         category: document.getElementById('productCategory').value,
-        image_url: document.getElementById('productImage').value,
+        image_url: imageUrl,
         description: document.getElementById('productDescription').value,
         active: document.getElementById('productActive').value === 'true',
     };
-    const btn = document.getElementById('saveProductBtn');
     btn.textContent = 'Saving…'; btn.disabled = true;
     let error;
     if (id) {
@@ -614,6 +667,27 @@ function formatDate(iso) {
 
 4) Create your own login in Supabase Auth (Authentication > Users > Add user)
    with the email/password you want to sign into this console with.
+
+5) Product photo uploads (this update): create a public storage bucket
+   called "product-images" — easiest done in the dashboard under
+   Storage > New bucket > name it exactly "product-images" > toggle
+   "Public bucket" ON. That alone lets anyone view the images and lets
+   this admin console list/read them.
+
+   You still need a policy allowing this console to UPLOAD into that
+   bucket (uploads are blocked by default even in a public bucket) — run:
+
+   create policy "authenticated can upload product images"
+     on storage.objects for insert
+     with check (bucket_id = 'product-images' and auth.role() = 'authenticated');
+
+   create policy "authenticated can update product images"
+     on storage.objects for update
+     with check (bucket_id = 'product-images' and auth.role() = 'authenticated');
+
+   create policy "authenticated can delete product images"
+     on storage.objects for delete
+     using (bucket_id = 'product-images' and auth.role() = 'authenticated');
 */
 </script>
 </body>
