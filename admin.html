@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Console | DYTRONICS</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%23ffffff'/%3E%3Crect x='4' y='4' width='32' height='32' rx='6' stroke='%231f8a4c' stroke-width='2' fill='none'/%3E%3Ccircle cx='20' cy='20' r='4' fill='%231f8a4c'/%3E%3Cline x1='20' y1='8' x2='20' y2='16' stroke='%231f8a4c' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='20' y1='24' x2='20' y2='32' stroke='%231f8a4c' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='8' y1='20' x2='16' y2='20' stroke='%231f8a4c' stroke-width='2' stroke-linecap='round'/%3E%3Cline x1='24' y1='20' x2='32' y2='20' stroke='%231f8a4c' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#ffffff;--bg2:#f6f9f4;--card:#ffffff;--border:#e0e6da;--text:#24301f;--text2:#5f6e57;--muted:#94a48a;--accent:#1f8a4c;--accent-dim:rgba(31,138,76,.1);--danger:#c1443a;--warning:#d9a441;--success:#8fae6b;--radius:12px;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg2);color:var(--text);font-family:'Inter',-apple-system,sans-serif;line-height:1.5}
+  a{color:inherit}
+
+  /* ---- Login screen ---- */
+  #loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .login-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px 36px;width:100%;max-width:380px;box-shadow:0 10px 40px rgba(36,48,31,.08)}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:1.25rem;margin-bottom:28px}
+  .logo span{color:var(--accent)}
+  .login-box h1{font-family:'Fraunces',Georgia,serif;font-size:1.4rem;font-weight:600;margin:0 0 6px}
+  .login-box p{color:var(--text2);font-size:.9rem;margin:0 0 24px}
+  label{display:block;font-size:.8rem;font-weight:600;color:var(--text2);margin-bottom:6px}
+  input,select,textarea{width:100%;padding:11px 13px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:.92rem;background:#fbfdfa;color:var(--text);margin-bottom:16px}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+  button{font-family:inherit;cursor:pointer}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:9px;font-size:.9rem;font-weight:600;border:none;transition:.2s}
+  .btn-primary{background:var(--accent);color:#fff;width:100%}
+  .btn-primary:hover{opacity:.92}
+  .btn-secondary{background:var(--bg2);border:1px solid var(--border);color:var(--text)}
+  .btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+  .btn-danger{background:#fdf0ef;color:var(--danger);border:1px solid #f3d3d0}
+  .btn-danger:hover{background:var(--danger);color:#fff}
+  .btn-sm{padding:7px 12px;font-size:.78rem;border-radius:7px}
+  .login-error{background:#fdf0ef;border:1px solid #f3d3d0;color:var(--danger);font-size:.82rem;padding:10px 12px;border-radius:8px;margin-bottom:16px;display:none}
+
+  /* ---- App shell ---- */
+  #app{display:none;min-height:100vh;grid-template-columns:220px 1fr}
+  #app.active{display:grid}
+  .sidebar{background:#1c261a;color:#e7ede2;padding:24px 16px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+  .sidebar .logo{color:#fff;padding:0 8px}
+  .sidebar nav{margin-top:32px;display:flex;flex-direction:column;gap:4px;flex:1}
+  .nav-item{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:8px;font-size:.88rem;font-weight:500;color:#c3d0bd;cursor:pointer;border:none;background:none;text-align:left;width:100%}
+  .nav-item svg{width:17px;height:17px;flex-shrink:0}
+  .nav-item:hover{background:rgba(255,255,255,.06);color:#fff}
+  .nav-item.active{background:var(--accent);color:#fff}
+  .sidebar-foot{border-top:1px solid rgba(255,255,255,.1);padding-top:16px;font-size:.78rem;color:#8fa088}
+  .sidebar-foot button{background:none;border:none;color:#c3d0bd;font-size:.78rem;cursor:pointer;padding:0;margin-top:8px}
+  .sidebar-foot button:hover{color:#fff}
+
+  .main{padding:32px 40px;overflow-y:auto}
+  .page{display:none}
+  .page.active{display:block}
+  .page-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+  .page-head h2{font-family:'Fraunces',Georgia,serif;font-size:1.6rem;font-weight:600;margin:0 0 4px}
+  .page-head p{color:var(--text2);font-size:.9rem;margin:0}
+
+  .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:28px}
+  .stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px}
+  .stat-card .num{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:700;color:var(--accent)}
+  .stat-card .label{font-size:.8rem;color:var(--text2);margin-top:4px}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:20px}
+  .card-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  .card-head h3{font-size:1rem;font-weight:600;margin:0}
+  .filter-tabs{display:flex;gap:6px;flex-wrap:wrap}
+  .filter-tab{padding:6px 13px;border-radius:100px;font-size:.78rem;font-weight:600;background:var(--bg2);border:1px solid var(--border);color:var(--text2);cursor:pointer}
+  .filter-tab.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
+
+  table{width:100%;border-collapse:collapse;font-size:.85rem}
+  th{text-align:left;padding:10px 20px;background:var(--bg2);color:var(--text2);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;font-weight:700;border-bottom:1px solid var(--border)}
+  td{padding:13px 20px;border-bottom:1px solid var(--border);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  .empty-row td{text-align:center;color:var(--muted);padding:36px 20px}
+  .mono{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--text2)}
+  .badge{display:inline-block;padding:3px 10px;border-radius:100px;font-size:.72rem;font-weight:700}
+  .badge-new{background:#eaf4e2;color:var(--accent)}
+  .badge-progress{background:#fbf1de;color:var(--warning)}
+  .badge-done{background:#eef3e8;color:#5c7a4a}
+  .badge-cancel{background:#fdf0ef;color:var(--danger)}
+  select.status-select{margin:0;padding:6px 8px;font-size:.78rem;width:auto}
+  .row-actions{display:flex;gap:6px}
+  .img-thumb{width:44px;height:44px;border-radius:6px;object-fit:cover;background:var(--bg2);border:1px solid var(--border)}
+
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(20,26,17,.45);align-items:center;justify-content:center;z-index:1000;padding:20px}
+  .modal-overlay.active{display:flex}
+  .modal{background:#fff;border-radius:14px;padding:28px 28px 24px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto}
+  .modal h3{font-family:'Fraunces',Georgia,serif;font-size:1.2rem;margin:0 0 18px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
+  .config-note{background:#fbf1de;border:1px solid #eeda9f;color:#7a5f14;font-size:.82rem;padding:12px 16px;border-radius:10px;margin-bottom:20px}
+  .empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
+  .toast{position:fixed;bottom:24px;right:24px;background:#1c261a;color:#fff;padding:12px 20px;border-radius:9px;font-size:.85rem;box-shadow:0 6px 20px rgba(0,0,0,.2);z-index:2000;display:none}
+
+  @media (max-width:860px){
+    #app.active{display:block}
+    .sidebar{position:static;height:auto;flex-direction:row;overflow-x:auto;padding:14px}
+    .sidebar nav{flex-direction:row;margin-top:0}
+    .sidebar-foot{display:none}
+    .main{padding:20px}
+    .form-row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     LOGIN SCREEN
+     Uses Supabase Auth (email + password). Any authenticated
+     user is treated as admin — see SQL/setup notes at bottom
+     of the <script> block for RLS policy guidance.
+     ============================================ -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="logo">DYTR<span>O</span>NICS</div>
+    <h1>Admin Console</h1>
+    <p>Sign in to manage repair requests and products.</p>
+    <div class="login-error" id="loginError"></div>
+    <form id="loginForm">
+      <label for="loginEmail">Email</label>
+      <input type="email" id="loginEmail" required autocomplete="username">
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" required autocomplete="current-password">
+      <button type="submit" class="btn btn-primary" id="loginBtn">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================
+     APP SHELL
+     ============================================ -->
+<div id="app">
+  <aside class="sidebar">
+    <div class="logo">DYTR<span>O</span>NICS</div>
+    <nav>
+      <button class="nav-item active" data-page="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        Dashboard
+      </button>
+      <button class="nav-item" data-page="repairs">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        Repair Requests
+      </button>
+      <button class="nav-item" data-page="products">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.3 7L12 12l8.7-5"/><path d="M12 22V12"/></svg>
+        Products
+      </button>
+      <button class="nav-item" data-page="orders">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        Orders
+      </button>
+    </nav>
+    <div class="sidebar-foot">
+      Signed in as<br><strong id="sidebarEmail" style="color:#fff"></strong>
+      <button id="logoutBtn">Sign out</button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- ---------- DASHBOARD ---------- -->
+    <section class="page active" id="page-dashboard">
+      <div class="page-head">
+        <div><h2>Dashboard</h2><p>Quick overview of what needs attention.</p></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="num" id="statNewRepairs">–</div><div class="label">New repair requests</div></div>
+        <div class="stat-card"><div class="num" id="statInProgress">–</div><div class="label">In progress</div></div>
+        <div class="stat-card"><div class="num" id="statProducts">–</div><div class="label">Products listed</div></div>
+        <div class="stat-card"><div class="num" id="statOrders">–</div><div class="label">Orders (not live yet)</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>Latest repair requests</h3><button class="btn btn-secondary btn-sm" data-goto="repairs">View all</button></div>
+        <table>
+          <thead><tr><th>Device</th><th>Contact</th><th>Received</th><th>Status</th></tr></thead>
+          <tbody id="dashRepairsBody"><tr class="empty-row"><td colspan="4">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---------- REPAIR REQUESTS ---------- -->
+    <section class="page" id="page-repairs">
+      <div class="page-head">
+        <div><h2>Repair Requests</h2><p>Requests submitted through the DYTRONICS repair form.</p></div>
+        <div class="filter-tabs" id="repairFilterTabs">
+          <button class="filter-tab active" data-status="all">All</button>
+          <button class="filter-tab" data-status="new">New</button>
+          <button class="filter-tab" data-status="in_progress">In Progress</button>
+          <button class="filter-tab" data-status="done">Done</button>
+          <button class="filter-tab" data-status="cancelled">Cancelled</button>
+        </div>
+      </div>
+      <div class="card">
+        <table>
+          <thead><tr><th>Device</th><th>Issue</th><th>Contact</th><th>Received</th><th>Status</th><th></th></tr></thead>
+          <tbody id="repairsBody"><tr class="empty-row"><td colspan="6">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---------- PRODUCTS ---------- -->
+    <section class="page" id="page-products">
+      <div class="page-head">
+        <div><h2>Products</h2><p>Manage the catalog shown on the storefront and category pages.</p></div>
+        <button class="btn btn-primary btn-sm" id="addProductBtn">+ Add Product</button>
+      </div>
+      <div class="config-note">
+        The storefront pages (<span class="mono">index.html</span> and the category pages) currently show fixed sample products, not live data from here yet. This console reads/writes a <span class="mono">products</span> table in Supabase — hook the storefront up to it whenever you're ready to go fully dynamic.
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <h3>All products</h3>
+          <div class="filter-tabs" id="productCategoryTabs">
+            <button class="filter-tab active" data-cat="all">All</button>
+          </div>
+        </div>
+        <table>
+          <thead><tr><th></th><th>Name</th><th>SKU</th><th>Category</th><th>Price</th><th>Status</th><th></th></tr></thead>
+          <tbody id="productsBody"><tr class="empty-row"><td colspan="7">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---------- ORDERS ---------- -->
+    <section class="page" id="page-orders">
+      <div class="page-head">
+        <div><h2>Orders</h2><p>Order management — not connected yet.</p></div>
+      </div>
+      <div class="card">
+        <div class="empty-state">
+          <p style="margin-bottom:6px;font-weight:600;color:var(--text)">No checkout system live yet</p>
+          <p style="font-size:.88rem">The "Add to Cart" button on the storefront is currently a visual-only stub — there's no real cart, checkout, or payment flow, so there's nothing to show here yet. Once checkout is built, orders will list here with status and tracking, the same way repair requests do.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="modal-overlay" id="productModalOverlay">
+  <div class="modal">
+    <h3 id="productModalTitle">Add Product</h3>
+    <form id="productForm">
+      <input type="hidden" id="productId">
+      <label for="productName">Name</label>
+      <input type="text" id="productName" required>
+      <div class="form-row">
+        <div><label for="productSku">SKU</label><input type="text" id="productSku" required></div>
+        <div><label for="productPrice">Price (₦)</label><input type="number" id="productPrice" min="0" step="1" required></div>
+      </div>
+      <label for="productCategory">Category</label>
+      <select id="productCategory" required>
+        <option value="Development Boards">Development Boards</option>
+        <option value="Sensors">Sensors</option>
+        <option value="Modules">Modules</option>
+        <option value="Tools">Tools</option>
+        <option value="Cables & Connectors">Cables & Connectors</option>
+        <option value="Power Supplies">Power Supplies</option>
+        <option value="Robotics">Robotics</option>
+        <option value="Displays">Displays</option>
+      </select>
+      <label for="productImage">Image filename (e.g. images/products/arduino-uno-r3.jpg)</label>
+      <input type="text" id="productImage" placeholder="images/products/example.jpg">
+      <label for="productActive">Status</label>
+      <select id="productActive">
+        <option value="true">Active (visible on storefront)</option>
+        <option value="false">Hidden</option>
+      </select>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" id="cancelProductBtn">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="saveProductBtn">Save Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ── SUPABASE CONFIG ──────────────────────────────
+// Same project as index.html — fill these in from Supabase Project Settings > API.
+const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const supa = (SUPABASE_URL.startsWith('http'))
+    ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    : null;
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.display = 'block';
+    setTimeout(() => t.style.display = 'none', 2500);
+}
+
+// ── AUTH ──────────────────────────────
+const loginScreen = document.getElementById('loginScreen');
+const app = document.getElementById('app');
+const loginForm = document.getElementById('loginForm');
+const loginError = document.getElementById('loginError');
+
+async function checkSession() {
+    if (!supa) { loginError.textContent = 'Supabase is not configured yet — fill in SUPABASE_URL and SUPABASE_ANON_KEY at the top of the script.'; loginError.style.display = 'block'; return; }
+    const { data: { session } } = await supa.auth.getSession();
+    if (session) enterApp(session);
+}
+
+function enterApp(session) {
+    loginScreen.style.display = 'none';
+    app.classList.add('active');
+    document.getElementById('sidebarEmail').textContent = session.user.email;
+    loadDashboard();
+    loadRepairs();
+    loadProducts();
+}
+
+loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    loginError.style.display = 'none';
+    if (!supa) { loginError.textContent = 'Supabase is not configured yet.'; loginError.style.display = 'block'; return; }
+    const btn = document.getElementById('loginBtn');
+    btn.textContent = 'Signing in…'; btn.disabled = true;
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const { data, error } = await supa.auth.signInWithPassword({ email, password });
+    btn.textContent = 'Sign In'; btn.disabled = false;
+    if (error) { loginError.textContent = error.message; loginError.style.display = 'block'; return; }
+    enterApp(data.session);
+});
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+    if (supa) await supa.auth.signOut();
+    location.reload();
+});
+
+checkSession();
+
+// ── NAV ──────────────────────────────
+document.querySelectorAll('.nav-item').forEach(btn => {
+    btn.addEventListener('click', () => gotoPage(btn.dataset.page));
+});
+document.querySelectorAll('[data-goto]').forEach(btn => {
+    btn.addEventListener('click', () => gotoPage(btn.dataset.goto));
+});
+function gotoPage(page) {
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.page === page));
+    document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === 'page-' + page));
+}
+
+// ── REPAIR REQUESTS ──────────────────────────────
+// Expects a `repair_requests` table (already written to by index.html's
+// repair form) plus a `status` text column: 'new' | 'in_progress' | 'done' | 'cancelled'.
+// See SQL notes at the bottom of this script if that column doesn't exist yet.
+let repairsCache = [];
+let repairFilter = 'all';
+
+async function loadRepairs() {
+    if (!supa) return;
+    const { data, error } = await supa.from('repair_requests').select('*').order('created_at', { ascending: false });
+    if (error) { console.error(error); return; }
+    repairsCache = data || [];
+    renderRepairs();
+    renderDashboard();
+}
+
+function statusBadge(status) {
+    const map = { new: ['badge-new', 'New'], in_progress: ['badge-progress', 'In Progress'], done: ['badge-done', 'Done'], cancelled: ['badge-cancel', 'Cancelled'] };
+    const [cls, label] = map[status] || map.new;
+    return `<span class="badge ${cls}">${label}</span>`;
+}
+
+function renderRepairs() {
+    const body = document.getElementById('repairsBody');
+    const rows = repairsCache.filter(r => repairFilter === 'all' || (r.status || 'new') === repairFilter);
+    if (!rows.length) { body.innerHTML = '<tr class="empty-row"><td colspan="6">No repair requests here yet.</td></tr>'; return; }
+    body.innerHTML = rows.map(r => `
+        <tr>
+            <td>${escapeHtml(r.device_type || '—')}</td>
+            <td style="max-width:260px">${escapeHtml(r.issue_description || '—')}</td>
+            <td class="mono">${escapeHtml(r.contact_number || '—')}${r.email ? '<br>' + escapeHtml(r.email) : ''}</td>
+            <td class="mono">${formatDate(r.created_at)}</td>
+            <td>
+                <select class="status-select" data-id="${r.id}">
+                    <option value="new" ${(!r.status || r.status === 'new') ? 'selected' : ''}>New</option>
+                    <option value="in_progress" ${r.status === 'in_progress' ? 'selected' : ''}>In Progress</option>
+                    <option value="done" ${r.status === 'done' ? 'selected' : ''}>Done</option>
+                    <option value="cancelled" ${r.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                </select>
+            </td>
+            <td><button class="btn btn-danger btn-sm" data-delete-repair="${r.id}">Delete</button></td>
+        </tr>
+    `).join('');
+
+    body.querySelectorAll('.status-select').forEach(sel => {
+        sel.addEventListener('change', async () => {
+            const { error } = await supa.from('repair_requests').update({ status: sel.value }).eq('id', sel.dataset.id);
+            if (error) { showToast('Failed to update status'); console.error(error); return; }
+            showToast('Status updated');
+            loadRepairs();
+        });
+    });
+    body.querySelectorAll('[data-delete-repair]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            if (!confirm('Delete this repair request?')) return;
+            const { error } = await supa.from('repair_requests').delete().eq('id', btn.dataset.deleteRepair);
+            if (error) { showToast('Delete failed'); console.error(error); return; }
+            showToast('Deleted');
+            loadRepairs();
+        });
+    });
+}
+
+document.querySelectorAll('#repairFilterTabs .filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('#repairFilterTabs .filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        repairFilter = tab.dataset.status;
+        renderRepairs();
+    });
+});
+
+function renderDashboard() {
+    const newCount = repairsCache.filter(r => (r.status || 'new') === 'new').length;
+    const progressCount = repairsCache.filter(r => r.status === 'in_progress').length;
+    document.getElementById('statNewRepairs').textContent = newCount;
+    document.getElementById('statInProgress').textContent = progressCount;
+    document.getElementById('statProducts').textContent = productsCache.length;
+    document.getElementById('statOrders').textContent = '—';
+
+    const body = document.getElementById('dashRepairsBody');
+    const latest = repairsCache.slice(0, 5);
+    if (!latest.length) { body.innerHTML = '<tr class="empty-row"><td colspan="4">No repair requests yet.</td></tr>'; return; }
+    body.innerHTML = latest.map(r => `
+        <tr>
+            <td>${escapeHtml(r.device_type || '—')}</td>
+            <td class="mono">${escapeHtml(r.contact_number || '—')}</td>
+            <td class="mono">${formatDate(r.created_at)}</td>
+            <td>${statusBadge(r.status || 'new')}</td>
+        </tr>
+    `).join('');
+}
+
+async function loadDashboard() { /* populated via loadRepairs()/loadProducts() */ }
+
+// ── PRODUCTS ──────────────────────────────
+// Expects a `products` table: id, name, sku, category, price, image_url, active, created_at.
+let productsCache = [];
+let productCatFilter = 'all';
+const CATEGORY_LIST = ["Development Boards","Sensors","Modules","Tools","Cables & Connectors","Power Supplies","Robotics","Displays"];
+
+// build category filter tabs once
+(function buildCategoryTabs() {
+    const wrap = document.getElementById('productCategoryTabs');
+    CATEGORY_LIST.forEach(cat => {
+        const b = document.createElement('button');
+        b.className = 'filter-tab';
+        b.dataset.cat = cat;
+        b.textContent = cat;
+        wrap.appendChild(b);
+    });
+    wrap.addEventListener('click', (e) => {
+        const btn = e.target.closest('.filter-tab');
+        if (!btn) return;
+        wrap.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        productCatFilter = btn.dataset.cat;
+        renderProducts();
+    });
+})();
+
+async function loadProducts() {
+    if (!supa) return;
+    const { data, error } = await supa.from('products').select('*').order('created_at', { ascending: false });
+    if (error) { console.error(error); document.getElementById('productsBody').innerHTML = '<tr class="empty-row"><td colspan="7">Couldn\'t load products — check the `products` table exists.</td></tr>'; return; }
+    productsCache = data || [];
+    renderProducts();
+    renderDashboard();
+}
+
+function renderProducts() {
+    const body = document.getElementById('productsBody');
+    const rows = productsCache.filter(p => productCatFilter === 'all' || p.category === productCatFilter);
+    if (!rows.length) { body.innerHTML = '<tr class="empty-row"><td colspan="7">No products here yet — add one to get started.</td></tr>'; return; }
+    body.innerHTML = rows.map(p => `
+        <tr>
+            <td><img class="img-thumb" src="${escapeHtml(p.image_url || '')}" alt="" onerror="this.style.visibility='hidden'"></td>
+            <td>${escapeHtml(p.name)}</td>
+            <td class="mono">${escapeHtml(p.sku || '—')}</td>
+            <td>${escapeHtml(p.category || '—')}</td>
+            <td class="mono">&#8358;${Number(p.price || 0).toLocaleString()}</td>
+            <td>${p.active === false ? '<span class="badge badge-cancel">Hidden</span>' : '<span class="badge badge-done">Active</span>'}</td>
+            <td>
+                <div class="row-actions">
+                    <button class="btn btn-secondary btn-sm" data-edit-product="${p.id}">Edit</button>
+                    <button class="btn btn-danger btn-sm" data-delete-product="${p.id}">Delete</button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+
+    body.querySelectorAll('[data-edit-product]').forEach(btn => {
+        btn.addEventListener('click', () => openProductModal(productsCache.find(p => p.id == btn.dataset.editProduct)));
+    });
+    body.querySelectorAll('[data-delete-product]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            if (!confirm('Delete this product?')) return;
+            const { error } = await supa.from('products').delete().eq('id', btn.dataset.deleteProduct);
+            if (error) { showToast('Delete failed'); console.error(error); return; }
+            showToast('Product deleted');
+            loadProducts();
+        });
+    });
+}
+
+const productModalOverlay = document.getElementById('productModalOverlay');
+const productForm = document.getElementById('productForm');
+
+function openProductModal(product) {
+    document.getElementById('productModalTitle').textContent = product ? 'Edit Product' : 'Add Product';
+    document.getElementById('productId').value = product ? product.id : '';
+    document.getElementById('productName').value = product ? product.name : '';
+    document.getElementById('productSku').value = product ? product.sku : '';
+    document.getElementById('productPrice').value = product ? product.price : '';
+    document.getElementById('productCategory').value = product ? product.category : 'Development Boards';
+    document.getElementById('productImage').value = product ? (product.image_url || '') : '';
+    document.getElementById('productActive').value = product && product.active === false ? 'false' : 'true';
+    productModalOverlay.classList.add('active');
+}
+document.getElementById('addProductBtn').addEventListener('click', () => openProductModal(null));
+document.getElementById('cancelProductBtn').addEventListener('click', () => productModalOverlay.classList.remove('active'));
+productModalOverlay.addEventListener('click', (e) => { if (e.target === productModalOverlay) productModalOverlay.classList.remove('active'); });
+
+productForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('productId').value;
+    const payload = {
+        name: document.getElementById('productName').value,
+        sku: document.getElementById('productSku').value,
+        price: Number(document.getElementById('productPrice').value),
+        category: document.getElementById('productCategory').value,
+        image_url: document.getElementById('productImage').value,
+        active: document.getElementById('productActive').value === 'true',
+    };
+    const btn = document.getElementById('saveProductBtn');
+    btn.textContent = 'Saving…'; btn.disabled = true;
+    let error;
+    if (id) {
+        ({ error } = await supa.from('products').update(payload).eq('id', id));
+    } else {
+        ({ error } = await supa.from('products').insert(payload));
+    }
+    btn.textContent = 'Save Product'; btn.disabled = false;
+    if (error) { showToast('Save failed'); console.error(error); return; }
+    showToast(id ? 'Product updated' : 'Product added');
+    productModalOverlay.classList.remove('active');
+    loadProducts();
+});
+
+// ── HELPERS ──────────────────────────────
+function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+}
+function formatDate(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-NG', { day: '2-digit', month: 'short', year: 'numeric' }) + ' ' + d.toLocaleTimeString('en-NG', { hour: '2-digit', minute: '2-digit' });
+}
+
+/*
+── SETUP NOTES (run manually in Supabase SQL Editor — nothing here runs itself) ──
+
+1) Add a status column to the existing repair_requests table (safe to run even if
+   rows already exist — new ones default to 'new'):
+
+   alter table repair_requests
+     add column if not exists status text not null default 'new';
+
+2) Create the products table this console reads/writes:
+
+   create table if not exists products (
+     id uuid primary key default gen_random_uuid(),
+     name text not null,
+     sku text,
+     category text,
+     price numeric not null default 0,
+     image_url text,
+     active boolean not null default true,
+     created_at timestamptz not null default now()
+   );
+
+3) RLS: this console signs in with Supabase Auth and treats any authenticated
+   user as admin (same pattern as the SATTYYVVAA admin console) — enable RLS
+   and allow full access to authenticated users, public read on products only:
+
+   alter table products enable row level security;
+   create policy "public can read active products" on products
+     for select using (active = true);
+   create policy "authenticated can manage products" on products
+     for all using (auth.role() = 'authenticated');
+
+   alter table repair_requests enable row level security;
+   create policy "authenticated can manage repair requests" on repair_requests
+     for all using (auth.role() = 'authenticated');
+   create policy "anyone can submit a repair request" on repair_requests
+     for insert with check (true);
+
+4) Create your own login in Supabase Auth (Authentication > Users > Add user)
+   with the email/password you want to sign into this console with.
+*/
+</script>
+</body>
+</html>
