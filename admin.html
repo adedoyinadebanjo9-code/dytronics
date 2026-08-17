@@ -260,6 +260,8 @@
       </select>
       <label for="productImage">Image filename (e.g. images/products/arduino-uno-r3.jpg)</label>
       <input type="text" id="productImage" placeholder="images/products/example.jpg">
+      <label for="productDescription">Description</label>
+      <textarea id="productDescription" rows="4" placeholder="What it is, key specs, what it's used for..."></textarea>
       <label for="productActive">Status</label>
       <select id="productActive">
         <option value="true">Active (visible on storefront)</option>
@@ -522,6 +524,7 @@ function openProductModal(product) {
     document.getElementById('productPrice').value = product ? product.price : '';
     document.getElementById('productCategory').value = product ? product.category : 'Development Boards';
     document.getElementById('productImage').value = product ? (product.image_url || '') : '';
+    document.getElementById('productDescription').value = product ? (product.description || '') : '';
     document.getElementById('productActive').value = product && product.active === false ? 'false' : 'true';
     productModalOverlay.classList.add('active');
 }
@@ -538,6 +541,7 @@ productForm.addEventListener('submit', async (e) => {
         price: Number(document.getElementById('productPrice').value),
         category: document.getElementById('productCategory').value,
         image_url: document.getElementById('productImage').value,
+        description: document.getElementById('productDescription').value,
         active: document.getElementById('productActive').value === 'true',
     };
     const btn = document.getElementById('saveProductBtn');
@@ -584,9 +588,13 @@ function formatDate(iso) {
      category text,
      price numeric not null default 0,
      image_url text,
+     description text,
      active boolean not null default true,
      created_at timestamptz not null default now()
    );
+
+   -- If the table already exists from before this update, just add the column:
+   -- alter table products add column if not exists description text;
 
 3) RLS: this console signs in with Supabase Auth and treats any authenticated
    user as admin (same pattern as the SATTYYVVAA admin console) — enable RLS

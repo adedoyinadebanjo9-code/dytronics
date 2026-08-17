@@ -277,6 +277,31 @@
             .product-grid { grid-template-columns: 1fr; }
         }
     </style>
+
+<style>
+    .product-card { cursor: pointer; }
+    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(20,26,17,.5); align-items:center; justify-content:center; z-index:2000; padding:20px; }
+    .modal-overlay.active { display:flex; }
+    .product-modal { background:#fff; border-radius:16px; width:100%; max-width:640px; max-height:88vh; overflow-y:auto; position:relative; }
+    .product-modal-close { position:absolute; top:16px; right:16px; width:32px; height:32px; border-radius:50%; background:var(--bg-secondary); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; }
+    .product-modal-close svg { width:16px; height:16px; color:var(--text-primary); }
+    .product-modal-media { width:100%; aspect-ratio:16/10; background:var(--bg-secondary); overflow:hidden; }
+    .product-modal-media img { width:100%; height:100%; object-fit:cover; display:block; }
+    .product-modal-body { padding:28px 32px 32px; }
+    .product-modal-body h2 { font-family:'Fraunces', Georgia, serif; font-size:1.5rem; font-weight:600; margin-bottom:4px; letter-spacing:-0.01em; }
+    .product-modal-sku { font-family:'JetBrains Mono', monospace; font-size:.78rem; color: var(--text-muted); margin-bottom:14px; }
+    .product-modal-price { font-size:1.4rem; font-weight:700; color: var(--accent); font-family:'JetBrains Mono', monospace; margin-bottom:20px; }
+    .product-modal-price .currency { font-size:.9rem; font-weight:500; }
+    .accordion-item { border-top:1px solid var(--border); }
+    .accordion-item:last-child { border-bottom:1px solid var(--border); }
+    .accordion-item details summary { list-style:none; cursor:pointer; padding:14px 0; font-weight:600; font-size:.92rem; color: var(--text-primary); display:flex; align-items:center; justify-content:space-between; }
+    .accordion-item details summary::-webkit-details-marker { display:none; }
+    .accordion-item details summary::after { content:'+'; font-size:1.1rem; color: var(--accent); }
+    .accordion-item details[open] summary::after { content:'−'; }
+    .accordion-item p { padding-bottom:16px; color: var(--text-secondary); font-size:.92rem; line-height:1.7; }
+    .product-modal-actions { display:flex; align-items:center; justify-content:space-between; margin-top:6px; padding-top:20px; border-top:1px solid var(--border); }
+</style>
+
 </head>
 <body>
     <!-- ============================================
@@ -467,88 +492,8 @@
             <h2 class="section-title">Featured Products</h2>
             <p class="section-subtitle">Hand-picked components trusted by engineers, makers, and students across Nigeria.</p>
             <!-- PRODUCT_LIST_START -->
-            <div class="product-grid">
-                <div class="product-card">
-                    <div class="product-image">
-                        <span class="product-badge">New</span>
-                        <img src="images/products/arduino-uno-r3.jpg" alt="Arduino Uno R3" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">Arduino Uno R3</h3>
-                        <p class="product-sku">SKU: DYT-ARD-001</p>
-                        <div class="product-footer">
-                            <span class="product-price"><span class="currency">&#8358;</span>8,500</span>
-                            <button class="btn-add-cart">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="images/products/dht22-temperature-sensor.jpg" alt="DHT22 Temperature Sensor" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">DHT22 Temperature Sensor</h3>
-                        <p class="product-sku">SKU: DYT-SEN-042</p>
-                        <div class="product-footer">
-                            <span class="product-price"><span class="currency">&#8358;</span>3,200</span>
-                            <button class="btn-add-cart">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <span class="product-badge" style="background:var(--warning);color:#ffffff;">Hot</span>
-                        <img src="images/products/esp32-wifi-module.jpg" alt="ESP32 WiFi Module" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">ESP32 WiFi Module</h3>
-                        <p class="product-sku">SKU: DYT-MOD-018</p>
-                        <div class="product-footer">
-                            <span class="product-price"><span class="currency">&#8358;</span>6,800</span>
-                            <button class="btn-add-cart">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="images/products/5v-10a-power-supply.jpg" alt="5V 10A Power Supply" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">5V 10A Power Supply</h3>
-                        <p class="product-sku">SKU: DYT-PWR-031</p>
-                        <div class="product-footer">
-                            <span class="product-price"><span class="currency">&#8358;</span>12,000</span>
-                            <button class="btn-add-cart">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="images/products/oled-096-display.jpg" alt="OLED 0.96 inch Display" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">OLED 0.96&quot; Display</h3>
-                        <p class="product-sku">SKU: DYT-DSP-007</p>
-                        <div class="product-footer">
-                            <span class="product-price"><span class="currency">&#8358;</span>4,500</span>
-                            <button class="btn-add-cart">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <span class="product-badge" style="background:var(--success);color:#ffffff;">Sale</span>
-                        <img src="images/products/sg90-servo-motor.jpg" alt="SG90 Servo Motor" loading="lazy">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">SG90 Servo Motor</h3>
-                        <p class="product-sku">SKU: DYT-ROB-012</p>
-                        <div class="product-footer">
-                            <span class="product-price"><span class="currency">&#8358;</span>1,800</span>
-                            <button class="btn-add-cart">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="product-grid" id="productGrid">
+                <div class="catalog-status" style="grid-column:1/-1;text-align:center;padding:48px 0;color:var(--text-secondary);">Loading products…</div>
             </div>
             <!-- PRODUCT_LIST_END -->
         </div>
@@ -758,6 +703,25 @@
     <!-- ============================================
          JAVASCRIPT
          ============================================ -->
+    
+    <div class="modal-overlay" id="productModalOverlay">
+        <div class="product-modal">
+            <button class="product-modal-close" id="productModalClose" aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="product-modal-media"><img id="productModalImg" src="" alt=""></div>
+            <div class="product-modal-body">
+                <h2 id="productModalName"></h2>
+                <p class="product-modal-sku" id="productModalSku"></p>
+                <p class="product-modal-price" id="productModalPrice"></p>
+                <div id="productModalAccordion"></div>
+                <div class="product-modal-actions">
+                    <button class="btn-add-cart" id="productModalAddCart" style="padding:12px 22px;">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         // ── SUPABASE CONFIG ──────────────────────────────
@@ -794,32 +758,155 @@
             }
         });
 
-        // Add to cart animation
-        document.querySelectorAll('.btn-add-cart').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                const originalText = this.textContent;
-                this.textContent = 'Added!';
-                this.style.background = 'var(--success)';
-                this.style.borderColor = 'var(--success)';
-                this.style.color = '#ffffff';
-                
-                // Update cart count (visual only)
-                const cartBadge = document.getElementById('cartCount');
-                let count = parseInt(cartBadge.textContent);
-                cartBadge.textContent = count + 1;
-                cartBadge.style.transform = 'scale(1.3)';
-                setTimeout(() => {
-                    cartBadge.style.transform = 'scale(1)';
-                }, 200);
 
-                setTimeout(() => {
-                    this.textContent = originalText;
-                    this.style.background = '';
-                    this.style.borderColor = '';
-                    this.style.color = '';
-                }, 1500);
-            });
+
+    // Product detail modal — reads data-description off each .product-card
+    // (SKU/name/price/image already live in the card's own markup).
+    const productModalOverlay = document.getElementById('productModalOverlay');
+    function openProductModal(card) {
+        const img = card.querySelector('.product-image img');
+        const name = card.querySelector('.product-name').textContent;
+        const sku = card.querySelector('.product-sku').textContent;
+        const priceHtml = card.querySelector('.product-price').innerHTML;
+        const description = card.dataset.description || 'No description added yet.';
+
+        document.getElementById('productModalImg').src = img ? img.src : '';
+        document.getElementById('productModalImg').alt = name;
+        document.getElementById('productModalName').textContent = name;
+        document.getElementById('productModalSku').textContent = sku;
+        document.getElementById('productModalPrice').innerHTML = priceHtml;
+        document.getElementById('productModalAccordion').innerHTML = `
+            <div class="accordion-item"><details open><summary>Description</summary><p>${description}</p></details></div>
+            <div class="accordion-item"><details><summary>Delivery</summary><p>Delivery timelines vary by location and courier availability — see our <a href="terms.html">Terms</a> for details.</p></details></div>
+            <div class="accordion-item"><details><summary>Returns</summary><p>Unopened, unused components in original packaging may be returned within 7 days of delivery. See our <a href="terms.html">Terms</a> for the full policy.</p></details></div>
+        `;
+        productModalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeProductModal() {
+        productModalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // ── PRODUCT CATALOG (live from Supabase `products` table) ──────────
+    // Homepage shows the most recently added active products across every
+    // category — a simple "latest arrivals" feed, since there's no
+    // separate "featured" flag in the products table.
+    const FEATURED_LIMIT = 8;
+    const productGrid = document.getElementById('productGrid');
+
+    function escapeHtml(str) {
+        return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    function productCardHtml(p) {
+        const price = Number(p.price || 0).toLocaleString();
+        return `
+                <div class="product-card" data-id="${p.id}" data-description="${escapeHtml(p.description || '')}">
+                    <div class="product-image">
+                        <img src="${escapeHtml(p.image_url || '')}" alt="${escapeHtml(p.name)}" loading="lazy" onerror="this.style.opacity='0.15'">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${escapeHtml(p.name)}</h3>
+                        <p class="product-sku">SKU: ${escapeHtml(p.sku || '—')}</p>
+                        <div class="product-footer">
+                            <span class="product-price"><span class="currency">&#8358;</span>${price}</span>
+                            <button class="btn-add-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>`;
+    }
+
+    function statusHtml(msg) {
+        return `<div class="catalog-status" style="grid-column:1/-1;text-align:center;padding:48px 0;color:var(--text-secondary);">${msg}</div>`;
+    }
+
+    // Shared fade-in observer — also used lower down for category cards /
+    // repair-feature items that are present at load.
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
         });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    function fadeIn(el) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        fadeObserver.observe(el);
+    }
+
+    async function loadProducts() {
+        if (!supabaseClient) {
+            productGrid.innerHTML = statusHtml("Store catalog isn't connected yet — check back soon.");
+            return;
+        }
+        try {
+            const { data, error } = await supabaseClient
+                .from('products')
+                .select('*')
+                .eq('active', true)
+                .order('created_at', { ascending: false })
+                .limit(FEATURED_LIMIT);
+            if (error) throw error;
+            if (!data || !data.length) {
+                productGrid.innerHTML = statusHtml('No products listed yet — check back soon.');
+                return;
+            }
+            productGrid.innerHTML = data.map(productCardHtml).join('');
+            productGrid.querySelectorAll('.product-card').forEach(fadeIn);
+        } catch (err) {
+            console.error('Failed to load products:', err);
+            productGrid.innerHTML = statusHtml("Couldn't load products right now — please refresh or check back soon.");
+        }
+    }
+
+    // Add-to-cart animation (visual only) + product modal open, both
+    // delegated on the grid since cards are rendered dynamically
+    // (openProductModal/closeProductModal are defined above).
+    function handleAddToCart(btn) {
+        const originalText = btn.textContent;
+        btn.textContent = 'Added!';
+        btn.style.background = 'var(--success)';
+        btn.style.borderColor = 'var(--success)';
+        btn.style.color = '#ffffff';
+        const cartBadge = document.getElementById('cartCount');
+        let count = parseInt(cartBadge.textContent);
+        cartBadge.textContent = count + 1;
+        cartBadge.style.transform = 'scale(1.3)';
+        setTimeout(() => { cartBadge.style.transform = 'scale(1)'; }, 200);
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = '';
+            btn.style.borderColor = '';
+            btn.style.color = '';
+        }, 1500);
+    }
+
+    productGrid.addEventListener('click', (e) => {
+        const addBtn = e.target.closest('.btn-add-cart');
+        if (addBtn) { e.stopPropagation(); handleAddToCart(addBtn); return; }
+        const card = e.target.closest('.product-card');
+        if (card) openProductModal(card);
+    });
+
+    loadProducts();
+    document.getElementById('productModalClose').addEventListener('click', closeProductModal);
+    productModalOverlay.addEventListener('click', (e) => { if (e.target === productModalOverlay) closeProductModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeProductModal(); });
+    document.getElementById('productModalAddCart').addEventListener('click', () => {
+        const cartBadge = document.getElementById('cartCount');
+        let count = parseInt(cartBadge.textContent);
+        cartBadge.textContent = count + 1;
+        cartBadge.style.transform = 'scale(1.3)';
+        setTimeout(() => { cartBadge.style.transform = 'scale(1)'; }, 200);
+        const btn = document.getElementById('productModalAddCart');
+        const original = btn.textContent;
+        btn.textContent = 'Added!';
+        setTimeout(() => { btn.textContent = original; }, 1200);
+    });
 
         // Repair form submission
         const repairForm = document.getElementById('repairForm');
@@ -880,24 +967,9 @@
             });
         });
 
-        // Intersection Observer for fade-in animations
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Apply fade-in to cards
-        document.querySelectorAll('.product-card, .category-card, .repair-feature').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            observer.observe(el);
-        });
+        // Fade-in for elements present at load (product cards are handled
+        // by fadeIn() in the product-catalog block above, once fetched).
+        document.querySelectorAll('.category-card, .repair-feature').forEach(fadeIn);
     </script>
 </body>
 </html>
