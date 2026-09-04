@@ -107,7 +107,7 @@
   .cat-list a:hover{background:rgba(20,26,21,0.03);}
   .cat-empty{padding:44px 22px; text-align:center; font-size:13px; color:var(--ink-soft); font-style:italic;}
 
-  /* ---------- Search panel (magnifying-glass icon) — its own drawer, filters categories ---------- */
+  /* ---------- Search panel (magnifying-glass icon) — its own drawer, searches products by name ---------- */
   .search-wrap{padding:16px 22px; border-bottom:1px solid var(--line);}
   .search-wrap input{
     width:100%; padding:11px 12px;
@@ -115,6 +115,19 @@
     font:16px 'Inter', sans-serif; color:var(--ink);
   }
   .search-wrap input:focus{outline:none; border-color:var(--ink);}
+  .search-result{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:14px 22px;
+    font-family:'Fraunces', serif; font-style:italic; font-size:16px;
+    color:var(--ink);
+    border-bottom:1px solid var(--line);
+    transition:background 0.15s ease;
+  }
+  .search-result:hover{background:rgba(20,26,21,0.03);}
+  .search-result-name{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .search-result-price{
+    flex-shrink:0; font-family:'Inter', sans-serif; font-style:normal; font-size:13px; color:var(--ink-soft);
+  }
 
   /* ---------- Hero ---------- */
   .hero{
@@ -861,7 +874,7 @@
         </a>
         <button class="cat-top-link" id="searchBtn" type="button" aria-haspopup="dialog" aria-expanded="false">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          Search categories
+          Search products
         </button>
       </div>
       <div class="cat-list" id="catList"></div>
@@ -871,11 +884,11 @@
   <div class="cart-backdrop" id="searchBackdrop" hidden>
     <div class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="searchHeading">
       <div class="cart-head">
-        <h3 id="searchHeading">Search categories</h3>
+        <h3 id="searchHeading">Search products</h3>
         <button class="cart-close" id="searchClose" aria-label="Close search">×</button>
       </div>
       <div class="search-wrap">
-        <input type="text" id="searchInput" placeholder="Search categories…" aria-label="Search categories">
+        <input type="text" id="searchInput" placeholder="Search products…" aria-label="Search products">
       </div>
       <div class="cat-list" id="searchList"></div>
     </div>
@@ -1444,23 +1457,37 @@ function closeCart() {
 }
 
 /* ---------------- Category menu (hamburger panel) — plain list, no filtering ---------------- */
-// Renders category links from categoriesCache into whichever list container is
-// given (the hamburger panel's plain list, or the search panel's filtered
-// results), optionally filtered by name. Shared so both panels stay in sync
-// with the same source data without duplicating the render logic.
-function renderCategoryLinks(containerId, filter) {
+// Renders the full, unfiltered category list — used by the hamburger panel only.
+function renderCategoryLinks(containerId) {
+  const list = document.getElementById(containerId);
+  list.innerHTML = categoriesCache
+    .map(c => `<a href="#${escapeHtml(c.slug)}" data-cat-link>${escapeHtml(c.label)}</a>`).join('');
+}
+
+// Search panel results: matches products by name (not categories — those
+// already have their own dedicated list in the hamburger menu).
+function renderProductSearchResults(containerId, filter) {
   const list = document.getElementById(containerId);
   const q = (filter || '').trim().toLowerCase();
-  const matches = q
-    ? categoriesCache.filter(c => c.label.toLowerCase().includes(q))
-    : categoriesCache;
 
-  if (matches.length === 0) {
-    list.innerHTML = `<div class="cat-empty">No matching categories</div>`;
+  if (!q) {
+    list.innerHTML = `<div class="cat-empty">Start typing to search products…</div>`;
     return;
   }
-  list.innerHTML = matches
-    .map(c => `<a href="#${escapeHtml(c.slug)}" data-cat-link>${escapeHtml(c.label)}</a>`).join('');
+
+  const matches = Object.values(productsById)
+    .filter(p => p.name && p.name.toLowerCase().includes(q));
+
+  if (matches.length === 0) {
+    list.innerHTML = `<div class="cat-empty">No matching products</div>`;
+    return;
+  }
+
+  list.innerHTML = matches.map(p => `
+    <a href="#${escapeHtml(p.category)}" class="search-result" data-search-product="${p.id}">
+      <span class="search-result-name">${escapeHtml(p.name)}</span>
+      <span class="search-result-price">${isSoldOut(p) ? 'Sold out' : NGN(p.price)}</span>
+    </a>`).join('');
 }
 
 function openCatMenu() {
@@ -1481,14 +1508,14 @@ function closeCatMenu() {
   document.getElementById('catMenuBtn').focus(); // keyboard focus returns to the trigger, never trapped
 }
 
-/* ---------------- Search panel (magnifying-glass icon) — filters categories ---------------- */
+/* ---------------- Search panel (magnifying-glass icon) — searches products ---------------- */
 function openSearchPanel() {
   closeCart();
   closeTrackDrawer();
   closeCatMenu();
   const input = document.getElementById('searchInput');
   input.value = '';
-  renderCategoryLinks('searchList');
+  renderProductSearchResults('searchList');
   document.getElementById('searchBackdrop').hidden = false;
   document.getElementById('searchBtn').setAttribute('aria-expanded', 'true');
   document.body.style.overflow = 'hidden';
@@ -2020,9 +2047,14 @@ document.getElementById('searchBackdrop').addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !document.getElementById('searchBackdrop').hidden) closeSearchPanel();
 });
-document.getElementById('searchInput').addEventListener('input', (e) => renderCategoryLinks('searchList', e.target.value));
+document.getElementById('searchInput').addEventListener('input', (e) => renderProductSearchResults('searchList', e.target.value));
 document.getElementById('searchList').addEventListener('click', (e) => {
-  if (e.target.closest('[data-cat-link]')) closeSearchPanel();
+  const link = e.target.closest('[data-search-product]');
+  if (!link) return;
+  e.preventDefault(); // open the product modal directly, rather than just jumping to its category section
+  const product = productsById[link.getAttribute('data-search-product')];
+  closeSearchPanel();
+  if (product) openModal(product);
 });
 
 loadCart();
