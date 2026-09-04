@@ -192,6 +192,11 @@ function catLabelOf(slug){
 }
 
 /* ---------------- Login gate ---------------- */
+async function isAdmin(){
+ const {data,error}=await sb.rpc('is_dytronics_admin');
+ if(error){ return false; }
+ return data===true;
+}
 async function doLogin(){
  const email=$('emailInput').value.trim();
  const password=$('passInput').value;
@@ -199,6 +204,13 @@ async function doLogin(){
  s.textContent='Signing in…'; s.className='status-msg';
  const {error}=await sb.auth.signInWithPassword({email,password});
  if(error){ s.textContent=error.message||'Sign-in failed.'; s.className='status-msg err'; return; }
+ const admin=await isAdmin();
+ if(!admin){
+  await sb.auth.signOut();
+  s.textContent='This account does not have admin access.'; s.className='status-msg err';
+  return;
+ }
+ s.textContent=''; s.className='status-msg';
  enterConsole();
 }
 function enterConsole(){
@@ -546,8 +558,14 @@ async function moveCategory(c,direction){
 }
 
 /* ---------------- Session check on load ---------------- */
-sb.auth.getSession().then(({data})=>{
- if(data.session){ enterConsole(); } else { showGate(); }
+sb.auth.getSession().then(async({data})=>{
+ if(data.session){
+  const admin=await isAdmin();
+  if(admin){ enterConsole(); }
+  else { await sb.auth.signOut(); showGate(); }
+ } else {
+  showGate();
+ }
 });
 sb.auth.onAuthStateChange((_event,session)=>{
  if(!session){ showGate(); }
