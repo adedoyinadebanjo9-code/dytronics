@@ -263,7 +263,13 @@ $('signupForm').addEventListener('submit', async (e) => {
   if (password.length < 6) { status.textContent = 'Password must be at least 6 characters.'; status.className = 'status-msg err'; return; }
   status.textContent = 'Creating your account\u2026';
   $('signupBtn').disabled = true;
-  const { data, error } = await sb.auth.signUp({ email, password });
+  const { data, error } = await sb.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: `${window.location.origin}/account.html`
+    }
+  });
   $('signupBtn').disabled = false;
   if (error) { status.textContent = error.message || 'Could not create account.'; status.className = 'status-msg err'; return; }
   if (data.session) {
