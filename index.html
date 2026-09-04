@@ -56,25 +56,51 @@
     font-size:15px;
     letter-spacing:0.14em;
   }
-  .topbar nav{display:flex; gap:28px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;}
-  .nav-links{display:flex; gap:28px;}
+  .topbar nav{display:flex; align-items:center; gap:22px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;}
   .topbar nav a{opacity:0.85; transition:opacity 0.25s ease;}
   .topbar nav a:hover{opacity:1;}
   .topbar nav a:focus-visible, a:focus-visible, button:focus-visible{
     outline:2px solid var(--gold); outline-offset:3px;
   }
+  .icon-btn{
+    background:none; border:none; color:inherit; cursor:pointer;
+    padding:2px; display:inline-flex; align-items:center; justify-content:center; opacity:0.9;
+  }
+  .icon-btn:hover{opacity:1;}
   @media (max-width:640px){
     .topbar{padding:16px 4vw; gap:10px;}
     .topbar .wordmark{font-size:12px; flex-shrink:0;}
-    .topbar nav{gap:10px;}
-    .nav-links{
-      gap:14px; max-width:44vw; overflow-x:auto; -webkit-overflow-scrolling:touch;
-      scrollbar-width:none;
-    }
-    .nav-links::-webkit-scrollbar{display:none;}
-    .nav-links a{white-space:nowrap;}
+    .topbar nav{gap:14px;}
     .cart-btn{white-space:nowrap; flex-shrink:0;}
   }
+
+  /* Categories now live in a drawer (not a horizontal topbar strip) so the
+     list can grow to any length without crowding the cart/account links. */
+  .category-drawer-body{padding-top:8px;}
+  .category-drawer-body .nav-links{display:flex; flex-direction:column;}
+  .category-drawer-body .nav-links a{
+    padding:15px 2px; border-bottom:1px solid var(--line);
+    font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink);
+  }
+  .category-drawer-body .nav-links a:hover{color:var(--gold);}
+
+  /* ---------- Search drawer ---------- */
+  .search-field{padding:2px 0 16px;}
+  .search-field input{
+    width:100%; padding:12px 13px; border:1px solid var(--line); background:#fff;
+    font:14px 'Inter', sans-serif; color:var(--ink);
+  }
+  .search-field input:focus{outline:none; border-color:var(--ink);}
+  .search-result-row{
+    display:flex; gap:12px; padding:13px 0; border-bottom:1px solid var(--line);
+    cursor:pointer; background:none; border-left:none; border-right:none; border-top:none;
+    width:100%; text-align:left; font:inherit; color:inherit;
+  }
+  .search-result-row img{width:50px; height:62px; object-fit:cover; background:#eee; flex-shrink:0;}
+  .search-result-row .sr-info{flex:1; min-width:0;}
+  .search-result-row .sr-name{font-family:'Fraunces', serif; font-size:14px; color:var(--ink);}
+  .search-result-row .sr-meta{font-size:11.5px; color:var(--ink-soft); margin-top:2px;}
+  .search-empty{padding:40px 4px; text-align:center; font-size:13px; color:var(--ink-soft); font-style:italic;}
 
   /* ---------- Hero ---------- */
   .hero{
@@ -733,7 +759,12 @@
   <header class="topbar">
     <a href="#top" class="wordmark">DYTRONICS</a>
    <nav>
-  <div class="nav-links" id="navLinks"></div>
+  <button class="icon-btn" id="menuBtn" type="button" aria-label="Browse categories">
+    <svg width="19" height="19" viewBox="0 0 20 20" fill="none" aria-hidden="true"><line x1="2" y1="5" x2="18" y2="5" stroke="currentColor" stroke-width="1.6"/><line x1="2" y1="10" x2="18" y2="10" stroke="currentColor" stroke-width="1.6"/><line x1="2" y1="15" x2="18" y2="15" stroke="currentColor" stroke-width="1.6"/></svg>
+  </button>
+  <button class="icon-btn" id="searchBtn" type="button" aria-label="Search products">
+    <svg width="19" height="19" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6" stroke="currentColor" stroke-width="1.6"/><line x1="13.2" y1="13.2" x2="18" y2="18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </button>
   <a href="account.html" class="cart-btn">Account</a>
   <button class="cart-btn" id="cartBtn" type="button" aria-label="Open cart">
     Cart<span class="cart-badge hidden" id="cartBadge">0</span>
@@ -807,6 +838,35 @@
     </div>
   </div>
 
+  <!-- Category drawer -->
+  <div class="cart-backdrop" id="categoryBackdrop" hidden>
+    <div class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="categoryHeading">
+      <div class="cart-head">
+        <h3 id="categoryHeading">Categories</h3>
+        <button class="cart-close" id="categoryClose" aria-label="Close">×</button>
+      </div>
+      <div class="cart-body category-drawer-body">
+        <div class="nav-links" id="navLinks"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search drawer -->
+  <div class="cart-backdrop" id="searchBackdrop" hidden>
+    <div class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="searchHeading">
+      <div class="cart-head">
+        <h3 id="searchHeading">Search parts</h3>
+        <button class="cart-close" id="searchClose" aria-label="Close">×</button>
+      </div>
+      <div class="cart-body">
+        <div class="search-field">
+          <input type="search" id="searchInput" placeholder="Search by name…" autocomplete="off">
+        </div>
+        <div id="searchResults"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="cart-backdrop" id="trackBackdrop" hidden>
     <div class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="trackHeading">
       <div class="cart-head">
@@ -829,7 +889,6 @@
       <div class="footer-col">
         <h4>Contact</h4>
         <a href="https://wa.me/2347054378193?text=Hi%20DYTRONICS%2C%20I%27d%20like%20to%20know%20more%20about%20your%20parts.">WhatsApp</a>
-        <a href="https://instagram.com/">Instagram</a>
         <a href="#" id="trackOrderLink">Track your order</a>
         <span>Lagos, Nigeria</span>
       </div>
@@ -861,7 +920,7 @@ let currentCustomerId = null;
 // key lives only as an Edge Function secret (verify-payment), never here.
 const PAYSTACK_PUBLIC_KEY = "pk_test_35ab3251da4ee19172692a0e330757f35ca13dc0";
 
-const WHATSAPP_NUMBER = "2347054378193"; // +234 811 641 2960
+const WHATSAPP_NUMBER = "2347054378193"; // +234 705 437 8193
 
 // Store-wide policy text — same for every product. Edit these strings any
 // time; no database change needed since these aren't per-product.
@@ -1851,6 +1910,74 @@ document.getElementById('trackBackdrop').addEventListener('click', (e) => {
 });
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !document.getElementById('trackBackdrop').hidden) closeTrackDrawer();
+});
+
+/* ---------- Category drawer ---------- */
+function openCategoryMenu() {
+  document.getElementById('categoryBackdrop').hidden = false;
+}
+function closeCategoryMenu() {
+  document.getElementById('categoryBackdrop').hidden = true;
+}
+document.getElementById('menuBtn').addEventListener('click', openCategoryMenu);
+document.getElementById('categoryClose').addEventListener('click', closeCategoryMenu);
+document.getElementById('categoryBackdrop').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('categoryBackdrop')) closeCategoryMenu();
+});
+// Category links are rendered dynamically (loadCategoriesAndRenderShell), so
+// this listener is delegated on the container rather than bound per-link.
+document.getElementById('navLinks').addEventListener('click', (e) => {
+  if (e.target.tagName === 'A') closeCategoryMenu();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !document.getElementById('categoryBackdrop').hidden) closeCategoryMenu();
+});
+
+/* ---------- Search drawer ---------- */
+function renderSearchResults(query) {
+  const box = document.getElementById('searchResults');
+  const q = query.trim().toLowerCase();
+  if (!q) { box.innerHTML = ''; return; }
+  const matches = Object.values(productsById).filter(p =>
+    (p.name || '').toLowerCase().includes(q) || (p.description || '').toLowerCase().includes(q)
+  ).slice(0, 30);
+  if (!matches.length) {
+    box.innerHTML = `<div class="search-empty">No parts match "${escapeHtml(query.trim())}".</div>`;
+    return;
+  }
+  box.innerHTML = matches.map(p => `
+    <button type="button" class="search-result-row" data-id="${escapeHtml(String(p.id))}">
+      ${p.image_url ? `<img src="${escapeHtml(p.image_url)}" alt="">` : `<div class="ph" style="width:50px;height:62px;flex-shrink:0;background:var(--paper-deep)"></div>`}
+      <div class="sr-info">
+        <div class="sr-name">${escapeHtml(p.name)}</div>
+        <div class="sr-meta">${isSoldOut(p) ? 'Sold out' : NGN(p.price)}</div>
+      </div>
+    </button>`).join('');
+}
+function openSearch() {
+  document.getElementById('searchBackdrop').hidden = false;
+  const input = document.getElementById('searchInput');
+  input.value = '';
+  renderSearchResults('');
+  setTimeout(() => input.focus(), 50);
+}
+function closeSearch() {
+  document.getElementById('searchBackdrop').hidden = true;
+}
+document.getElementById('searchBtn').addEventListener('click', openSearch);
+document.getElementById('searchClose').addEventListener('click', closeSearch);
+document.getElementById('searchBackdrop').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('searchBackdrop')) closeSearch();
+});
+document.getElementById('searchInput').addEventListener('input', (e) => renderSearchResults(e.target.value));
+document.getElementById('searchResults').addEventListener('click', (e) => {
+  const row = e.target.closest('.search-result-row');
+  if (!row) return;
+  const product = productsById[row.dataset.id];
+  if (product) { closeSearch(); openModal(product); }
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !document.getElementById('searchBackdrop').hidden) closeSearch();
 });
 
 loadCart();
