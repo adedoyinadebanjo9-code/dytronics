@@ -56,25 +56,53 @@
     font-size:15px;
     letter-spacing:0.14em;
   }
-  .topbar nav{display:flex; gap:28px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;}
-  .nav-links{display:flex; gap:28px;}
+  .topbar nav{display:flex; align-items:center; gap:16px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;}
   .topbar nav a{opacity:0.85; transition:opacity 0.25s ease;}
   .topbar nav a:hover{opacity:1;}
   .topbar nav a:focus-visible, a:focus-visible, button:focus-visible{
     outline:2px solid var(--gold); outline-offset:3px;
   }
+  .hamburger-btn{
+    width:32px; height:32px;
+    border:1px solid rgba(244,246,249,0.5);
+    background:transparent;
+    color:#f4f6f9;
+    display:inline-flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    cursor:pointer;
+    transition:background 0.2s ease, border-color 0.2s ease;
+  }
+  .hamburger-btn:hover{border-color:#f4f6f9;}
+  .hamburger-btn svg{width:15px; height:15px; display:block;}
   @media (max-width:640px){
     .topbar{padding:16px 4vw; gap:10px;}
     .topbar .wordmark{font-size:12px; flex-shrink:0;}
-    .topbar nav{gap:10px;}
-    .nav-links{
-      gap:14px; max-width:44vw; overflow-x:auto; -webkit-overflow-scrolling:touch;
-      scrollbar-width:none;
-    }
-    .nav-links::-webkit-scrollbar{display:none;}
-    .nav-links a{white-space:nowrap;}
+    .topbar nav{gap:8px;}
     .cart-btn{white-space:nowrap; flex-shrink:0;}
   }
+
+  /* ---------- Category nav panel (hamburger) — plain list, no search inside ---------- */
+  .cat-backdrop{justify-content:flex-start;}
+  .cat-drawer{border-left:none; border-right:1px solid var(--line);}
+  .cat-list{flex:1; min-height:0; overflow-y:auto;}
+  .cat-list a{
+    display:block; padding:14px 22px;
+    font-family:'Fraunces', serif; font-style:italic; font-size:16px;
+    color:var(--ink);
+    border-bottom:1px solid var(--line);
+    transition:background 0.15s ease;
+  }
+  .cat-list a:hover{background:rgba(20,26,21,0.03);}
+  .cat-empty{padding:44px 22px; text-align:center; font-size:13px; color:var(--ink-soft); font-style:italic;}
+
+  /* ---------- Search panel (magnifying-glass icon) — its own drawer, filters categories ---------- */
+  .search-wrap{padding:16px 22px; border-bottom:1px solid var(--line);}
+  .search-wrap input{
+    width:100%; padding:11px 12px;
+    border:1px solid var(--line); background:#fff;
+    font:16px 'Inter', sans-serif; color:var(--ink);
+  }
+  .search-wrap input:focus{outline:none; border-color:var(--ink);}
 
   /* ---------- Hero ---------- */
   .hero{
@@ -731,10 +759,15 @@
 <body>
 
   <header class="topbar">
+    <button class="hamburger-btn" id="catMenuBtn" type="button" aria-label="Open category menu" aria-haspopup="dialog" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     <a href="#top" class="wordmark">DYTRONICS</a>
    <nav>
-  <div class="nav-links" id="navLinks"></div>
   <a href="account.html" class="cart-btn">Account</a>
+  <button class="hamburger-btn" id="searchBtn" type="button" aria-label="Search categories" aria-haspopup="dialog" aria-expanded="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  </button>
   <button class="cart-btn" id="cartBtn" type="button" aria-label="Open cart">
     Cart<span class="cart-badge hidden" id="cartBadge">0</span>
   </button>
@@ -804,6 +837,29 @@
         <button class="btn btn-solid cart-checkout-btn" id="cartCheckoutBtn" type="button">Checkout</button>
         <p class="cart-note">Shipping is calculated at checkout. Have a question first? <a href="https://wa.me/2347054378193?text=Hi%20DYTRONICS%2C%20I%20have%20a%20question%20about%20an%20order." target="_blank" rel="noopener">Message us on WhatsApp</a>.</p>
       </div>
+    </div>
+  </div>
+
+  <div class="cart-backdrop cat-backdrop" id="catBackdrop" hidden>
+    <div class="cart-drawer cat-drawer" role="dialog" aria-modal="true" aria-labelledby="catHeading">
+      <div class="cart-head">
+        <h3 id="catHeading">Categories</h3>
+        <button class="cart-close" id="catClose" aria-label="Close category menu">×</button>
+      </div>
+      <div class="cat-list" id="catList"></div>
+    </div>
+  </div>
+
+  <div class="cart-backdrop" id="searchBackdrop" hidden>
+    <div class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="searchHeading">
+      <div class="cart-head">
+        <h3 id="searchHeading">Search categories</h3>
+        <button class="cart-close" id="searchClose" aria-label="Close search">×</button>
+      </div>
+      <div class="search-wrap">
+        <input type="text" id="searchInput" placeholder="Search categories…" aria-label="Search categories">
+      </div>
+      <div class="cat-list" id="searchList"></div>
     </div>
   </div>
 
@@ -1088,8 +1144,7 @@ async function loadCategoriesAndRenderShell() {
     categoriesCache = [];
   }
 
-  document.getElementById('navLinks').innerHTML = categoriesCache
-    .map(c => `<a href="#${escapeHtml(c.slug)}">${escapeHtml(c.label)}</a>`).join('');
+  renderCategoryLinks('catList');
 
   const railItemsHtml = categoriesCache
     .map((c, i) => `<div class="rail-item"><span class="rail-num">${String(i + 1).padStart(2, '0')}</span><a href="#${escapeHtml(c.slug)}">${escapeHtml(c.label)}</a></div>`)
@@ -1359,6 +1414,8 @@ function renderCartDrawer() {
 
 function openCart() {
   closeTrackDrawer(); // avoid both drawers open at once (overlapping backdrops, duplicate receipt IDs)
+  closeCatMenu();
+  closeSearchPanel();
   showCartItemsView();
   document.getElementById('cartBackdrop').hidden = false;
   document.body.style.overflow = 'hidden';
@@ -1367,6 +1424,67 @@ function closeCart() {
   document.getElementById('cartBackdrop').hidden = true;
   document.body.style.overflow = '';
 }
+
+/* ---------------- Category menu (hamburger panel) — plain list, no filtering ---------------- */
+// Renders category links from categoriesCache into whichever list container is
+// given (the hamburger panel's plain list, or the search panel's filtered
+// results), optionally filtered by name. Shared so both panels stay in sync
+// with the same source data without duplicating the render logic.
+function renderCategoryLinks(containerId, filter) {
+  const list = document.getElementById(containerId);
+  const q = (filter || '').trim().toLowerCase();
+  const matches = q
+    ? categoriesCache.filter(c => c.label.toLowerCase().includes(q))
+    : categoriesCache;
+
+  if (matches.length === 0) {
+    list.innerHTML = `<div class="cat-empty">No matching categories</div>`;
+    return;
+  }
+  list.innerHTML = matches
+    .map(c => `<a href="#${escapeHtml(c.slug)}" data-cat-link>${escapeHtml(c.label)}</a>`).join('');
+}
+
+function openCatMenu() {
+  closeCart();
+  closeTrackDrawer();
+  closeSearchPanel();
+  renderCategoryLinks('catList'); // always the full list — no search box in this panel
+  document.getElementById('catBackdrop').hidden = false;
+  document.getElementById('catMenuBtn').setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+function closeCatMenu() {
+  const backdrop = document.getElementById('catBackdrop');
+  if (backdrop.hidden) return;
+  backdrop.hidden = true;
+  document.getElementById('catMenuBtn').setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+  document.getElementById('catMenuBtn').focus(); // keyboard focus returns to the trigger, never trapped
+}
+
+/* ---------------- Search panel (magnifying-glass icon) — filters categories ---------------- */
+function openSearchPanel() {
+  closeCart();
+  closeTrackDrawer();
+  closeCatMenu();
+  const input = document.getElementById('searchInput');
+  input.value = '';
+  renderCategoryLinks('searchList');
+  document.getElementById('searchBackdrop').hidden = false;
+  document.getElementById('searchBtn').setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+  input.focus(); // this panel exists to type into, unlike the plain list — the keyboard showing up here is expected
+}
+function closeSearchPanel() {
+  const backdrop = document.getElementById('searchBackdrop');
+  if (backdrop.hidden) return;
+  backdrop.hidden = true;
+  document.getElementById('searchBtn').setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+  document.getElementById('searchBtn').focus();
+}
+
 
 /* ---------------- Checkout (inline in cart drawer) ---------------- */
 // Unconfirmed assumption, flagged to Adedoyin: reopening the cart after
@@ -1550,6 +1668,8 @@ function wireReceiptButtons(onDone) {
 
 function openTrackDrawer() {
   closeCart(); // avoid both drawers open at once (overlapping backdrops, duplicate receipt IDs)
+  closeCatMenu();
+  closeSearchPanel();
   renderTrackDrawerHome();
   document.getElementById('trackBackdrop').hidden = false;
   document.body.style.overflow = 'hidden';
@@ -1858,6 +1978,33 @@ document.getElementById('trackBackdrop').addEventListener('click', (e) => {
 });
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !document.getElementById('trackBackdrop').hidden) closeTrackDrawer();
+});
+
+document.getElementById('catMenuBtn').addEventListener('click', openCatMenu);
+document.getElementById('catClose').addEventListener('click', closeCatMenu);
+document.getElementById('catBackdrop').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('catBackdrop')) closeCatMenu();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !document.getElementById('catBackdrop').hidden) closeCatMenu();
+});
+// Category links are re-rendered whenever the list changes, so this listener
+// is delegated on the (stable) container rather than bound per-link.
+document.getElementById('catList').addEventListener('click', (e) => {
+  if (e.target.closest('[data-cat-link]')) closeCatMenu(); // let the anchor's own href do the scroll; we just close the panel
+});
+
+document.getElementById('searchBtn').addEventListener('click', openSearchPanel);
+document.getElementById('searchClose').addEventListener('click', closeSearchPanel);
+document.getElementById('searchBackdrop').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('searchBackdrop')) closeSearchPanel();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !document.getElementById('searchBackdrop').hidden) closeSearchPanel();
+});
+document.getElementById('searchInput').addEventListener('input', (e) => renderCategoryLinks('searchList', e.target.value));
+document.getElementById('searchList').addEventListener('click', (e) => {
+  if (e.target.closest('[data-cat-link]')) closeSearchPanel();
 });
 
 loadCart();
