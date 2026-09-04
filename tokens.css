@@ -1,0 +1,17 @@
+/* DYTRONICS design tokens — single source of truth.
+   Linked from every page instead of each page redefining :root.
+   Canonical palette taken from index.html (the live storefront). */
+:root{
+  --ink:#12213a;
+  --ink-soft:#44536b;
+  --paper:#f4f6f9;
+  --paper-deep:#e6ebf2;
+  --card:#ffffff;
+  --green:#1e3a5f;
+  --green-deep:#13283f;
+  --gold:#e2820f;
+  --line: rgba(33,23,18,0.12);
+  --radius: 2px;
+  --err:#a53b3b;
+  --good:#1e3a5f;
+}
