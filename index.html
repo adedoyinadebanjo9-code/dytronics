@@ -701,6 +701,14 @@
   .status-badge.st-shipped{color:var(--gold);}
   .status-badge.st-delivered{color:var(--green-deep);}
   .status-badge.st-cancelled{color:#a53b3b;}
+  .status-badge.st-checking{
+    color:var(--ink-soft); border-style:dashed;
+    animation:badgePulse 1.3s ease-in-out infinite;
+  }
+  @keyframes badgePulse{
+    0%, 100%{opacity:0.45;}
+    50%{opacity:1;}
+  }
 
   .receipt{padding:28px 4px; text-align:left;}
   .receipt-head{text-align:center; margin-bottom:22px;}
@@ -1685,6 +1693,13 @@ function statusBadgeHtml(status) {
   return `<span class="status-badge st-${escapeHtml(cls)}">${escapeHtml(label)}</span>`;
 }
 
+// Shown in place of a cached status the moment a row paints, until the
+// background re-check (see refreshDeviceOrderStatuses) confirms the real
+// value. Never shows a status that might be wrong, even for a second.
+function skeletonBadgeHtml() {
+  return `<span class="status-badge st-checking">Checking…</span>`;
+}
+
 function fmtOrderDate(iso) {
   try {
     return new Date(iso).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
@@ -1759,6 +1774,11 @@ function closeTrackDrawer() {
 function renderTrackDrawerHome() {
   const body = document.getElementById('trackBody');
   const orders = loadDeviceOrders();
+  // Each row paints with a "Checking…" skeleton rather than the cached
+  // status — the cache can be stale (see updateDeviceOrderStatus callers),
+  // and showing it first then silently correcting it a moment later meant
+  // a wrong badge could flash on screen. refreshDeviceOrderStatuses() below
+  // fills in the real status per row once it's confirmed.
   const listHtml = orders.length
     ? `<div class="track-section-label">Orders placed from this device</div>` +
       orders.map(o => `
@@ -1768,7 +1788,7 @@ function renderTrackDrawerHome() {
             <div class="do-date">${escapeHtml(fmtOrderDate(o.createdAt))}</div>
           </div>
           <div class="do-right">
-            ${statusBadgeHtml(o.status)}
+            <span id="${doBadgeId(o.trackingNumber)}">${skeletonBadgeHtml()}</span>
             <div class="do-amt">${fmtNaira(o.amountTotal)}</div>
           </div>
         </button>`).join('')
@@ -1796,6 +1816,41 @@ function renderTrackDrawerHome() {
       handleTrackLookup(tn);
     });
   });
+
+  if (orders.length) refreshDeviceOrderStatuses(orders);
+}
+
+// Turns a tracking number into a safe DOM id for its badge span.
+function doBadgeId(trackingNumber) {
+  return 'do-badge-' + String(trackingNumber).replace(/[^A-Za-z0-9_-]/g, '');
+}
+
+// Background re-check for every row on the track-drawer home screen. Fires
+// once per openTrackDrawer() call, in parallel, independent of whichever row
+// the shopper eventually taps. Each row's own skeleton is only replaced once
+// its own lookup resolves — a slow one never blocks the others.
+async function refreshDeviceOrderStatuses(orders) {
+  await Promise.all(orders.map(async (o) => {
+    const badgeEl = document.getElementById(doBadgeId(o.trackingNumber));
+    if (!badgeEl) return; // drawer was closed/re-rendered before this resolved
+    try {
+      const { data, error } = await sb.rpc('get_dytronics_order_by_tracking', { p_tracking_number: o.trackingNumber });
+      const stillThere = document.getElementById(doBadgeId(o.trackingNumber));
+      if (!stillThere) return; // re-check after the await, same reason as above
+      if (!error && data && data.status) {
+        updateDeviceOrderStatus(o.trackingNumber, data.status);
+        stillThere.innerHTML = statusBadgeHtml(data.status);
+      } else {
+        // Not found or malformed response: fall back to the last-known
+        // cached status rather than leaving "Checking…" spinning forever.
+        stillThere.innerHTML = statusBadgeHtml(o.status);
+      }
+    } catch (err) {
+      console.error('Background status check failed for', o.trackingNumber, err);
+      const stillThere = document.getElementById(doBadgeId(o.trackingNumber));
+      if (stillThere) stillThere.innerHTML = statusBadgeHtml(o.status);
+    }
+  }));
 }
 
 async function handleTrackLookup(presetValue) {
