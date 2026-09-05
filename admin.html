@@ -3,2185 +3,575 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DYTRONICS: Electronic Components &amp; Repairs</title>
-  <link rel="icon" href="favicon.ico" sizes="any">
+<title>DYTRONICS Admin</title>
+<link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="description" content="DYTRONICS: electronic components, modules and repair parts. Fast Lagos delivery, nationwide shipping.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tokens.css">
 <style>
-  .hero-eyebrow p {
-    margin: 0 0 16px 0;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Inter', sans-serif;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
-  }
-  a{color:inherit; text-decoration:none;}
-  img{display:block; max-width:100%;}
-
-  .eyebrow{
-    font-family:'Inter', sans-serif;
-    font-size:11px;
-    letter-spacing:0.22em;
-    text-transform:uppercase;
-    color:var(--green);
-    font-weight:600;
-  }
-
-  /* ---------- Top bar ---------- */
-  .topbar{
-    position:fixed; top:0; left:0; right:0; z-index:50;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:22px 5vw;
-    color:#f4f6f9;
-    mix-blend-mode:difference;
-    font-family:'Inter', sans-serif;
-  }
-  .topbar .wordmark{
-    font-family:'Fraunces', serif;
-    font-weight:500;
-    font-size:15px;
-    letter-spacing:0.14em;
-  }
-  .topbar nav{display:flex; align-items:center; gap:16px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;}
-  .topbar nav a{opacity:0.85; transition:opacity 0.25s ease;}
-  .topbar nav a:hover{opacity:1;}
-  .topbar nav a:focus-visible, a:focus-visible, button:focus-visible{
-    outline:2px solid var(--gold); outline-offset:3px;
-  }
-  .hamburger-btn{
-    width:32px; height:32px;
-    border:1px solid rgba(244,246,249,0.5);
-    background:transparent;
-    color:#f4f6f9;
-    display:inline-flex; align-items:center; justify-content:center;
-    flex-shrink:0;
-    cursor:pointer;
-    transition:background 0.2s ease, border-color 0.2s ease;
-  }
-  .hamburger-btn:hover{border-color:#f4f6f9;}
-  .hamburger-btn svg{width:15px; height:15px; display:block;}
-  @media (max-width:640px){
-    .topbar{padding:16px 4vw; gap:10px;}
-    .topbar .wordmark{font-size:12px; flex-shrink:0;}
-    .topbar nav{gap:8px;}
-    .cart-btn{white-space:nowrap; flex-shrink:0;}
-  }
-
-  /* ---------- Category nav panel (hamburger) — plain list, no search inside ---------- */
-  .cat-backdrop{justify-content:flex-start;}
-  .cat-drawer{border-left:none; border-right:1px solid var(--line);}
-  .cat-top-links{background:rgba(20,26,21,0.02);}
-  .cat-top-link{
-    display:flex; align-items:center; gap:12px;
-    width:100%; padding:14px 22px;
-    font-family:'Inter', sans-serif; font-size:12px; letter-spacing:0.06em; text-transform:uppercase;
-    font-weight:600;
-    color:var(--ink);
-    background:none; border:none; border-bottom:1px solid var(--line);
-    text-align:left; cursor:pointer;
-  }
-  .cat-top-link svg{width:16px; height:16px; flex-shrink:0;}
-  .cat-top-link:hover{background:rgba(20,26,21,0.04);}
-  .cat-list{flex:1; min-height:0; overflow-y:auto;}
-  .cat-list a{
-    display:block; padding:14px 22px;
-    font-family:'Fraunces', serif; font-style:italic; font-size:16px;
-    color:var(--ink);
-    border-bottom:1px solid var(--line);
-    transition:background 0.15s ease;
-  }
-  .cat-list a:hover{background:rgba(20,26,21,0.03);}
-  .cat-empty{padding:44px 22px; text-align:center; font-size:13px; color:var(--ink-soft); font-style:italic;}
-
-  /* ---------- Search panel (magnifying-glass icon) — its own drawer, searches products by name ---------- */
-  .search-wrap{padding:16px 22px; border-bottom:1px solid var(--line);}
-  .search-wrap input{
-    width:100%; padding:11px 12px;
-    border:1px solid var(--line); background:#fff;
-    font:16px 'Inter', sans-serif; color:var(--ink);
-  }
-  .search-wrap input:focus{outline:none; border-color:var(--ink);}
-  .search-result{
-    display:flex; align-items:center; justify-content:space-between; gap:12px;
-    padding:14px 22px;
-    font-family:'Fraunces', serif; font-style:italic; font-size:16px;
-    color:var(--ink);
-    border-bottom:1px solid var(--line);
-    transition:background 0.15s ease;
-  }
-  .search-result:hover{background:rgba(20,26,21,0.03);}
-  .search-result-name{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
-  .search-result-price{
-    flex-shrink:0; font-family:'Inter', sans-serif; font-style:normal; font-size:13px; color:var(--ink-soft);
-  }
-
-  /* ---------- Hero ---------- */
-  .hero{
-    position:relative;
-    height:100svh;
-    min-height:560px;
-    width:100%;
-    overflow:hidden;
-    display:flex;
-    align-items:flex-end;
-    background:
-      radial-gradient(120% 90% at 20% 0%, #2a4d73 0%, #13283f 46%, #0d1a2e 100%);
-  }
-  .hero-video{
-    position:absolute; inset:0;
-    width:100%; height:100%;
-    object-fit:cover;
-    opacity:0.82;
-  }
-  .hero::after{
-    content:"";
-    position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(26,35,29,0.15) 0%, rgba(20,26,21,0.15) 55%, rgba(15,18,15,0.86) 100%);
-  }
-  .hero-inner{
-    position:relative; z-index:2;
-    width:100%;
-    padding:0 5vw 64px;
-    display:flex;
-    flex-direction:column;
-    gap:18px;
-  }
-  .hero-eyebrow{
-    color:#d9c9a8;
-    font-size:11px;
-    letter-spacing:0.3em;
-    text-transform:uppercase;
-    font-weight:600;
-    opacity:0;
-    animation:riseIn 0.9s 0.15s ease forwards;
-  }
-  .hero-title{
-    font-family:'Fraunces', serif;
-    font-style:italic;
-    font-weight:400;
-    color:#eef2f7;
-    font-size:clamp(48px, 11vw, 128px);
-    line-height:0.96;
-    letter-spacing:-0.01em;
-    opacity:0;
-    animation:riseIn 1s 0.35s ease forwards;
-  }
-  .hero-title .to{
-    font-family:'Inter', sans-serif;
-    font-style:normal;
-    font-weight:400;
-    font-size:0.28em;
-    letter-spacing:0.3em;
-    text-transform:uppercase;
-    vertical-align:middle;
-    display:inline-block;
-    margin:0 0.18em;
-    color:#a8c0dd;
-  }
-  .hero-sub{
-    max-width:520px;
-    color:#dde5f0;
-    font-size:15px;
-    line-height:1.65;
-    opacity:0;
-    animation:riseIn 1s 0.55s ease forwards;
-  }
-  .hero-cta{
-    margin-top:8px;
-    opacity:0;
-    animation:riseIn 1s 0.72s ease forwards;
-  }
-  .btn{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding:14px 26px;
-    background:transparent;
-    border:1px solid rgba(243,233,222,0.55);
-    color:#f4f6f9;
-    font-size:12px;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    font-weight:600;
-    cursor:pointer;
-    transition:background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-  }
-  .btn:hover{background:#f4f6f9; color:var(--green-deep); border-color:#f4f6f9;}
-  .btn-solid{
-    background:var(--gold);
-    border-color:var(--gold);
-    color:#0d1826;
-  }
-  .btn-solid:hover{background:#f2a733; border-color:#f2a733; color:#0d1826;}
-
-  @keyframes riseIn{
-    from{opacity:0; transform:translateY(18px);}
-    to{opacity:1; transform:translateY(0);}
-  }
-
-  .scroll-cue{
-    position:absolute; bottom:22px; right:5vw; z-index:2;
-    display:flex; align-items:center; gap:10px;
-    color:#d9c9a8; font-size:11px; letter-spacing:0.2em; text-transform:uppercase;
-    opacity:0.85;
-  }
-  .scroll-cue .line{width:26px; height:1px; background:currentColor; display:inline-block;}
-
-  /* ---------- Category rail (signature element) ---------- */
-  .rail-wrap{
-    background:var(--green-deep);
-    border-bottom:1px solid rgba(243,233,222,0.14);
-    overflow:hidden;
-    position:relative;
-  }
-  .rail{
-    display:flex;
-    width:max-content;
-    animation:railScroll 32s linear infinite;
-  }
-  .rail-wrap:hover .rail{animation-play-state:paused;}
-  @keyframes railScroll{
-    from{transform:translateX(0);}
-    to{transform:translateX(-50%);}
-  }
-  .rail-item{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    padding:16px 34px;
-    white-space:nowrap;
-    border-right:1px solid rgba(243,233,222,0.14);
-  }
-  .rail-item a{
-    font-family:'Fraunces', serif;
-    font-style:italic;
-    font-size:19px;
-    color:#f4f6f9;
-    transition:color 0.25s ease;
-  }
-  .rail-item a:hover{color:var(--gold);}
-  .rail-num{
-    font-family:'Inter', sans-serif;
-    font-size:11px;
-    color:#7a93b3;
-    letter-spacing:0.08em;
-  }
-
-  /* ---------- Intro strip ---------- */
-  .intro{
-    max-width:760px;
-    margin:0 auto;
-    padding:110px 6vw 70px;
-    text-align:center;
-  }
-  .intro h2{
-    font-family:'Fraunces', serif;
-    font-weight:400;
-    font-size:clamp(26px, 4vw, 38px);
-    line-height:1.3;
-    color:var(--ink);
-    margin-top:16px;
-  }
-  .intro h2 em{font-style:italic; color:var(--green);}
-
-  /* ---------- Category sections ---------- */
-  .category{
-    padding:70px 5vw 30px;
-    border-top:1px solid var(--line);
-  }
-  .category-head{
-    display:flex;
-    align-items:flex-end;
-    justify-content:space-between;
-    gap:24px;
-    margin-bottom:38px;
-    flex-wrap:wrap;
-  }
-  .category-head h3{
-    font-family:'Fraunces', serif;
-    font-style:italic;
-    font-weight:400;
-    font-size:clamp(32px, 5vw, 52px);
-    color:var(--ink);
-    margin-top:6px;
-  }
-  .category-count{
-    font-size:12px;
-    color:var(--ink-soft);
-    letter-spacing:0.05em;
-    padding-bottom:8px;
-  }
-
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:22px;
-    padding-bottom:70px;
-  }
-  @media (max-width:980px){ .grid{grid-template-columns:repeat(2, 1fr);} }
-  @media (max-width:520px){ .grid{grid-template-columns:1fr; gap:28px;} }
-
-  .card{
-    background:var(--card);
-    border:1px solid var(--line);
-    display:flex;
-    flex-direction:column;
-    opacity:0;
-    transform:translateY(16px);
-    transition:opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
-  }
-  .card.in{opacity:1; transform:translateY(0);}
-  .card:hover{box-shadow:0 18px 34px -20px rgba(33,23,18,0.35);}
-
-  .card-media{
-    aspect-ratio:3/4;
-    width:100%;
-    position:relative;
-    overflow:hidden;
-  }
-  .card-media img{width:100%; height:100%; object-fit:cover; display:block;}
-  .card-media .ph{
-    width:100%; height:100%;
-  }
-  .card-info{
-    padding:16px 16px 18px;
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-  }
-  .card-info .name{
-    font-family:'Fraunces', serif;
-    font-size:17px;
-    color:var(--ink);
-  }
-  .card-info .price{
-    font-size:13px;
-    color:var(--ink-soft);
-  }
-  .card-info .enquire{
-    margin-top:10px;
-    font-size:11px;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--green);
-    font-weight:600;
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-  }
-  .card-info .enquire::after{content:"→"; transition:transform 0.25s ease;}
-  .card:hover .enquire::after{transform:translateX(4px);}
-
-  /* ---------- Product detail modal ---------- */
-  .modal-backdrop{
-    position:fixed; inset:0; z-index:100;
-    background:rgba(20,17,13,0.72);
-    display:flex; align-items:flex-start; justify-content:center;
-    padding:5vh 5vw;
-    overflow-y:auto;
-  }
-  .modal-backdrop[hidden]{display:none;}
-  .modal{
-    position:relative;
-    background:var(--card);
-    max-width:880px;
-    width:100%;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    border:1px solid var(--line);
-  }
-  @media (max-width:760px){ .modal{grid-template-columns:1fr;} }
-  .modal-close{
-    position:absolute; top:14px; right:14px; z-index:2;
-    width:34px; height:34px;
-    border:1px solid rgba(33,23,18,0.2);
-    background:var(--card);
-    color:var(--ink);
-    font-size:20px; line-height:1;
-    cursor:pointer;
-  }
-  .modal-media{
-    background:var(--paper-deep);
-    min-height:280px;
-  }
-  .modal-media img, .modal-media .ph{width:100%; height:100%; object-fit:cover; display:block; min-height:280px;}
-  .modal-body{padding:32px 30px 36px; display:flex; flex-direction:column; gap:4px; overflow-y:auto;}
-  .modal-name{font-family:'Fraunces', serif; font-size:26px; color:var(--ink);}
-  .modal-price{font-size:15px; color:var(--ink-soft); margin-top:2px;}
-  .modal-meta{font-size:12.5px; color:var(--ink-soft); margin-top:10px; line-height:1.7;}
-  .modal-variants{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
-  .variant-pill{
-    padding:7px 13px;
-    border:1px solid var(--line);
-    background:transparent;
-    font-size:12px;
-    letter-spacing:0.04em;
-    cursor:pointer;
-    color:var(--ink);
-  }
-  .variant-pill.selected{background:var(--green-deep); border-color:var(--green-deep); color:#f4f6f9;}
-  .modal-cta{margin-top:20px; justify-content:center; background:var(--green-deep); border-color:var(--green-deep); color:#f4f6f9;}
-  .modal-cta:hover{background:var(--gold); border-color:var(--gold); color:#0d1826;}
-  .accordion{margin-top:26px; border-top:1px solid var(--line);}
-  .accordion-item{border-bottom:1px solid var(--line);}
-  .accordion-item summary{
-    padding:14px 2px;
-    font-size:12px;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    font-weight:600;
-    color:var(--ink);
-    cursor:pointer;
-    list-style:none;
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .accordion-item summary::-webkit-details-marker{display:none;}
-  .accordion-item summary::after{content:"+"; font-size:16px; font-weight:400;}
-  .accordion-item[open] summary::after{content:"–";}
-  .accordion-item p{font-size:13px; line-height:1.7; color:var(--ink-soft); padding-bottom:16px;}
-  .card{cursor:pointer;}
-
-  .empty-note{
-    grid-column:1/-1;
-    padding:40px 0;
-    font-size:13px;
-    color:var(--ink-soft);
-    font-style:italic;
-  }
-  .error-note{
-    grid-column:1/-1;
-    padding:40px 0;
-    font-size:13px;
-    color:#a53b3b;
-  }
-
-  /* placeholder art */
-  .ph1{background:linear-gradient(160deg,#c7d9ef 0%, #7fa4d1 55%, #3d6597 100%);}
-  .ph2{background:linear-gradient(160deg,#d2e0f2 0%, #6d94c4 55%, #2f5580 100%);}
-  .ph3{background:linear-gradient(160deg,#ccdbef 0%, #6a91c1 55%, #2c5079 100%);}
-  .ph4{background:linear-gradient(160deg,#d9e5f5 0%, #7fa8d8 55%, #35618f 100%);}
-
-  /* ---------- Footer ---------- */
-  footer{
-    background:var(--green-deep);
-    color:#cfd8e6;
-    padding:80px 5vw 34px;
-    margin-top:40px;
-  }
-  .footer-grid{
-    display:grid;
-    grid-template-columns:1.4fr 1fr 1fr;
-    gap:48px;
-    padding-bottom:56px;
-    border-bottom:1px solid rgba(230,220,199,0.16);
-  }
-  @media (max-width:760px){ .footer-grid{grid-template-columns:1fr; gap:36px;} }
-  .footer-wordmark{
-    font-family:'Fraunces', serif;
-    font-style:italic;
-    font-size:30px;
-    color:#f4f6f9;
-    margin-bottom:14px;
-  }
-  .footer-grid p{font-size:14px; line-height:1.7; color:#c9bea6; max-width:340px;}
-  .footer-col h4{
-    font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
-    color:#7a93b3; margin-bottom:16px; font-weight:600;
-  }
-  .footer-col a, .footer-col span{
-    display:block; font-size:14px; color:#cfd8e6; margin-bottom:10px;
-  }
-  .footer-col a:hover{color:var(--gold);}
-  .footer-bottom{
-    display:flex; justify-content:space-between; align-items:center;
-    padding-top:28px; font-size:11px; color:#7a93b3; letter-spacing:0.03em;
-    flex-wrap:wrap; gap:10px;
-  }
-
-  /* ---------- Cart button (topbar) ---------- */
-  .cart-btn{
-    position:relative;
-    display:inline-flex;
-    align-items:center;
-    background:none;
-    border:none;
-    color:inherit;
-    font:inherit;
-    font-size:12px;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    cursor:pointer;
-    padding:0;
-  }
-  .cart-badge{
-    position:absolute;
-    top:-9px; right:-14px;
-    background:var(--gold);
-    color:#0d1826;
-    font-size:10px;
-    font-weight:700;
-    min-width:16px;
-    height:16px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:0 3px;
-    line-height:1;
-  }
-  .cart-badge.hidden{display:none;}
-
-  /* ---------- Card / modal "Add to Cart" controls ---------- */
-  .card-info .addcart{
-    margin-top:8px;
-    font-size:11px;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--ink);
-    font-weight:600;
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    cursor:pointer;
-    background:none;
-    border:none;
-    padding:0;
-    text-align:left;
-  }
-  .card-info .addcart:disabled{opacity:.4; cursor:not-allowed;}
-
-  .modal-addcart{
-    margin-top:10px;
-    justify-content:center;
-    background:transparent;
-    border:1px solid var(--ink);
-    color:var(--ink);
-  }
-  .modal-addcart:hover:not(:disabled){background:var(--ink); color:#f4f6f9;}
-  .modal-addcart:disabled{opacity:.45; cursor:not-allowed; border-color:var(--line); color:var(--ink-soft);}
-  .modal-cart-note{font-size:11.5px; color:var(--green); margin-top:8px;}
-
-  /* ---------- Cart drawer ---------- */
-  .cart-backdrop{
-    position:fixed; inset:0; z-index:110;
-    background:rgba(20,17,13,0.55);
-    display:flex; justify-content:flex-end;
-  }
-  .cart-backdrop[hidden]{display:none;}
-  .cart-drawer{
-    width:min(420px, 100%);
-    height:100%;
-    background:var(--card);
-    display:flex;
-    flex-direction:column;
-    border-left:1px solid var(--line);
-  }
-  .cart-head{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:20px 22px;
-    border-bottom:1px solid var(--line);
-  }
-  .cart-head h3{font-family:'Fraunces', serif; font-weight:400; font-size:20px;}
-  .cart-close{
-    width:32px; height:32px;
-    border:1px solid rgba(33,23,18,0.2);
-    background:var(--card);
-    color:var(--ink);
-    font-size:18px; line-height:1;
-    cursor:pointer;
-  }
-  .cart-body{flex:1; min-height:0; overflow-y:auto; padding:6px 22px;}
-  .cart-empty{padding:50px 0; text-align:center; font-size:13px; color:var(--ink-soft); font-style:italic;}
-  .cart-row{display:flex; gap:12px; padding:16px 0; border-bottom:1px solid var(--line);}
-  .cart-row img{width:64px; height:80px; object-fit:cover; background:#eee; flex-shrink:0;}
-  .ci-info{flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;}
-  .ci-name{font-family:'Fraunces', serif; font-size:14.5px; color:var(--ink);}
-  .ci-meta{font-size:11.5px; color:var(--ink-soft);}
-  .ci-price{font-size:12px; color:var(--ink-soft);}
-  .qty-stepper{display:flex; align-items:center; gap:10px; margin-top:6px;}
-  .qty-stepper button{
-    width:24px; height:24px;
-    border:1px solid var(--line);
-    background:transparent;
-    font-size:14px;
-    line-height:1;
-    cursor:pointer;
-    color:var(--ink);
-  }
-  .qty-stepper button:disabled{opacity:.35; cursor:not-allowed;}
-  .qty-stepper span{font-size:12.5px; min-width:14px; text-align:center;}
-  .cart-stock-note{font-size:10.5px; color:#a53b3b; margin-top:3px;}
-  .cart-remove{
-    font-size:11px; color:#a53b3b; text-decoration:underline;
-    cursor:pointer; margin-top:6px; align-self:flex-start;
-    background:none; border:none; padding:0;
-  }
-  .cart-foot{border-top:1px solid var(--line); padding:18px 22px; display:flex; flex-direction:column; gap:12px;}
-  .cart-foot[hidden]{display:none;}
-  .cart-total-row{display:flex; justify-content:space-between; align-items:baseline; font-size:13px; color:var(--ink-soft);}
-  .cart-total-row .amt{font-family:'Fraunces', serif; font-size:19px; color:var(--ink);}
-  .cart-checkout-btn{width:100%; justify-content:center;}
-  .cart-note{font-size:11px; color:var(--ink-soft); line-height:1.55;}
-  .cart-note a{text-decoration:underline;}
-
-  /* ---------- Checkout form (inline in cart drawer) ---------- */
-  .checkout-view{flex:1; overflow-y:auto; padding:18px 22px;}
-  .checkout-view[hidden]{display:none;}
-  .checkout-back{
-    background:none; border:none; padding:0;
-    font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
-    color:var(--ink-soft); cursor:pointer; margin-bottom:16px;
-  }
-  .checkout-back:hover{color:var(--ink);}
-  .checkout-summary{
-    display:flex; justify-content:space-between; align-items:baseline;
-    font-size:13px; color:var(--ink-soft);
-    padding-bottom:14px; margin-bottom:16px;
-    border-bottom:1px solid var(--line);
-  }
-  .checkout-summary .amt{font-family:'Fraunces', serif; font-size:18px; color:var(--ink);}
-  .checkout-field{margin-bottom:14px;}
-  .checkout-field label{
-    display:block; font-size:11px; text-transform:uppercase;
-    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
-  }
-  .checkout-field input, .checkout-field textarea{
-    width:100%; padding:11px 12px;
-    border:1px solid var(--line); background:#fff;
-    font:16px 'Inter', sans-serif; color:var(--ink);
-  }
-  @media (max-width:420px){
-    .checkout-view{padding:16px 16px;}
-  }
-  .checkout-field textarea{min-height:64px; resize:vertical;}
-  .checkout-field input:focus, .checkout-field textarea:focus{outline:none; border-color:var(--ink);}
-  .checkout-field .err-msg{font-size:10.5px; color:#a53b3b; margin-top:4px; display:none;}
-  .checkout-field.has-error input, .checkout-field.has-error textarea{border-color:#a53b3b;}
-  .checkout-field.has-error .err-msg{display:block;}
-  .checkout-submit-err{
-    font-size:12px; color:#a53b3b; margin:2px 0 14px;
-    padding:10px 12px; border:1px solid #a53b3b;
-    background:rgba(165,59,59,0.06); display:none;
-  }
-  .checkout-submit-err.show{display:block;}
-  .checkout-success{padding:36px 4px; text-align:center;}
-  .checkout-success .track-label{
-    font-size:11px; text-transform:uppercase; letter-spacing:0.1em;
-    color:var(--ink-soft); margin-top:20px;
-  }
-  .checkout-success .track-num{
-    font-family:'Fraunces', serif; font-style:italic; font-size:30px;
-    color:var(--ink); margin-top:6px; letter-spacing:0.02em;
-  }
-  .checkout-success p.note{font-size:12.5px; color:var(--ink-soft); margin-top:18px; line-height:1.65;}
-
-  /* ---------- Receipt (post-checkout + track-my-order) ---------- */
-  /* Status badge palette matches admin.html's .status-select.st-* exactly, for consistency. */
-  .status-badge{
-    display:inline-block; padding:4px 10px; border-radius:3px;
-    font-size:11px; font-weight:600; letter-spacing:0.02em;
-    border:1px solid currentColor;
-  }
-  .status-badge.st-pending_payment{color:#6b7a90;}
-  .status-badge.st-paid{color:#1e3a5f;}
-  .status-badge.st-shipped{color:var(--gold);}
-  .status-badge.st-delivered{color:var(--green-deep);}
-  .status-badge.st-cancelled{color:#a53b3b;}
-
-  .receipt{padding:28px 4px; text-align:left;}
-  .receipt-head{text-align:center; margin-bottom:22px;}
-  .receipt-head .track-label{
-    font-size:11px; text-transform:uppercase; letter-spacing:0.1em;
-    color:var(--ink-soft); margin-top:14px;
-  }
-  .receipt-head .track-num{
-    font-family:'Fraunces', serif; font-style:italic; font-size:28px;
-    color:var(--ink); margin-top:4px; letter-spacing:0.02em;
-  }
-  .receipt-head .receipt-date{font-size:11.5px; color:var(--ink-soft); margin-top:8px;}
-  .receipt-head .status-badge{margin-top:12px;}
-  .receipt-items{border-top:1px solid var(--line); margin-top:20px; padding-top:6px;}
-  .receipt-item{
-    display:flex; justify-content:space-between; gap:10px;
-    padding:12px 0; border-bottom:1px solid var(--line);
-    font-size:12.5px;
-  }
-  .receipt-item .ri-name{font-family:'Fraunces', serif; font-size:14px; color:var(--ink);}
-  .receipt-item .ri-meta{color:var(--ink-soft); font-size:11.5px; margin-top:2px;}
-  .receipt-item .ri-amt{color:var(--ink-soft); white-space:nowrap; text-align:right;}
-  .receipt-total-row{
-    display:flex; justify-content:space-between; align-items:baseline;
-    padding-top:16px; font-size:13px; color:var(--ink-soft);
-  }
-  .receipt-total-row .amt{font-family:'Fraunces', serif; font-size:19px; color:var(--ink);}
-  .receipt-note{font-size:12.5px; color:var(--ink-soft); margin-top:18px; line-height:1.65;}
-  .receipt-actions{display:flex; flex-direction:column; gap:10px; margin-top:24px;}
-
-  /* ---------- Track-my-order drawer (reuses .cart-backdrop/.cart-drawer pattern) ---------- */
-  .track-body{flex:1; overflow-y:auto; padding:18px 22px;}
-  .track-intro{font-size:12.5px; color:var(--ink-soft); line-height:1.6; margin-bottom:18px;}
-  .track-lookup{display:flex; gap:8px; margin-bottom:26px;}
-  .track-lookup input{
-    flex:1; padding:11px 12px; border:1px solid var(--line); background:#fff;
-    font:15px 'Inter', sans-serif; color:var(--ink); text-transform:uppercase; letter-spacing:0.03em;
-  }
-  .track-lookup input:focus{outline:none; border-color:var(--ink);}
-  .track-lookup button{white-space:nowrap;}
-  .track-section-label{
-    font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
-    color:var(--ink-soft); margin-bottom:12px;
-  }
-  .device-order-row{
-    display:flex; justify-content:space-between; align-items:center; gap:10px;
-    padding:14px 0; border-bottom:1px solid var(--line);
-    cursor:pointer; background:none; border-left:none; border-right:none; border-top:none;
-    width:100%; text-align:left; font:inherit;
-  }
-  .device-order-row:hover .do-track{color:var(--gold);}
-  .do-info{display:flex; flex-direction:column; gap:3px; min-width:0;}
-  .do-track{font-family:'Fraunces', serif; font-size:14px; color:var(--ink);}
-  .do-date{font-size:11px; color:var(--ink-soft);}
-  .do-right{display:flex; flex-direction:column; align-items:flex-end; gap:6px;}
-  .do-amt{font-size:12.5px; color:var(--ink-soft);}
-  .track-empty{padding:40px 0; text-align:center; font-size:13px; color:var(--ink-soft); font-style:italic;}
-  .track-lookup-state{padding:24px 4px; text-align:center;}
-  .track-lookup-state .note{font-size:12.5px; color:var(--ink-soft); line-height:1.6;}
-  .track-back{
-    background:none; border:none; padding:0;
-    font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
-    color:var(--ink-soft); cursor:pointer; margin-bottom:16px;
-  }
-  .track-back:hover{color:var(--ink);}
-
-  /* ---------- Print (receipt only) ---------- */
-  /* Class-based, not ID-based: renderReceiptHtml is used in two places
-     (checkout view + track drawer), so an element with this class can
-     exist twice in the DOM at once. Whichever one isn't [hidden] by an
-     ancestor is the one that actually renders in print — display:none
-     from [hidden] isn't overridden by visibility:visible here. */
-  @media print{
-    body *{visibility:hidden;}
-    .receipt, .receipt *{visibility:visible;}
-    .receipt{position:absolute; top:0; left:0; width:100%; padding:20px;}
-    .receipt-actions{display:none;}
-  }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+a{color:inherit}
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:16px 5vw;background:var(--green-deep);color:#f3e9de}
+.topbar .wordmark{font-weight:600;letter-spacing:.1em;font-size:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:3px;border:1px solid var(--ink);background:var(--ink);color:#fff;font-size:12.5px;font-weight:600;letter-spacing:.03em;cursor:pointer}
+.btn.secondary{background:transparent;color:var(--ink)}
+.btn.danger{background:var(--err);border-color:var(--err)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.small{padding:7px 12px;font-size:11.5px}
+.shell{max-width:920px;margin:0 auto;padding:28px 5vw}
+.hidden{display:none!important}
+.gate{max-width:380px;margin:80px auto;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:28px}
+.gate h1{font-size:18px;margin-bottom:6px}
+.gate p{font-size:12.5px;color:#5c4c3f;line-height:1.55;margin-bottom:18px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#5c4c3f;margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:3px;background:#fff;font:13px 'Inter',sans-serif;color:var(--ink)}
+.field textarea{min-height:70px;resize:vertical}
+.status-msg{font-size:12px;margin-top:10px}
+.status-msg.err{color:var(--err)}
+.status-msg.ok{color:var(--good)}
+h2{font-size:16px;margin-bottom:4px}
+.sub{font-size:12.5px;color:#5c4c3f;margin-bottom:18px;line-height:1.55}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:22px;margin-bottom:22px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.form-grid{grid-template-columns:1fr}}
+.image-picker{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.image-picker img{width:74px;height:74px;object-fit:cover;border-radius:4px;border:1px solid var(--line);background:#eee}
+.product-list{display:flex;flex-direction:column;gap:10px}
+.product-row{display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--line);border-radius:5px;background:#fff}
+.product-row img{width:52px;height:52px;object-fit:cover;border-radius:4px;background:#eee;flex-shrink:0}
+.product-row .info{flex:1;min-width:0}
+.product-row .name{font-weight:600;font-size:13.5px}
+.product-row .meta{font-size:11.5px;color:#5c4c3f;margin-top:2px}
+.product-row .actions{display:flex;gap:6px;flex-shrink:0}
+.pill{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;border:1px solid var(--line);margin-left:6px}
+.pill.off{color:var(--err);border-color:var(--err)}
+.pill.low{color:#b9822d;border-color:#b9822d}
+.tabs{display:flex;gap:6px;margin-bottom:20px;border-bottom:1px solid var(--line)}
+.tab-btn{background:none;border:none;padding:10px 4px;margin-right:22px;font-size:13px;font-weight:600;letter-spacing:.02em;color:#8a7a6c;cursor:pointer;border-bottom:2px solid transparent;position:relative;top:1px}
+.tab-btn.active{color:var(--ink);border-bottom-color:var(--ink)}
+.order-row{border:1px solid var(--line);border-radius:5px;background:#fff;margin-bottom:10px;overflow:hidden}
+.order-head{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;flex-wrap:wrap}
+.order-head .track{font-weight:600;font-size:13px;font-family:monospace;letter-spacing:.02em}
+.order-head .cust{font-size:12.5px;color:#5c4c3f;flex:1;min-width:120px}
+.order-head .amt{font-size:13px;font-weight:600}
+.order-head .when{font-size:11px;color:#8a7a6c}
+.status-select{padding:6px 8px;border:1px solid var(--line);border-radius:3px;font-size:11.5px;font-weight:600;background:#fff;color:var(--ink)}
+.status-select.st-pending_payment{color:#8a7a6c}
+.status-select.st-paid{color:var(--good)}
+.status-select.st-shipped{color:var(--gold)}
+.status-select.st-delivered{color:var(--green-deep)}
+.status-select.st-cancelled{color:var(--err)}
+.order-body{display:none;padding:0 14px 14px;border-top:1px solid var(--line)}
+.order-body.open{display:block}
+.order-body .addr{font-size:12px;color:#5c4c3f;margin:12px 0;line-height:1.5}
+.order-items{display:flex;flex-direction:column;gap:6px}
+.order-item{display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+.order-item:last-child{border-bottom:none}
+.order-item .oi-name{color:var(--ink)}
+.order-item .oi-meta{color:#8a7a6c;font-size:11px}
+.order-row-err{font-size:11px;color:var(--err);margin-top:4px}
 </style>
 </head>
 <body>
 
-  <header class="topbar">
-    <button class="hamburger-btn" id="catMenuBtn" type="button" aria-label="Open category menu" aria-haspopup="dialog" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
-    <a href="#top" class="wordmark">DYTRONICS</a>
-   <nav>
-  <button class="cart-btn" id="cartBtn" type="button" aria-label="Open cart">
-    Cart<span class="cart-badge hidden" id="cartBadge">0</span>
-  </button>
-</nav>
-  </header>
+<div class="topbar">
+ <div class="wordmark">DYTRONICS ADMIN</div>
+ <button class="btn small secondary hidden" id="logoutBtn" style="color:#f3e9de;border-color:#f3e9de">Sign out</button>
+</div>
 
-  <section class="hero" id="top">
-    <video class="hero-video" autoplay muted loop playsinline preload="auto">
-      <source src="hero.mp4" type="video/mp4">
-    </video>
-    <div class="hero-inner">
-      <div class="hero-eyebrow">
-        <p>Naija Electronics Components World</p>
-        <p>Genuine parts &amp; repairs</p> 
-      <p>Same-day dispatch</p>
-      </div>
-     <h1 class="hero-title"><span class="to">Welcome to </span>DYTRONICS</h1>
-      <p class="hero-sub">Resistors, ICs, sensors, modules and repair parts, sourced right and shipped fast. This is DYTRONICS.</p>
-      <div class="hero-cta">
-        <a href="#shop" class="btn btn-solid">Shop components</a>
-      </div>
-    </div>
-    <div class="scroll-cue"><span class="line"></span> Scroll</div>
-  </section>
+<div id="gateScreen">
+ <div class="gate">
+  <h1>Admin sign in</h1>
+  <p>This checks against Supabase Auth. Actual read/write access to products is enforced by Row Level Security on the database, not by this form.</p>
+  <div class="field"><label>Email</label><input id="emailInput" type="email" autocomplete="username" placeholder="you@dytronics.com"></div>
+  <div class="field"><label>Password</label><input id="passInput" type="password" autocomplete="current-password" placeholder="••••••••"></div>
+  <button class="btn" id="loginSubmit" style="width:100%;margin-top:6px">Sign in</button>
+  <div class="status-msg" id="loginStatus"></div>
+ </div>
+</div>
 
-  <div class="rail-wrap" id="shop" aria-label="Shop by category">
-    <div class="rail" id="railTrack"></div>
+<main class="shell hidden" id="consoleScreen">
+
+ <div class="tabs">
+  <button class="tab-btn active" id="tabProductsBtn" type="button">Products</button>
+  <button class="tab-btn" id="tabOrdersBtn" type="button">Orders</button>
+  <button class="tab-btn" id="tabCategoriesBtn" type="button">Categories</button>
+ </div>
+
+ <div id="productsPanel">
+ <div class="panel">
+  <h2 id="formTitle">Add a product</h2>
+  <p class="sub">New products save as <b>active</b> immediately and appear on the live store. Toggle a product off any time without deleting it.</p>
+  <input type="hidden" id="editingId">
+  <div class="image-picker">
+   <img id="imgPreview" src="" alt="">
+   <div>
+    <input type="file" id="imgFile" accept="image/*" class="hidden">
+    <button class="btn small secondary" id="imgPickBtn" type="button">Choose photo</button>
+    <div class="status-msg" id="imgStatus"></div>
+   </div>
   </div>
-
-  <div class="intro">
-    <span class="eyebrow">Bring your projects and innovations to life🙂‍↔️</span>
-    <h2>These are not used Nigerian components <em>these are</em> the reason engineering is possible in nigeria.</h2>
+  <div class="form-grid">
+   <div class="field"><label>Name</label><input id="f_name" placeholder="e.g. HC-SR04 Ultrasonic Sensor"></div>
+   <div class="field"><label>Category</label>
+    <select id="f_category">
+     <option value="" disabled selected>Loading categories&hellip;</option>
+    </select>
+   </div>
+   <div class="field"><label>Price (₦), leave blank for "Enquire"</label><input id="f_price" type="number" min="0" step="1" placeholder="20000"></div>
+   <div class="field"><label>Stock</label><input id="f_stock" type="number" min="0" step="1" value="1"></div>
+   <div class="field"><label>Variants (comma-separated, optional)</label><input id="f_variants" placeholder="e.g. 5V,9V,12V"></div>
+   <div class="field"><label>Production time</label><input id="f_production_time" placeholder="e.g. 3–7 working days"></div>
   </div>
-
-  <!-- Category sections are rendered dynamically from dytronics_categories -->
-  <div id="categorySections"></div>
-
-  <!-- Product detail modal -->
-  <div class="modal-backdrop" id="modalBackdrop" hidden>
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
-      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
-      <div class="modal-media" id="modalMedia"></div>
-      <div class="modal-body">
-        <div class="modal-name" id="modalName"></div>
-        <div class="modal-price" id="modalPrice"></div>
-        <div class="modal-meta" id="modalMeta"></div>
-        <div class="modal-variants" id="modalVariants"></div>
-        <a href="#" class="btn btn-solid modal-cta" id="modalCta" target="_blank" rel="noopener">Order on WhatsApp</a>
-        <button type="button" class="btn modal-addcart" id="modalAddCart" disabled>Select a variant to add to cart</button>
-        <p class="modal-cart-note" id="modalCartNote" style="display:none"></p>
-        <div class="accordion" id="modalAccordion"></div>
-      </div>
-    </div>
+  <div class="field"><label>Description (optional)</label><textarea id="f_desc" placeholder="Customer-facing description…"></textarea></div>
+  <div class="field"><label>Spec notes (optional)</label><textarea id="f_spec_notes" placeholder="Technical specs, ratings, compatibility…"></textarea></div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px">
+   <button class="btn" id="saveProductBtn">Save product</button>
+   <button class="btn secondary hidden" id="cancelEditBtn" type="button">Cancel edit</button>
+   <span class="status-msg" id="saveStatus"></span>
   </div>
+ </div>
 
-  <!-- Cart drawer -->
-  <div class="cart-backdrop" id="cartBackdrop" hidden>
-    <div class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cartHeading">
-      <div class="cart-head">
-        <h3 id="cartHeading">Your cart</h3>
-        <button class="cart-close" id="cartClose" aria-label="Close cart">×</button>
-      </div>
-      <div class="cart-body" id="cartBody"></div>
-      <div class="checkout-view" id="checkoutView" hidden></div>
-      <div class="cart-foot" id="cartFoot" hidden>
-        <div class="cart-total-row"><span>Subtotal</span><span class="amt" id="cartSubtotal"></span></div>
-        <button class="btn btn-solid cart-checkout-btn" id="cartCheckoutBtn" type="button">Checkout</button>
-        <p class="cart-note">Shipping is calculated at checkout. Have a question first? <a href="https://wa.me/2347054378193?text=Hi%20DYTRONICS%2C%20I%20have%20a%20question%20about%20an%20order." target="_blank" rel="noopener">Message us on WhatsApp</a>.</p>
-      </div>
-    </div>
+ <div class="panel">
+  <h2><span id="productCount">Products</span><button class="btn small secondary" id="refreshProducts" style="float:right">Refresh</button></h2>
+  <p class="sub">Everything here, active or off, including drafts customers can't currently see.</p>
+  <div class="note status-msg" id="productsNote">Loading products…</div>
+  <div class="product-list" id="productList"></div>
+ </div>
+ </div>
+
+ <div id="ordersPanel" class="hidden">
+  <div class="panel">
+   <h2><span id="orderCount">Orders</span><button class="btn small secondary" id="refreshOrders" style="float:right">Refresh</button></h2>
+   <p class="sub">Most recent first. Tap an order to see its items. Changing status saves immediately.</p>
+   <div class="note status-msg" id="ordersNote">Loading orders…</div>
+   <div id="orderList"></div>
   </div>
+ </div>
 
-  <div class="cart-backdrop cat-backdrop" id="catBackdrop" hidden>
-    <div class="cart-drawer cat-drawer" role="dialog" aria-modal="true" aria-labelledby="catHeading">
-      <div class="cart-head">
-        <h3 id="catHeading">Categories</h3>
-        <button class="cart-close" id="catClose" aria-label="Close category menu">×</button>
-      </div>
-      <div class="cat-top-links">
-        <a href="account.html" class="cat-top-link">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Account
-        </a>
-        <button class="cat-top-link" id="searchBtn" type="button" aria-haspopup="dialog" aria-expanded="false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          Search products
-        </button>
-      </div>
-      <div class="cat-list" id="catList"></div>
-    </div>
+ <div id="categoriesPanel" class="hidden">
+  <div class="panel">
+   <h2>Add a category</h2>
+   <p class="sub">New categories are active immediately and appear on the storefront once they have at least one product, with a "coming soon" note if empty.</p>
+   <div class="form-grid">
+    <div class="field"><label>Label</label><input id="c_label" placeholder="e.g. Outerwear"></div>
+    <div class="field"><label>Slug (auto-generated, editable)</label><input id="c_slug" placeholder="outerwear"></div>
+   </div>
+   <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px">
+    <button class="btn" id="saveCategoryBtn">Add category</button>
+    <span class="status-msg" id="categorySaveStatus"></span>
+   </div>
   </div>
-
-  <div class="cart-backdrop" id="searchBackdrop" hidden>
-    <div class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="searchHeading">
-      <div class="cart-head">
-        <h3 id="searchHeading">Search products</h3>
-        <button class="cart-close" id="searchClose" aria-label="Close search">×</button>
-      </div>
-      <div class="search-wrap">
-        <input type="text" id="searchInput" placeholder="Search products…" aria-label="Search products">
-      </div>
-      <div class="cat-list" id="searchList"></div>
-    </div>
+  <div class="panel">
+   <h2><span id="categoryCount">Categories</span><button class="btn small secondary" id="refreshCategories" style="float:right">Refresh</button></h2>
+   <p class="sub">Order here controls storefront order. Turning a category off hides it from the storefront and the product-add dropdown; it does not delete or hide products already in it.</p>
+   <div class="note status-msg" id="categoriesNote">Loading categories…</div>
+   <div class="product-list" id="categoryList"></div>
   </div>
+ </div>
 
-  <div class="cart-backdrop" id="trackBackdrop" hidden>
-    <div class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="trackHeading">
-      <div class="cart-head">
-        <h3 id="trackHeading">Track your order</h3>
-        <button class="cart-close" id="trackClose" aria-label="Close">×</button>
-      </div>
-      <div class="track-body" id="trackBody"></div>
-    </div>
-  </div>
-
-  <footer>
-    <div class="footer-grid">
-      <div>
-        <div class="footer-wordmark">DYTRONICS</div>
-        <p>DYTRONICS is a Lagos-based electronics parts and repair shop. Genuine components, tested before dispatch.</p>
-      </div>
-      <div class="footer-col" id="footerShopCol">
-        <h4>Shop</h4>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <a href="https://wa.me/2347054378193?text=Hi%20DYTRONICS%2C%20I%27d%20like%20to%20know%20more%20about%20your%20parts.">WhatsApp</a>
-        <a href="https://instagram.com/">Instagram</a>
-        <a href="#" id="trackOrderLink">Track your order</a>
-        <span>Lagos, Nigeria</span>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 DYTRONICS. All rights reserved.</span>
-      <span>Welcome to DYTRONICS</span>
-    </div>
-  </footer>
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://js.paystack.co/v1/inline.js"></script>
 <script>
 (() => {
 'use strict';
+const $=id=>document.getElementById(id);
 
-// Same project the admin console writes to — public/anon key only, reads are
-// restricted by Row Level Security to active=true products (see schema.sql).
-const SUPABASE_URL = "https://oqlbtbdmobhgxpqbyaeq.supabase.co";
-const SUPABASE_KEY = "sb_publishable_wS7kpnC5GOcHNkgEhbp1eQ_ND2DxAnN";
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_URL="https://oqlbtbdmobhgxpqbyaeq.supabase.co";
+const SUPABASE_KEY="sb_publishable_wS7kpnC5GOcHNkgEhbp1eQ_ND2DxAnN";
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-// Tracks whether a customer is signed in and who they are, so the cart
-// logic below knows whether to also write through to the cloud
-// (dytronics_cart_items) or stay purely localStorage (guests).
-let currentCustomerId = null;
-
-// Public/publishable key — safe client-side by design. The matching secret
-// key lives only as an Edge Function secret (verify-payment), never here.
-const PAYSTACK_PUBLIC_KEY = "pk_live_aa99f67b92a1f81fa63cc4d94a66d90534b5da4e";
-
-const WHATSAPP_NUMBER = "2347054378193"; // +234 811 641 2960
-
-// Store-wide policy text — same for every product. Edit these strings any
-// time; no database change needed since these aren't per-product.
-const SITE_INFO = {
-  variantGuide: "Where a part has multiple variants (value, voltage, package, etc.) pick the one you need. Not sure which spec fits your project? Message us on WhatsApp with your requirements and we'll confirm before you order.",
-  delivery: "Lagos: door delivery, usually within 1–3 days of order confirmation. Nationwide: delivered via courier partners, typically 3–5 working days. Delivery cost is calculated separately from the item price and shared with you on WhatsApp.",
-  returns: "Components are tested before dispatch. If an item arrives faulty, DOA, or doesn't match what was agreed, message us within 48 hours of delivery and we'll repair, replace or refund it. Please check compatibility before ordering, since we don't accept returns for wrong part selection."
-};
-
-const NGN = n => (n === null || n === undefined || n === '')
-  ? '₦—'
-  : '₦' + Math.max(0, Math.round(Number(n) || 0)).toLocaleString('en-NG');
-
-let categoriesCache = [];
-function catLabelOf(slug) {
-  const c = categoriesCache.find(c => c.slug === slug);
-  return c ? c.label : slug;
-}
-const PH_CLASSES = ['ph1', 'ph2', 'ph3', 'ph4'];
-
-let productsById = {};
-
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const NGN=n=>n==null||n===''?'Enquire':'₦'+Math.max(0,Math.round(Number(n)||0)).toLocaleString('en-NG');
+let categoriesCache=[];
+function catLabelOf(slug){
+ const c=categoriesCache.find(c=>c.slug===slug);
+ return c?c.label:slug;
 }
 
-function variantList(product) {
-  return (product.variants || '').split(',').map(s => s.trim()).filter(Boolean);
+/* ---------------- Login gate ---------------- */
+async function isAdmin(){
+ const {data,error}=await sb.rpc('is_dytronics_admin');
+ if(error){ return false; }
+ return data===true;
 }
+async function doLogin(){
+ const email=$('emailInput').value.trim();
+ const password=$('passInput').value;
+ const s=$('loginStatus');
+ s.textContent='Signing in…'; s.className='status-msg';
+ const {error}=await sb.auth.signInWithPassword({email,password});
+ if(error){ s.textContent=error.message||'Sign-in failed.'; s.className='status-msg err'; return; }
+ const admin=await isAdmin();
+ if(!admin){
+  await sb.auth.signOut();
+  s.textContent='This account does not have admin access.'; s.className='status-msg err';
+  return;
+ }
+ s.textContent=''; s.className='status-msg';
+ enterConsole();
+}
+function enterConsole(){
+ $('gateScreen').classList.add('hidden'); $('consoleScreen').classList.remove('hidden');
+ $('logoutBtn').classList.remove('hidden');
+ loadCategories();
+ loadProducts();
+}
+function showGate(){
+ $('consoleScreen').classList.add('hidden'); $('gateScreen').classList.remove('hidden');
+ $('logoutBtn').classList.add('hidden');
+}
+$('loginSubmit').addEventListener('click',doLogin);
+$('passInput').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+$('emailInput').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+$('logoutBtn').addEventListener('click',async()=>{ await sb.auth.signOut(); showGate(); });
 
-function whatsappLink(product, variant) {
-  const priceText = product.price ? `(${NGN(product.price)})` : '(price on request)';
-  const variantText = variant ? ` — ${variant}` : '';
-  const message = `Hi DYTRONICS, I'm interested in the ${product.name} ${priceText}${variantText}. I'd like to know availability and delivery options.`;
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-}
+/* ---------------- Image upload ---------------- */
+let pendingImageUrl=null;
+$('imgPickBtn').addEventListener('click',()=>$('imgFile').click());
+$('imgFile').addEventListener('change',async()=>{
+ const file=$('imgFile').files[0]; if(!file)return;
+ $('imgPreview').src=URL.createObjectURL(file);
+ const st=$('imgStatus'); st.textContent='Uploading…'; st.className='status-msg';
+ try{
+  const ext=(file.name.split('.').pop()||'jpg').toLowerCase();
+  const path=`${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;
+  const {error}=await sb.storage.from('product-images').upload(path,file,{upsert:false});
+  if(error) throw error;
+  const {data}=sb.storage.from('product-images').getPublicUrl(path);
+  pendingImageUrl=data.publicUrl;
+  st.textContent='Photo uploaded.'; st.className='status-msg ok';
+ }catch(err){
+  st.textContent='Upload failed: '+(err.message||err); st.className='status-msg err';
+  pendingImageUrl=null;
+ }
+});
 
-function isSoldOut(product) {
-  return product.stock !== null && product.stock !== undefined && Number(product.stock) <= 0;
+/* ---------------- Save (create/update) product ---------------- */
+function resetForm(){
+ $('editingId').value=''; $('formTitle').textContent='Add a product';
+ const firstActive=categoriesCache.find(c=>c.active);
+ $('f_name').value=''; $('f_category').value=firstActive?firstActive.slug:''; $('f_price').value=''; $('f_stock').value='1'; $('f_desc').value='';
+ $('f_variants').value=''; $('f_production_time').value=''; $('f_spec_notes').value='';
+ $('imgPreview').src=''; $('imgStatus').textContent=''; pendingImageUrl=null;
+ $('cancelEditBtn').classList.add('hidden');
 }
-function hasNoPrice(product) {
-  return product.price === null || product.price === undefined || product.price === '';
-}
+$('cancelEditBtn').addEventListener('click',resetForm);
 
-function addToCartControlHtml(product) {
-  if (hasNoPrice(product)) {
-    return `<button type="button" class="addcart" disabled title="Price on request. Contact us on WhatsApp.">Add to Cart</button>`;
+async function saveProduct(){
+ const name=$('f_name').value.trim();
+ const st=$('saveStatus');
+ if(!name){ st.textContent='Name is required.'; st.className='status-msg err'; return; }
+ st.textContent='Saving…'; st.className='status-msg';
+ const editingId=$('editingId').value;
+ const payload={
+  name,
+  category:$('f_category').value,
+  price:$('f_price').value===''?null:Number($('f_price').value),
+  stock:Number($('f_stock').value||0),
+  description:$('f_desc').value.trim(),
+  spec_notes:$('f_spec_notes').value.trim(),
+  variants:$('f_variants').value.trim(),
+  production_time:$('f_production_time').value.trim(),
+ };
+ if(pendingImageUrl) payload.image_url=pendingImageUrl;
+ try{
+  let error;
+  if(editingId){
+   ({error}=await sb.from('dytronics_products').update(payload).eq('id',editingId));
+  }else{
+   payload.active=true;
+   ({error}=await sb.from('dytronics_products').insert([payload]));
   }
-  if (isSoldOut(product)) {
-    return `<button type="button" class="addcart" disabled title="Currently out of stock">Add to Cart</button>`;
-  }
-  return `<button type="button" class="addcart" data-cart-add="${product.id}">Add to Cart</button>`;
+  if(error) throw error;
+  st.textContent='Saved.'; st.className='status-msg ok';
+  resetForm();
+  loadProducts();
+ }catch(err){
+  st.textContent='Save failed: '+(err.message||err); st.className='status-msg err';
+ }
+}
+$('saveProductBtn').addEventListener('click',saveProduct);
+
+/* ---------------- Product list ---------------- */
+let productsCache=[];
+function editProduct(p){
+ $('editingId').value=p.id; $('formTitle').textContent='Editing: '+p.name;
+ $('f_name').value=p.name; $('f_category').value=p.category; $('f_price').value=p.price??''; $('f_stock').value=p.stock??0; $('f_desc').value=p.description||'';
+ $('f_spec_notes').value=p.spec_notes||''; $('f_variants').value=p.variants||''; $('f_production_time').value=p.production_time||'';
+ $('imgPreview').src=p.image_url||''; pendingImageUrl=null; $('imgStatus').textContent='';
+ $('cancelEditBtn').classList.remove('hidden');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+async function toggleActive(p){
+ const {error}=await sb.from('dytronics_products').update({active:!p.active}).eq('id',p.id);
+ if(error){ alert('Could not update: '+error.message); return; }
+ loadProducts();
+}
+async function deleteProduct(p){
+ if(!confirm(`Delete "${p.name}" permanently? This can't be undone.`)) return;
+ const {error}=await sb.from('dytronics_products').delete().eq('id',p.id);
+ if(error){ alert('Could not delete: '+error.message); return; }
+ loadProducts();
+}
+function renderProducts(rows){
+ const list=$('productList'); list.innerHTML='';
+ $('productCount').textContent=`Products (${rows.length})`;
+ if(!rows.length){ $('productsNote').classList.remove('hidden'); $('productsNote').textContent='No products yet. Add your first one above.'; return; }
+ $('productsNote').classList.add('hidden');
+ rows.forEach(p=>{
+  const row=document.createElement('div'); row.className='product-row';
+  const stockPill=p.stock<=0?`<span class="pill low">Out of stock</span>`:(p.stock<=2?`<span class="pill low">${p.stock} left</span>`:'');
+  row.innerHTML=`
+   <img src="${p.image_url||''}" alt="">
+   <div class="info">
+    <div class="name">${escapeHtml(p.name)}${!p.active?'<span class="pill off">Off</span>':''}${stockPill}</div>
+    <div class="meta">${catLabelOf(p.category)} · ${NGN(p.price)}</div>
+   </div>
+   <div class="actions">
+    <button class="btn small secondary" data-act="edit">Edit</button>
+    <button class="btn small secondary" data-act="toggle">${p.active?'Turn off':'Turn on'}</button>
+    <button class="btn small danger" data-act="delete">Delete</button>
+   </div>`;
+  row.querySelector('[data-act="edit"]').addEventListener('click',()=>editProduct(p));
+  row.querySelector('[data-act="toggle"]').addEventListener('click',()=>toggleActive(p));
+  row.querySelector('[data-act="delete"]').addEventListener('click',()=>deleteProduct(p));
+  list.appendChild(row);
+ });
+}
+async function loadProducts(){
+ $('productsNote').classList.remove('hidden'); $('productsNote').textContent='Loading products…'; $('productsNote').className='status-msg';
+ try{
+  const {data,error}=await sb.from('dytronics_products').select('*').order('created_at',{ascending:false});
+  if(error) throw error;
+  productsCache=data||[];
+  renderProducts(productsCache);
+ }catch(err){
+  $('productsNote').classList.remove('hidden');
+  $('productsNote').textContent='Could not load products: '+(err.message||err);
+  $('productsNote').className='status-msg err';
+ }
+}
+$('refreshProducts').addEventListener('click',loadProducts);
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+/* ---------------- Tabs ---------------- */
+function showProductsTab(){
+ $('tabProductsBtn').classList.add('active'); $('tabOrdersBtn').classList.remove('active'); $('tabCategoriesBtn').classList.remove('active');
+ $('productsPanel').classList.remove('hidden'); $('ordersPanel').classList.add('hidden'); $('categoriesPanel').classList.add('hidden');
+}
+function showOrdersTab(){
+ $('tabOrdersBtn').classList.add('active'); $('tabProductsBtn').classList.remove('active'); $('tabCategoriesBtn').classList.remove('active');
+ $('ordersPanel').classList.remove('hidden'); $('productsPanel').classList.add('hidden'); $('categoriesPanel').classList.add('hidden');
+ if(!ordersLoadedOnce){ loadOrders(); }
+}
+function showCategoriesTab(){
+ $('tabCategoriesBtn').classList.add('active'); $('tabProductsBtn').classList.remove('active'); $('tabOrdersBtn').classList.remove('active');
+ $('categoriesPanel').classList.remove('hidden'); $('productsPanel').classList.add('hidden'); $('ordersPanel').classList.add('hidden');
+}
+$('tabProductsBtn').addEventListener('click',showProductsTab);
+$('tabOrdersBtn').addEventListener('click',showOrdersTab);
+$('tabCategoriesBtn').addEventListener('click',showCategoriesTab);
+
+/* ---------------- Orders ---------------- */
+const STATUSES=['pending_payment','paid','shipped','delivered','cancelled'];
+const STATUS_LABEL={pending_payment:'Pending payment',paid:'Paid',shipped:'Shipped',delivered:'Delivered',cancelled:'Cancelled'};
+let ordersLoadedOnce=false;
+let ordersCache=[];
+
+function fmtWhen(iso){
+ try{ return new Date(iso).toLocaleString('en-NG',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}); }
+ catch(e){ return iso; }
 }
 
-function cardHtml(product, i) {
-  const media = product.image_url
-    ? `<img src="${escapeHtml(product.image_url)}" alt="${escapeHtml(product.name)}">`
-    : `<div class="ph ${PH_CLASSES[i % PH_CLASSES.length]}"></div>`;
-  const soldOut = isSoldOut(product);
-  return `
-    <article class="card" data-id="${product.id}">
-      <div class="card-media">${media}</div>
-      <div class="card-info">
-        <div class="name">${escapeHtml(product.name)}</div>
-        <div class="price">${soldOut ? 'Sold out' : NGN(product.price)}</div>
-        <a href="${whatsappLink(product)}" class="enquire" onclick="event.stopPropagation()">Enquire on WhatsApp</a>
-        ${addToCartControlHtml(product)}
-      </div>
-    </article>`;
+async function loadOrders(){
+ ordersLoadedOnce=true;
+ $('ordersNote').classList.remove('hidden'); $('ordersNote').textContent='Loading orders…'; $('ordersNote').className='status-msg';
+ $('orderList').innerHTML='';
+ try{
+  const {data:orders,error:ordersErr}=await sb.from('dytronics_orders').select('*').order('created_at',{ascending:false});
+  if(ordersErr) throw ordersErr;
+  const {data:items,error:itemsErr}=await sb.from('dytronics_order_items').select('*');
+  if(itemsErr) throw itemsErr;
+  const itemsByOrder={};
+  (items||[]).forEach(it=>{ (itemsByOrder[it.order_id]=itemsByOrder[it.order_id]||[]).push(it); });
+  ordersCache=(orders||[]).map(o=>({...o,items:itemsByOrder[o.id]||[]}));
+  renderOrders(ordersCache);
+ }catch(err){
+  $('ordersNote').classList.remove('hidden');
+  $('ordersNote').textContent='Could not load orders: '+(err.message||err);
+  $('ordersNote').className='status-msg err';
+ }
 }
+$('refreshOrders').addEventListener('click',loadOrders);
 
-function pluralize(n) { return n === 1 ? '1 item' : `${n} items`; }
-
-function revealCards(scopeEl) {
-  const cards = scopeEl.querySelectorAll('.card');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('in'), (i % 4) * 80);
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  cards.forEach(c => io.observe(c));
-}
-
-/* ---------------- Product detail modal ---------------- */
-const backdrop = document.getElementById('modalBackdrop');
-let selectedVariant = null;
-
-function openModal(product) {
-  selectedVariant = null;
-  document.getElementById('modalCartNote').style.display = 'none';
-  const soldOut = product.stock !== null && product.stock !== undefined && Number(product.stock) <= 0;
-
-  document.getElementById('modalMedia').innerHTML = product.image_url
-    ? `<img src="${escapeHtml(product.image_url)}" alt="${escapeHtml(product.name)}">`
-    : `<div class="ph ph1"></div>`;
-  document.getElementById('modalName').textContent = product.name;
-  document.getElementById('modalPrice').textContent = soldOut ? 'Sold out' : NGN(product.price);
-
-  const metaParts = [];
-  if (product.spec_notes) metaParts.push(`Specs: ${product.spec_notes}`);
-  metaParts.push(`Lead time: ${product.production_time || 'In stock, ships within 1–2 days'}`);
-  metaParts.push('Delivery: Lagos / Nationwide');
-  document.getElementById('modalMeta').innerHTML = metaParts.map(escapeHtml).join('<br>');
-
-  const variants = variantList(product);
-  const variantsEl = document.getElementById('modalVariants');
-  variantsEl.innerHTML = variants.length
-    ? variants.map(v => `<button type="button" class="variant-pill" data-variant="${escapeHtml(v)}">${escapeHtml(v)}</button>`).join('')
-    : '';
-  variantsEl.querySelectorAll('.variant-pill').forEach(btn => {
-    btn.addEventListener('click', () => {
-      variantsEl.querySelectorAll('.variant-pill').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      selectedVariant = btn.dataset.variant;
-      updateModalCta(product);
-    });
+function renderOrders(rows){
+ const list=$('orderList'); list.innerHTML='';
+ $('orderCount').textContent=`Orders (${rows.length})`;
+ if(!rows.length){ $('ordersNote').classList.remove('hidden'); $('ordersNote').textContent='No orders yet.'; return; }
+ $('ordersNote').classList.add('hidden');
+ rows.forEach(o=>{
+  const row=document.createElement('div'); row.className='order-row';
+  const statusOpts=STATUSES.map(s=>`<option value="${s}"${s===o.status?' selected':''}>${STATUS_LABEL[s]}</option>`).join('');
+  const itemsHtml=o.items.map(it=>`
+    <div class="order-item">
+     <span class="oi-name">${escapeHtml(it.product_name)}${it.variant?' · '+escapeHtml(it.variant):''} × ${it.quantity}</span>
+     <span class="oi-meta">${NGN(it.unit_price)} each · ${NGN(it.subtotal)}</span>
+    </div>`).join('') || '<div class="order-item"><span class="oi-meta">No items recorded</span></div>';
+  row.innerHTML=`
+   <div class="order-head" data-toggle>
+    <span class="track">${escapeHtml(o.tracking_number)}</span>
+    <span class="cust">${escapeHtml(o.customer_name)} · ${escapeHtml(o.customer_phone)}</span>
+    <span class="amt">${NGN(o.amount_total)}</span>
+    <span class="when">${fmtWhen(o.created_at)}</span>
+    <select class="status-select st-${o.status}" data-status>${statusOpts}</select>
+   </div>
+   <div class="order-body">
+    <div class="addr"><b>Delivery address:</b> ${escapeHtml(o.shipping_address)}${o.customer_email?'<br><b>Email:</b> '+escapeHtml(o.customer_email):''}</div>
+    <div class="order-items">${itemsHtml}</div>
+    <div class="order-row-err" data-err></div>
+   </div>`;
+  const head=row.querySelector('[data-toggle]');
+  const body=row.querySelector('.order-body');
+  head.addEventListener('click',(e)=>{
+   if(e.target.closest('[data-status]')) return; // don't toggle when interacting with the dropdown
+   body.classList.toggle('open');
   });
-
-  updateModalCta(product);
-
-  const descBlock = product.description
-    ? `<div class="accordion-item"><details><summary>Description</summary><p>${escapeHtml(product.description)}</p></details></div>`
-    : '';
-  document.getElementById('modalAccordion').innerHTML = `
-    ${descBlock}
-    <div class="accordion-item"><details><summary>Variants &amp; compatibility</summary><p>${SITE_INFO.variantGuide}</p></details></div>
-    <div class="accordion-item"><details><summary>Specs &amp; handling</summary><p>${product.spec_notes ? escapeHtml(product.spec_notes) + '. ' : ''}Store in a dry, static-safe place. Check pinout/voltage/compatibility with your project before powering it on.</p></details></div>
-    <div class="accordion-item"><details><summary>Delivery</summary><p>${SITE_INFO.delivery}</p></details></div>
-    <div class="accordion-item"><details><summary>Returns</summary><p>${SITE_INFO.returns}</p></details></div>
-  `;
-
-  backdrop.hidden = false;
-  document.body.style.overflow = 'hidden';
+  const select=row.querySelector('[data-status]');
+  select.addEventListener('click',e=>e.stopPropagation());
+  select.addEventListener('change',()=>updateOrderStatus(o,select));
+  list.appendChild(row);
+ });
 }
 
-function updateModalCta(product) {
-  document.getElementById('modalCta').href = whatsappLink(product, selectedVariant);
-
-  const addCartBtn = document.getElementById('modalAddCart');
-  const variants = variantList(product);
-  const needsVariant = variants.length > 0 && !selectedVariant;
-
-  if (hasNoPrice(product)) {
-    addCartBtn.disabled = true;
-    addCartBtn.textContent = 'Message us for pricing';
-  } else if (isSoldOut(product)) {
-    addCartBtn.disabled = true;
-    addCartBtn.textContent = 'Out of stock';
-  } else if (needsVariant) {
-    addCartBtn.disabled = true;
-    addCartBtn.textContent = 'Select a variant to add to cart';
-  } else {
-    addCartBtn.disabled = false;
-    addCartBtn.textContent = 'Add to Cart';
-  }
-
-  addCartBtn.onclick = () => {
-    const result = addToCart(product, selectedVariant, 1);
-    const note = document.getElementById('modalCartNote');
-    note.style.display = 'block';
-    if (result.ok) {
-      note.textContent = 'Added to cart.';
-      note.style.color = '';
-    } else {
-      note.textContent = "Can't add more. You already have the most we have in stock in your cart.";
-      note.style.color = '#a53b3b';
-    }
-  };
+async function updateOrderStatus(o,selectEl){
+ const errEl=selectEl.closest('.order-row').querySelector('[data-err]');
+ errEl.textContent='';
+ const prevStatus=o.status;
+ const newStatus=selectEl.value;
+ selectEl.disabled=true;
+ try{
+  const {error}=await sb.from('dytronics_orders').update({status:newStatus}).eq('id',o.id);
+  if(error) throw error;
+  o.status=newStatus;
+  selectEl.className='status-select st-'+newStatus;
+ }catch(err){
+  selectEl.value=prevStatus; // revert
+  errEl.textContent='Could not update status: '+(err.message||err);
+ }finally{
+  selectEl.disabled=false;
+ }
 }
 
-function closeModal() {
-  backdrop.hidden = true;
-  document.body.style.overflow = '';
+/* ---------------- Categories ---------------- */
+function slugify(s){
+ return String(s).toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
 }
-document.getElementById('modalClose').addEventListener('click', closeModal);
-backdrop.addEventListener('click', (e) => { if (e.target === backdrop) closeModal(); });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !backdrop.hidden) closeModal(); });
-
-function handleCardAddToCart(product) {
-  const variants = variantList(product);
-  if (variants.length > 0) {
-    // Variant is required — send them into the modal to pick one rather than
-    // guessing, same variant-picker used everywhere else.
-    openModal(product);
-    return;
-  }
-  const result = addToCart(product, null, 1);
-  if (!result.ok) {
-    alert("Can't add more. That's the most we have in stock.");
-  } else {
-    openCart();
-  }
-}
-
-document.getElementById('categorySections').addEventListener('click', (e) => {
-  const grid = e.target.closest('.grid[data-grid]');
-  if (!grid) return;
-  const addBtn = e.target.closest('[data-cart-add]');
-  if (addBtn) {
-    const product = productsById[addBtn.dataset.cartAdd];
-    if (product) handleCardAddToCart(product);
-    return;
-  }
-  const card = e.target.closest('.card');
-  if (!card) return;
-  const product = productsById[card.dataset.id];
-  if (product) openModal(product);
+$('c_label').addEventListener('input',()=>{
+ if(!$('c_slug').dataset.touched) $('c_slug').value=slugify($('c_label').value);
 });
+$('c_slug').addEventListener('input',()=>{ $('c_slug').dataset.touched='1'; });
 
-async function loadCategoriesAndRenderShell() {
-  try {
-    const { data, error } = await sb
-      .from('dytronics_categories')
-      .select('*')
-      .eq('active', true)
-      .order('sort_order', { ascending: true });
-    if (error) throw error;
-    categoriesCache = data || [];
-  } catch (err) {
-    console.error('Category load failed:', err);
-    categoriesCache = [];
-  }
+async function loadCategories(){
+ $('categoriesNote').classList.remove('hidden'); $('categoriesNote').textContent='Loading categories…'; $('categoriesNote').className='status-msg';
+ try{
+  const {data,error}=await sb.from('dytronics_categories').select('*').order('sort_order',{ascending:true});
+  if(error) throw error;
+  categoriesCache=data||[];
+  renderCategoryOptions();
+  renderCategoryList();
+ }catch(err){
+  $('categoriesNote').classList.remove('hidden');
+  $('categoriesNote').textContent='Could not load categories: '+(err.message||err);
+  $('categoriesNote').className='status-msg err';
+ }
+}
+$('refreshCategories').addEventListener('click',loadCategories);
 
-  renderCategoryLinks('catList');
-
-  const railItemsHtml = categoriesCache
-    .map((c, i) => `<div class="rail-item"><span class="rail-num">${String(i + 1).padStart(2, '0')}</span><a href="#${escapeHtml(c.slug)}">${escapeHtml(c.label)}</a></div>`)
-    .join('');
-  document.getElementById('railTrack').innerHTML = railItemsHtml + railItemsHtml;
-
-  document.getElementById('categorySections').innerHTML = categoriesCache.map((c, i) => `
-    <section class="category" id="${escapeHtml(c.slug)}" data-category="${escapeHtml(c.slug)}">
-      <div class="category-head">
-        <div>
-          <span class="eyebrow">${String(i + 1).padStart(2, '0')} — Category</span>
-          <h3>${escapeHtml(c.label)}</h3>
-        </div>
-        <div class="category-count" data-count>Loading…</div>
-      </div>
-      <div class="grid" data-grid></div>
-    </section>`).join('');
-
-  const footerCol = document.getElementById('footerShopCol');
-  footerCol.innerHTML = '<h4>Shop</h4>' + categoriesCache
-    .map(c => `<a href="#${escapeHtml(c.slug)}">${escapeHtml(c.label)}</a>`).join('');
+function renderCategoryOptions(){
+ const sel=$('f_category');
+ const current=sel.value;
+ sel.innerHTML=categoriesCache.map(c=>`<option value="${c.slug}">${escapeHtml(c.label)}${c.active?'':' (inactive)'}</option>`).join('');
+ if(categoriesCache.some(c=>c.slug===current)) sel.value=current;
 }
 
-async function loadProducts() {
-  const sections = document.querySelectorAll('.category[data-category]');
-  try {
-    const { data, error } = await sb
-      .from('dytronics_products')
-      .select('*')
-      .eq('active', true)
-      .order('sort_order', { ascending: true })
-      .order('created_at', { ascending: false });
-    if (error) throw error;
-
-    productsById = {};
-    (data || []).forEach(p => { productsById[p.id] = p; });
-
-    sections.forEach(section => {
-      const cat = section.getAttribute('data-category');
-      const grid = section.querySelector('[data-grid]');
-      const countEl = section.querySelector('[data-count]');
-      const items = (data || []).filter(p => p.category === cat);
-
-      countEl.textContent = pluralize(items.length);
-
-      if (!items.length) {
-        grid.innerHTML = `<div class="empty-note">New pieces coming soon. Check back shortly, or ask on WhatsApp.</div>`;
-        return;
-      }
-      grid.innerHTML = items.map(cardHtml).join('');
-      revealCards(grid);
-    });
-  } catch (err) {
-    sections.forEach(section => {
-      const grid = section.querySelector('[data-grid]');
-      const countEl = section.querySelector('[data-count]');
-      countEl.textContent = '';
-      grid.innerHTML = `<div class="error-note">Couldn't load pieces right now. Please check back soon.</div>`;
-    });
-    console.error('Product load failed:', err);
-  }
+function renderCategoryList(){
+ const list=$('categoryList'); list.innerHTML='';
+ $('categoryCount').textContent=`Categories (${categoriesCache.length})`;
+ if(!categoriesCache.length){ $('categoriesNote').classList.remove('hidden'); $('categoriesNote').textContent='No categories yet. Add one above.'; return; }
+ $('categoriesNote').classList.add('hidden');
+ categoriesCache.forEach((c,idx)=>{
+  const row=document.createElement('div'); row.className='product-row';
+  row.innerHTML=`
+   <div class="info">
+    <div class="name">${escapeHtml(c.label)}${!c.active?'<span class="pill off">Off</span>':''}</div>
+    <div class="meta">/${escapeHtml(c.slug)} · order ${c.sort_order}</div>
+   </div>
+   <div class="actions">
+    <button class="btn small secondary" data-act="up" ${idx===0?'disabled':''}>↑</button>
+    <button class="btn small secondary" data-act="down" ${idx===categoriesCache.length-1?'disabled':''}>↓</button>
+    <button class="btn small secondary" data-act="toggle">${c.active?'Turn off':'Turn on'}</button>
+   </div>`;
+  row.querySelector('[data-act="up"]').addEventListener('click',()=>moveCategory(c,-1));
+  row.querySelector('[data-act="down"]').addEventListener('click',()=>moveCategory(c,1));
+  row.querySelector('[data-act="toggle"]').addEventListener('click',()=>toggleCategoryActive(c));
+  list.appendChild(row);
+ });
 }
 
-/* ---------------- Cart ---------------- */
-// Always mirrored to localStorage so it survives a refresh even offline.
-// When a customer is signed in (currentCustomerId set), every mutation is
-// ALSO written through to dytronics_cart_items, so the same cart follows
-// them to another device/browser. Guests (no session) get localStorage
-// only, exactly as before — this is purely additive.
-const CART_KEY = 'dytronics_cart_v1';
-// Records WHOSE cart is currently sitting in localStorage: a customer_id if
-// it was last saved while that customer was signed in, or the literal
-// string 'guest' if it was built up with nobody signed in. This is what lets
-// reconcileCartWithCloud() tell "this is genuinely an unclaimed guest cart,
-// safe to attach to whoever logs in next" apart from "this is a leftover
-// cart from a DIFFERENT account that happens to still be sitting in this
-// browser" — without it, a stale cart from a previous login on this device
-// can get handed to the next person who signs in.
-const CART_OWNER_KEY = 'dytronics_cart_owner_v1';
-let cart = [];
+async function saveCategory(){
+ const label=$('c_label').value.trim();
+ const slug=slugify($('c_slug').value||label);
+ const st=$('categorySaveStatus');
+ if(!label||!slug){ st.textContent='Label is required.'; st.className='status-msg err'; return; }
+ st.textContent='Saving…'; st.className='status-msg';
+ try{
+  const maxOrder=categoriesCache.reduce((m,c)=>Math.max(m,c.sort_order||0),0);
+  const {error}=await sb.from('dytronics_categories').insert([{slug,label,sort_order:maxOrder+1,active:true}]);
+  if(error) throw error;
+  st.textContent='Added.'; st.className='status-msg ok';
+  $('c_label').value=''; $('c_slug').value=''; $('c_slug').dataset.touched='';
+  loadCategories();
+ }catch(err){
+  st.textContent='Could not add category: '+(err.code==='23505'?'That slug is already in use.':(err.message||err));
+  st.className='status-msg err';
+ }
+}
+$('saveCategoryBtn').addEventListener('click',saveCategory);
 
-function loadCart() {
-  try {
-    const raw = localStorage.getItem(CART_KEY);
-    cart = raw ? JSON.parse(raw) : [];
-    if (!Array.isArray(cart)) cart = [];
-  } catch (e) {
-    cart = [];
-  }
-}
-function saveCart() {
-  try {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    localStorage.setItem(CART_OWNER_KEY, currentCustomerId || 'guest');
-  } catch (e) { /* storage unavailable, cart stays in-memory for this session */ }
-}
-function getCartOwnerMarker() {
-  try { return localStorage.getItem(CART_OWNER_KEY); } catch (e) { return null; }
-}
-function cartLineKey(productId, variant) { return productId + '::' + (variant || ''); }
-
-// ---- Cloud cart sync (signed-in customers only) ----
-// Best-effort and non-blocking: if any of this fails (offline, RLS hiccup,
-// etc.) the local cart still works exactly as before — nothing here can
-// break checkout.
-async function cloudUpsertLine(line) {
-  if (!currentCustomerId) return;
-  try {
-    await sb.from('dytronics_cart_items').upsert({
-      customer_id: currentCustomerId,
-      product_id: line.id,
-      variant: line.variant || '',
-      quantity: line.qty
-    }, { onConflict: 'customer_id,product_id,variant' });
-  } catch (err) {
-    console.error('Cart cloud sync (upsert) failed, local cart unaffected:', err);
-  }
-}
-async function cloudDeleteLine(productId, variant) {
-  if (!currentCustomerId) return;
-  try {
-    let q = sb.from('dytronics_cart_items').delete().eq('customer_id', currentCustomerId).eq('product_id', productId);
-    q = variant ? q.eq('variant', variant) : q.eq('variant', '');
-    await q;
-  } catch (err) {
-    console.error('Cart cloud sync (delete) failed, local cart unaffected:', err);
-  }
+async function toggleCategoryActive(c){
+ const {error}=await sb.from('dytronics_categories').update({active:!c.active}).eq('id',c.id);
+ if(error){ alert('Could not update: '+error.message); return; }
+ loadCategories();
 }
 
-// Pulls the customer's cloud cart and hydrates it into full cart lines
-// using productsById (name/price/image/stock aren't stored server-side —
-// only product_id/variant/qty are, so we look the rest up from what's
-// already loaded on the page).
-async function fetchCloudCartLines() {
-  if (!currentCustomerId) return [];
-  try {
-    const { data, error } = await sb.from('dytronics_cart_items').select('product_id, variant, quantity');
-    if (error) throw error;
-    return (data || []).map(r => {
-      const product = productsById[r.product_id];
-      if (!product) return null; // no longer available — drop silently
-      const stock = (product.stock === null || product.stock === undefined) ? Infinity : Number(product.stock);
-      return {
-        id: product.id, name: product.name, price: Number(product.price) || 0,
-        variant: r.variant || null, qty: Math.min(r.quantity, stock), image_url: product.image_url || '', stock
-      };
-    }).filter(Boolean);
-  } catch (err) {
-    console.error('Cloud cart fetch failed, falling back to local cart:', err);
-    return null; // signals "couldn't check" — caller should keep local cart as-is
-  }
+async function moveCategory(c,direction){
+ const idx=categoriesCache.findIndex(x=>x.id===c.id);
+ const swapWith=categoriesCache[idx+direction];
+ if(!swapWith) return;
+ const {error:e1}=await sb.from('dytronics_categories').update({sort_order:swapWith.sort_order}).eq('id',c.id);
+ const {error:e2}=await sb.from('dytronics_categories').update({sort_order:c.sort_order}).eq('id',swapWith.id);
+ if(e1||e2){ alert('Could not reorder: '+((e1||e2).message)); return; }
+ loadCategories();
 }
 
-// Called right after sign-in resolves (and once on page load if already
-// signed in). Cloud cart wins if it has anything; otherwise, if this
-// browser has a guest cart, it's the first sync — push it up to become
-// the account's cart. Either way both copies end up in agreement.
-async function reconcileCartWithCloud() {
-  if (!currentCustomerId) return;
-  const cloudLines = await fetchCloudCartLines();
-  if (cloudLines === null) return; // fetch failed — leave local cart untouched
-
-  if (cloudLines.length > 0) {
-    // This customer already has a saved cart in the cloud — that's the
-    // source of truth, always wins.
-    cart = cloudLines;
-    saveCart();
-  } else if (cart.length > 0) {
-    const owner = getCartOwnerMarker();
-    if (owner && owner !== 'guest' && owner !== currentCustomerId) {
-      // The local cart was last saved for a DIFFERENT signed-in customer
-      // (e.g. this is the phone owner's leftover cart and someone else has
-      // just logged in). It is not this customer's cart and must not be
-      // pushed up to their account — start them with an empty cart instead.
-      cart = [];
-      saveCart();
-    } else {
-      // Either an unclaimed guest cart (owner === 'guest'/null) or this
-      // same customer's own local cart re-syncing — safe to push up as
-      // their first cloud cart.
-      for (const line of cart) await cloudUpsertLine(line);
-      saveCart();
-    }
-  }
-  renderCartBadge();
-  if (!document.getElementById('cartBackdrop').hidden) renderCartDrawer();
-}
-
-function addToCart(product, variant, qty) {
-  const stock = (product.stock === null || product.stock === undefined) ? Infinity : Number(product.stock);
-  const key = cartLineKey(product.id, variant);
-  const line = cart.find(l => cartLineKey(l.id, l.variant) === key);
-  const currentQty = line ? line.qty : 0;
-  const nextQty = Math.min(currentQty + qty, stock);
-  if (nextQty <= currentQty) return { ok: false, reason: 'stock' };
-  let resultLine;
-  if (line) {
-    line.qty = nextQty;
-    resultLine = line;
-  } else {
-    resultLine = {
-      id: product.id,
-      name: product.name,
-      price: Number(product.price) || 0,
-      variant: variant || null,
-      qty: nextQty,
-      image_url: product.image_url || '',
-      stock
-    };
-    cart.push(resultLine);
-  }
-  saveCart();
-  renderCartBadge();
-  cloudUpsertLine(resultLine);
-  return { ok: true };
-}
-
-function changeQty(key, delta) {
-  const line = cart.find(l => cartLineKey(l.id, l.variant) === key);
-  if (!line) return;
-  const stock = (line.stock === undefined || line.stock === null) ? Infinity : line.stock;
-  const next = line.qty + delta;
-  if (next <= 0) {
-    cart = cart.filter(l => cartLineKey(l.id, l.variant) !== key);
-    saveCart();
-    renderCartDrawer();
-    renderCartBadge();
-    cloudDeleteLine(line.id, line.variant);
-    return;
-  } else if (next > stock) {
-    return; // + button is disabled at the cap already; this is a safety no-op
-  } else {
-    line.qty = next;
-  }
-  saveCart();
-  renderCartDrawer();
-  renderCartBadge();
-  cloudUpsertLine(line);
-}
-
-function removeLine(key) {
-  const line = cart.find(l => cartLineKey(l.id, l.variant) === key);
-  cart = cart.filter(l => cartLineKey(l.id, l.variant) !== key);
-  saveCart();
-  renderCartDrawer();
-  renderCartBadge();
-  if (line) cloudDeleteLine(line.id, line.variant);
-}
-
-function cartCount() { return cart.reduce((sum, l) => sum + l.qty, 0); }
-function cartSubtotal() { return cart.reduce((sum, l) => sum + l.qty * l.price, 0); }
-
-function renderCartBadge() {
-  const badge = document.getElementById('cartBadge');
-  const count = cartCount();
-  badge.textContent = count;
-  badge.classList.toggle('hidden', count === 0);
-}
-
-function renderCartDrawer() {
-  const body = document.getElementById('cartBody');
-  const foot = document.getElementById('cartFoot');
-  if (!cart.length) {
-    body.innerHTML = `<div class="cart-empty">Your cart is empty. Browse the catalog and add the part you need.</div>`;
-    foot.hidden = true;
-    return;
-  }
-  foot.hidden = false;
-  body.innerHTML = cart.map(line => {
-    const key = cartLineKey(line.id, line.variant);
-    const atStockCap = line.qty >= line.stock;
-    return `
-      <div class="cart-row" data-key="${escapeHtml(key)}">
-        <img src="${escapeHtml(line.image_url)}" alt="">
-        <div class="ci-info">
-          <div class="ci-name">${escapeHtml(line.name)}</div>
-          <div class="ci-meta">${line.variant ? 'Variant ' + escapeHtml(line.variant) : ''}</div>
-          <div class="ci-price">${NGN(line.price)} each</div>
-          <div class="qty-stepper">
-            <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
-            <span>${line.qty}</span>
-            <button type="button" data-qty="1" ${atStockCap ? 'disabled' : ''} aria-label="Increase quantity" title="${atStockCap ? 'Only ' + line.stock + ' in stock' : ''}">+</button>
-          </div>
-          ${atStockCap ? `<div class="cart-stock-note">Max available stock reached.</div>` : ''}
-          <button type="button" class="cart-remove" data-remove>Remove</button>
-        </div>
-      </div>`;
-  }).join('');
-
-  body.querySelectorAll('[data-qty]').forEach(btn => {
-    btn.addEventListener('click', () => changeQty(btn.closest('.cart-row').dataset.key, Number(btn.dataset.qty)));
-  });
-  body.querySelectorAll('[data-remove]').forEach(btn => {
-    btn.addEventListener('click', () => removeLine(btn.closest('.cart-row').dataset.key));
-  });
-
-  document.getElementById('cartSubtotal').textContent = NGN(cartSubtotal());
-}
-
-function openCart() {
-  closeTrackDrawer(); // avoid both drawers open at once (overlapping backdrops, duplicate receipt IDs)
-  closeCatMenu();
-  closeSearchPanel();
-  showCartItemsView();
-  document.getElementById('cartBackdrop').hidden = false;
-  document.body.style.overflow = 'hidden';
-}
-function closeCart() {
-  document.getElementById('cartBackdrop').hidden = true;
-  document.body.style.overflow = '';
-}
-
-/* ---------------- Category menu (hamburger panel) — plain list, no filtering ---------------- */
-// Renders the full, unfiltered category list — used by the hamburger panel only.
-function renderCategoryLinks(containerId) {
-  const list = document.getElementById(containerId);
-  list.innerHTML = categoriesCache
-    .map(c => `<a href="#${escapeHtml(c.slug)}" data-cat-link>${escapeHtml(c.label)}</a>`).join('');
-}
-
-// Search panel results: matches products by name (not categories — those
-// already have their own dedicated list in the hamburger menu).
-function renderProductSearchResults(containerId, filter) {
-  const list = document.getElementById(containerId);
-  const q = (filter || '').trim().toLowerCase();
-
-  if (!q) {
-    list.innerHTML = `<div class="cat-empty">Start typing to search products…</div>`;
-    return;
-  }
-
-  const matches = Object.values(productsById)
-    .filter(p => p.name && p.name.toLowerCase().includes(q));
-
-  if (matches.length === 0) {
-    list.innerHTML = `<div class="cat-empty">No matching products</div>`;
-    return;
-  }
-
-  list.innerHTML = matches.map(p => `
-    <a href="#${escapeHtml(p.category)}" class="search-result" data-search-product="${p.id}">
-      <span class="search-result-name">${escapeHtml(p.name)}</span>
-      <span class="search-result-price">${isSoldOut(p) ? 'Sold out' : NGN(p.price)}</span>
-    </a>`).join('');
-}
-
-function openCatMenu() {
-  closeCart();
-  closeTrackDrawer();
-  closeSearchPanel();
-  renderCategoryLinks('catList'); // always the full list — no search box in this panel
-  document.getElementById('catBackdrop').hidden = false;
-  document.getElementById('catMenuBtn').setAttribute('aria-expanded', 'true');
-  document.body.style.overflow = 'hidden';
-}
-function closeCatMenu() {
-  const backdrop = document.getElementById('catBackdrop');
-  if (backdrop.hidden) return;
-  backdrop.hidden = true;
-  document.getElementById('catMenuBtn').setAttribute('aria-expanded', 'false');
-  document.body.style.overflow = '';
-  document.getElementById('catMenuBtn').focus(); // keyboard focus returns to the trigger, never trapped
-}
-
-/* ---------------- Search panel (magnifying-glass icon) — searches products ---------------- */
-function openSearchPanel() {
-  closeCart();
-  closeTrackDrawer();
-  closeCatMenu();
-  const input = document.getElementById('searchInput');
-  input.value = '';
-  renderProductSearchResults('searchList');
-  document.getElementById('searchBackdrop').hidden = false;
-  document.getElementById('searchBtn').setAttribute('aria-expanded', 'true');
-  document.body.style.overflow = 'hidden';
-  input.focus(); // this panel exists to type into, unlike the plain list — the keyboard showing up here is expected
-}
-function closeSearchPanel() {
-  const backdrop = document.getElementById('searchBackdrop');
-  if (backdrop.hidden) return;
-  backdrop.hidden = true;
-  document.getElementById('searchBtn').setAttribute('aria-expanded', 'false');
-  document.body.style.overflow = '';
-  document.getElementById('searchBtn').focus();
-}
-
-
-/* ---------------- Checkout (inline in cart drawer) ---------------- */
-// Unconfirmed assumption, flagged to Adedoyin: reopening the cart after
-// leaving mid-checkout resets to the items view rather than resuming the
-// form. Cart contents themselves are untouched either way (still in
-// localStorage) — only the checkout form's typed fields would be lost.
-
-function showCartItemsView() {
-  document.getElementById('checkoutView').hidden = true;
-  document.getElementById('checkoutView').innerHTML = '';
-  document.getElementById('cartBody').hidden = false;
-  renderCartDrawer();
-}
-
-function checkoutFormHtml() {
-  return `
-    <button type="button" class="checkout-back" id="checkoutBack">&larr; Back to cart</button>
-    <div class="checkout-summary">
-      <span>${cartCount()} item${cartCount() === 1 ? '' : 's'} &middot; Subtotal</span>
-      <span class="amt">${NGN(cartSubtotal())}</span>
-    </div>
-    <form id="checkoutForm" novalidate>
-      <div class="checkout-field" data-field="name">
-        <label for="co_name">Full name</label>
-        <input id="co_name" type="text" autocomplete="name">
-        <div class="err-msg">Enter your full name.</div>
-      </div>
-      <div class="checkout-field" data-field="phone">
-        <label for="co_phone">Phone number</label>
-        <input id="co_phone" type="tel" autocomplete="tel" placeholder="e.g. 0811 641 2960">
-        <div class="err-msg">Enter a phone number we can reach you on.</div>
-      </div>
-      <div class="checkout-field" data-field="email">
-        <label for="co_email">Email</label>
-        <input id="co_email" type="email" autocomplete="email">
-        <div class="err-msg">Enter a valid email. It's needed to process payment.</div>
-      </div>
-      <div class="checkout-field" data-field="address">
-        <label for="co_address">Shipping address</label>
-        <textarea id="co_address" autocomplete="street-address" placeholder="Street, area, city, state"></textarea>
-        <div class="err-msg">Enter the address we should ship to.</div>
-      </div>
-      <p class="checkout-submit-err" id="checkoutSubmitErr"></p>
-      <button type="submit" class="btn btn-solid cart-checkout-btn" id="checkoutSubmitBtn">Place order</button>
-      <p class="cart-note">You won't be charged yet. This saves your order and gets you a tracking number. We'll follow up on WhatsApp to arrange payment.</p>
-    </form>`;
-}
-
-function showCheckoutView() {
-  if (!cart.length) return; // safety no-op — button isn't reachable with an empty cart anyway
-  document.getElementById('cartBody').hidden = true;
-  document.getElementById('cartFoot').hidden = true;
-  const view = document.getElementById('checkoutView');
-  view.hidden = false;
-  view.innerHTML = checkoutFormHtml();
-  document.getElementById('checkoutBack').addEventListener('click', showCartItemsView);
-  document.getElementById('checkoutForm').addEventListener('submit', submitCheckout);
-}
-
-function setFieldError(field, hasError) {
-  const el = document.querySelector(`.checkout-field[data-field="${field}"]`);
-  if (el) el.classList.toggle('has-error', !!hasError);
-}
-
-function validateCheckoutForm() {
-  const name = document.getElementById('co_name').value.trim();
-  const phone = document.getElementById('co_phone').value.trim();
-  const email = document.getElementById('co_email').value.trim();
-  const address = document.getElementById('co_address').value.trim();
-  const emailValid = !!email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-  setFieldError('name', !name);
-  setFieldError('phone', !phone);
-  setFieldError('address', !address);
-  setFieldError('email', !emailValid);
-
-  return { valid: !!name && !!phone && !!address && emailValid, name, phone, email, address };
-}
-
-// ---- Device-local order memory + receipt rendering ----
-// Convenience only, not security: anyone with access to this browser/device
-// can see this list, same as browsing history. get_dytronics_order_by_tracking already
-// excludes contact info, so nothing sensitive is exposed here either.
-const ORDERS_KEY = 'dytronics_orders_v1';
-const STATUS_LABEL = {
-  pending_payment: 'Pending payment', paid: 'Paid', shipped: 'Shipped',
-  delivered: 'Delivered', cancelled: 'Cancelled'
-};
-
-function loadDeviceOrders() {
-  try {
-    const raw = localStorage.getItem(ORDERS_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch (e) { return []; } // storage unavailable (e.g. private browsing) — device list stays empty, manual lookup still works
-}
-
-function saveDeviceOrders(orders) {
-  try { localStorage.setItem(ORDERS_KEY, JSON.stringify(orders)); } catch (e) { /* storage unavailable, ignore */ }
-}
-
-// Saved at order creation (not just on 'paid'), so a customer can find and
-// retry a pending_payment order from their own device even if payment fails
-// or the popup is closed.
-function saveOrderToDevice(orderRecord) {
-  const orders = loadDeviceOrders();
-  const existingIdx = orders.findIndex(o => o.trackingNumber === orderRecord.trackingNumber);
-  if (existingIdx >= 0) orders[existingIdx] = orderRecord;
-  else orders.unshift(orderRecord);
-  saveDeviceOrders(orders);
-}
-
-function updateDeviceOrderStatus(trackingNumber, newStatus) {
-  const orders = loadDeviceOrders();
-  const idx = orders.findIndex(o => o.trackingNumber === trackingNumber);
-  if (idx >= 0) { orders[idx].status = newStatus; saveDeviceOrders(orders); }
-}
-
-function statusBadgeHtml(status) {
-  const label = STATUS_LABEL[status] || status;
-  const cls = STATUS_LABEL[status] ? status : 'pending_payment';
-  return `<span class="status-badge st-${escapeHtml(cls)}">${escapeHtml(label)}</span>`;
-}
-
-function fmtOrderDate(iso) {
-  try {
-    return new Date(iso).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-  } catch (e) { return iso; }
-}
-
-function fmtNaira(n) {
-  return '₦' + Number(n).toLocaleString('en-NG');
-}
-
-// Shared receipt markup — used by the post-checkout confirmation screen AND
-// the track-my-order drawer, so both stay visually identical.
-function renderReceiptHtml(orderRecord, opts) {
-  opts = opts || {};
-  const itemsHtml = (orderRecord.items || []).map(item => `
-    <div class="receipt-item">
-      <div>
-        <div class="ri-name">${escapeHtml(item.name)}</div>
-        <div class="ri-meta">${item.variant ? 'Variant ' + escapeHtml(item.variant) + ' · ' : ''}Qty ${escapeHtml(String(item.qty))} · ${fmtNaira(item.unitPrice)} each</div>
-      </div>
-      <div class="ri-amt">${fmtNaira(item.subtotal)}</div>
-    </div>`).join('');
-
-  return `
-    <div class="receipt" id="printReceiptArea">
-      <div class="receipt-head">
-        <span class="eyebrow" style="color:var(--green)">${escapeHtml(opts.eyebrow || 'Order receipt')}</span>
-        <div class="track-label">Tracking number</div>
-        <div class="track-num">${escapeHtml(orderRecord.trackingNumber)}</div>
-        <div class="receipt-date">${escapeHtml(fmtOrderDate(orderRecord.createdAt))}</div>
-        <div id="receiptStatusBadge">${statusBadgeHtml(orderRecord.status)}</div>
-      </div>
-      <div class="receipt-items">${itemsHtml}</div>
-      <div class="receipt-total-row"><span>Total</span><span class="amt">${fmtNaira(orderRecord.amountTotal)}</span></div>
-      <p class="receipt-note" id="receiptNote">${escapeHtml(opts.note || '')}</p>
-      <div class="receipt-actions">
-        ${opts.extraButtonsHtml || ''}
-        <button type="button" class="btn modal-addcart cart-checkout-btn" id="receiptPrintBtn">Print / Save as PDF</button>
-        <button type="button" class="btn modal-addcart cart-checkout-btn" id="receiptDoneBtn">Done</button>
-      </div>
-    </div>`;
-}
-
-function wireReceiptButtons(onDone) {
-  const printBtn = document.getElementById('receiptPrintBtn');
-  if (printBtn) printBtn.addEventListener('click', () => window.print());
-  const doneBtn = document.getElementById('receiptDoneBtn');
-  if (doneBtn) doneBtn.addEventListener('click', onDone);
-}
-
-/* ---------------- Track-my-order drawer ---------------- */
-// Two lookup paths: (1) instant, local — orders placed from this device,
-// read from the same ORDERS_KEY localStorage list used by checkout;
-// (2) manual tracking-number entry — for a different device or cleared
-// storage, via the get_dytronics_order_by_tracking RPC (SECURITY DEFINER, excludes
-// contact info by design). Both render through the same renderReceiptHtml
-// used at checkout, for visual consistency.
-
-function openTrackDrawer() {
-  closeCart(); // avoid both drawers open at once (overlapping backdrops, duplicate receipt IDs)
-  closeCatMenu();
-  closeSearchPanel();
-  renderTrackDrawerHome();
-  document.getElementById('trackBackdrop').hidden = false;
-  document.body.style.overflow = 'hidden';
-}
-function closeTrackDrawer() {
-  document.getElementById('trackBackdrop').hidden = true;
-  document.body.style.overflow = '';
-}
-
-// Bumped every time trackBody's content changes to a different view (home
-// list, a lookup-in-progress state, or a receipt). An in-flight background
-// status refresh checks this before repainting, so it never clobbers a view
-// the customer has since navigated away from.
-let trackViewToken = 0;
-
-function renderTrackDrawerHome() {
-  trackViewToken++;
-  const myToken = trackViewToken;
-  const body = document.getElementById('trackBody');
-  const orders = loadDeviceOrders();
-  const listHtml = orders.length
-    ? `<div class="track-section-label">Orders placed from this device</div>` +
-      orders.map(o => `
-        <button type="button" class="device-order-row" data-tracking="${escapeHtml(o.trackingNumber)}">
-          <div class="do-info">
-            <div class="do-track">${escapeHtml(o.trackingNumber)}</div>
-            <div class="do-date">${escapeHtml(fmtOrderDate(o.createdAt))}</div>
-          </div>
-          <div class="do-right">
-            ${statusBadgeHtml(o.status)}
-            <div class="do-amt">${fmtNaira(o.amountTotal)}</div>
-          </div>
-        </button>`).join('')
-    : `<div class="track-empty">No orders yet from this browser. Enter a tracking number above to look one up.</div>`;
-
-  body.innerHTML = `
-    <p class="track-intro">Enter your tracking number to check an order, or pick one below if you ordered from this device.</p>
-    <div class="track-lookup">
-      <input type="text" id="trackInput" placeholder="DYT-XXXXXX" maxlength="10" autocomplete="off" spellcheck="false">
-      <button type="button" class="btn btn-solid" id="trackLookupBtn">Track</button>
-    </div>
-    ${listHtml}`;
-
-  document.getElementById('trackLookupBtn').addEventListener('click', () => handleTrackLookup());
-  const input = document.getElementById('trackInput');
-  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleTrackLookup(); });
-  input.addEventListener('input', (e) => { e.target.value = e.target.value.toUpperCase(); });
-  body.querySelectorAll('.device-order-row').forEach(row => {
-    row.addEventListener('click', () => {
-      const tn = row.getAttribute('data-tracking');
-      // Always re-query the DB rather than trusting the cached localStorage
-      // status — the cache is only ever refreshed during the ~30s poll right
-      // after checkout, so a device-list tap later could otherwise show a
-      // stale "pending" for an order that's actually been paid since.
-      handleTrackLookup(tn);
-    });
-  });
-
-  // The list above just painted with whatever was cached from this
-  // browser's last visit — possibly stale if an admin has since marked the
-  // order paid/shipped/delivered elsewhere. Quietly re-check each cached
-  // order's real status in the background and repaint if anything changed,
-  // so customers don't have to tap into an order just to see it's actually
-  // moved on.
-  if (orders.length) refreshDeviceOrderStatuses(orders, myToken);
-}
-
-async function refreshDeviceOrderStatuses(orders, myToken) {
-  const results = await Promise.all(orders.map(async (o) => {
-    try {
-      const { data, error } = await sb.rpc('get_dytronics_order_by_tracking', { p_tracking_number: o.trackingNumber });
-      if (error || !data || !data.status) return null;
-      return { trackingNumber: o.trackingNumber, status: data.status };
-    } catch (e) {
-      return null; // offline or lookup failed — leave that entry's cached status as-is
-    }
-  }));
-
-  let changed = false;
-  const current = loadDeviceOrders();
-  for (const r of results) {
-    if (!r) continue;
-    const line = current.find(o => o.trackingNumber === r.trackingNumber);
-    if (line && line.status !== r.status) { updateDeviceOrderStatus(r.trackingNumber, r.status); changed = true; }
-  }
-
-  // Only repaint if nothing actually changed status, or if the customer has
-  // since closed the drawer or navigated to a different view (a lookup in
-  // progress, or an open receipt) — repainting over that would yank them
-  // back to the home list mid-interaction.
-  if (changed && myToken === trackViewToken && !document.getElementById('trackBackdrop').hidden) {
-    renderTrackDrawerHome();
-  }
-}
-
-async function handleTrackLookup(presetValue) {
-  const input = document.getElementById('trackInput');
-  const raw = presetValue || (input ? input.value.trim() : '');
-  if (!raw) return;
-
-  trackViewToken++; // invalidate any in-flight home-list background refresh so it won't repaint over this view
-  const body = document.getElementById('trackBody');
-  body.innerHTML = `
-    <button type="button" class="track-back" id="trackBackBtn">← Back</button>
-    <div class="track-lookup-state"><p class="note">Looking that up…</p></div>`;
-  document.getElementById('trackBackBtn').addEventListener('click', renderTrackDrawerHome);
-
-  try {
-    // get_dytronics_order_by_tracking now returns a scalar jsonb value
-    // (null when no match) rather than SETOF jsonb, so no .single() —
-    // !data is our "not found" signal.
-    const { data, error } = await sb.rpc('get_dytronics_order_by_tracking', { p_tracking_number: raw });
-    if (error || !data) {
-      renderTrackLookupMessage("We couldn't find an order with that tracking number. Double check it, it should look like DYT-XXXXXX.");
-      return;
-    }
-    showTrackReceipt(adaptTrackingResult(data));
-  } catch (err) {
-    console.error('Tracking lookup failed:', err);
-    renderTrackLookupMessage("Something went wrong checking that. Please check your connection and try again.");
-  }
-}
-
-function renderTrackLookupMessage(text) {
-  trackViewToken++; // invalidate any in-flight home-list background refresh so it won't repaint over this view
-  const body = document.getElementById('trackBody');
-  body.innerHTML = `
-    <button type="button" class="track-back" id="trackBackBtn">← Back</button>
-    <div class="track-lookup-state"><p class="note">${escapeHtml(text)}</p></div>`;
-  document.getElementById('trackBackBtn').addEventListener('click', renderTrackDrawerHome);
-}
-
-// Adapts get_dytronics_order_by_tracking's return shape (tracking_number, status,
-// amount_total, currency, created_at, items: [{product_name, variant,
-// quantity, unit_price}]) to the {trackingNumber, createdAt, items:
-// [{name, variant, qty, unitPrice, subtotal}], amountTotal, status} shape
-// renderReceiptHtml expects. (Previously this silently received undefined
-// for every field because the RPC was declared SETOF jsonb — fixed via the
-// fix_setof_jsonb_rpc_wrapping migration, which also removed the .single()
-// calls on this RPC that were compensating for the old wrapped shape.)
-function adaptTrackingResult(data) {
-  const items = (data.items || []).map(it => ({
-    name: it.product_name, variant: it.variant, qty: it.quantity,
-    unitPrice: it.unit_price, subtotal: (Number(it.unit_price) || 0) * (Number(it.quantity) || 0)
-  }));
-  return {
-    trackingNumber: data.tracking_number,
-    createdAt: data.created_at,
-    items: items,
-    amountTotal: data.amount_total,
-    status: data.status
-  };
-}
-
-function showTrackReceipt(orderRecord) {
-  trackViewToken++; // invalidate any in-flight home-list background refresh so it won't repaint over this view
-  const body = document.getElementById('trackBody');
-  const noteByStatus = {
-    pending_payment: 'Payment is still pending on this order. If you started paying, it can take a minute to confirm.',
-    paid: "We'll update this as your order moves along. Message us on WhatsApp any time.",
-    shipped: "Your order is on its way. Message us on WhatsApp if you need anything.",
-    delivered: 'Delivered. Thank you for shopping with us!',
-    cancelled: 'This order was cancelled.'
-  };
-  // Keep the "orders placed from this device" cache in sync too — this may
-  // be one of them, and this is the freshest status we've just fetched.
-  updateDeviceOrderStatus(orderRecord.trackingNumber, orderRecord.status);
-  body.innerHTML = `<button type="button" class="track-back" id="trackBackBtn">← Back</button>` +
-    renderReceiptHtml(orderRecord, {
-      eyebrow: 'Order receipt',
-      note: noteByStatus[orderRecord.status] || ''
-    });
-  document.getElementById('trackBackBtn').addEventListener('click', renderTrackDrawerHome);
-  wireReceiptButtons(renderTrackDrawerHome);
-}
-
-async function submitCheckout(e) {
-  e.preventDefault();
-  const errEl = document.getElementById('checkoutSubmitErr');
-  errEl.classList.remove('show');
-  errEl.textContent = '';
-
-  const { valid, name, phone, email, address } = validateCheckoutForm();
-  if (!valid) return;
-
-  const btn = document.getElementById('checkoutSubmitBtn');
-  btn.disabled = true;
-  btn.textContent = 'Placing order…';
-
-try {
-    // Only product_id, variant, and quantity go to the server — price and
-    // product_name are NOT sent, because create_dytronics_order now looks those up
-    // itself from dytronics_products. This closes a price-tampering gap:
-    // previously the client computed and sent the price/total directly.
-    const itemsPayload = cart.map(line => ({
-      product_id: line.id,
-      variant: line.variant,
-      quantity: line.qty
-    }));
-
-    // Single atomic Postgres function (create_dytronics_order) — inserts the order
-    // and its line items in one transaction. It also recomputes
-    // price/name/total server-side and returns the authoritative amount —
-    // that's what we use below for both the receipt and the actual
-    // Paystack charge.
-    // NOTE: this function returns a scalar `jsonb` value (not SETOF jsonb),
-    // so no .single() here — PostgREST already hands back the object
-    // directly. Adding .single() to a SETOF jsonb version of this function
-    // used to silently wrap the result as {create_dytronics_order: {...}},
-    // which is why every field below used to read as undefined.
-    const { data: order, error: orderErr } = await sb
-      .rpc('create_dytronics_order', {
-        p_customer_name: name,
-        p_customer_phone: phone,
-        p_customer_email: email || null,
-        p_shipping_address: address,
-        p_currency: 'NGN',
-        p_items: itemsPayload
-      });
-    if (orderErr || !order) throw (orderErr || new Error('Order could not be created.'));
-
-    // Receipt items come back from the server (order.items), built from
-    // the same authoritative product lookup — not the client's cart
-    // snapshot — so what's shown always matches what was charged.
-    const receiptItems = (order.items || []).map(it => ({
-      name: it.product_name, variant: it.variant, qty: it.quantity,
-      unitPrice: it.unit_price, subtotal: it.subtotal
-    }));
-
-    // Saved to this device immediately — before payment resolves — so a
-    // customer can find and retry a pending_payment order even if the
-    // Paystack popup fails or is closed without paying.
-    const orderRecord = {
-      trackingNumber: order.tracking_number,
-      createdAt: new Date().toISOString(),
-      items: receiptItems,
-      amountTotal: order.amount_total, // server-computed, not client cartSubtotal()
-      status: 'pending_payment'
-    };
-    saveOrderToDevice(orderRecord);
-
-    // If the shopper is signed in to their account, silently link this new
-    // order to it so it shows up in Order History. Safe no-op for guests
-    // (no session) — never blocks or fails the checkout itself.
-    try {
-      const { data: { session } } = await sb.auth.getSession();
-      if (session) {
-        await sb.rpc('claim_dytronics_order', { p_tracking_number: order.tracking_number });
-      }
-    } catch (linkErr) {
-      console.error('Order-to-account linking failed (non-fatal):', linkErr);
-    }
-
-    launchPaystackPayment(orderRecord, email);
-  } catch (err) {
-    errEl.textContent = "Couldn't place your order. " + (err.message || 'Please check your connection and try again.');
-    errEl.classList.add('show');
-    btn.disabled = false;
-    btn.textContent = 'Place order';
-    console.error('Checkout failed:', err);
-  }
-}
-
-// ---- Payment (Paystack Inline JS) ----
-// Order already exists in the DB at this point (status: pending_payment).
-// Nothing here ever marks an order "paid" directly — that only happens
-// server-side, via the verify-payment Edge Function reacting to Paystack's
-// webhook. This flow only ever shows honest in-progress/retry states.
-
-function launchPaystackPayment(orderRecord, email) {
-  const handler = PaystackPop.setup({
-    key: PAYSTACK_PUBLIC_KEY,
-    email: email,
-    amount: Math.round(orderRecord.amountTotal * 100), // Paystack expects kobo
-    currency: 'NGN',
-    ref: orderRecord.trackingNumber, // matches dytronics_orders.tracking_number — verify-payment looks orders up by this
-    callback: function (response) {
-      // This only means the popup itself finished — NOT that payment is
-      // verified. Real confirmation is server-side (webhook). Show an
-      // honest "submitted" state and poll for the real status.
-      showPaymentSubmitted(orderRecord, email);
-    },
-    onClose: function () {
-      // Customer closed the popup without completing payment. The order
-      // is untouched in the DB (still pending_payment) — nothing lost.
-      showPaymentRetry(orderRecord, email);
-    }
-  });
-  handler.openIframe();
-}
-
-function showPaymentSubmitted(orderRecord, email) {
-  const view = document.getElementById('checkoutView');
-  view.innerHTML = renderReceiptHtml(orderRecord, {
-    eyebrow: 'Payment submitted',
-    note: 'Confirming your payment. This usually takes just a few seconds…'
-  });
-  wireReceiptButtons(closeCart);
-  pollPaymentStatus(orderRecord, 0);
-}
-
-async function pollPaymentStatus(orderRecord, attempt) {
-  const MAX_ATTEMPTS = 10; // ~30s total at 3s apart — a UI courtesy only,
-                            // the webhook keeps working after this stops polling
-  if (attempt >= MAX_ATTEMPTS) {
-    const note = document.getElementById('receiptNote');
-    if (note) {
-      note.textContent = "Still confirming. This can occasionally take a bit longer. Your order and tracking number are saved either way; check back shortly or message us on WhatsApp if you don't hear from us.";
-    }
-    return;
-  }
-  try {
-    const { data, error } = await sb.rpc('get_dytronics_order_by_tracking', { p_tracking_number: orderRecord.trackingNumber });
-    if (!error && data && data.status === 'paid') {
-      orderRecord.status = 'paid';
-      updateDeviceOrderStatus(orderRecord.trackingNumber, 'paid');
-      const badge = document.getElementById('receiptStatusBadge');
-      const note = document.getElementById('receiptNote');
-      if (badge) badge.innerHTML = statusBadgeHtml('paid');
-      if (note) note.textContent = "Payment confirmed, thank you! We'll be in touch on WhatsApp to arrange production and delivery.";
-      return; // stop polling — done
-    }
-  } catch (err) {
-    console.error('Payment status check failed:', err);
-  }
-  setTimeout(() => pollPaymentStatus(orderRecord, attempt + 1), 3000);
-}
-
-function showPaymentRetry(orderRecord, email) {
-  const view = document.getElementById('checkoutView');
-  view.innerHTML = renderReceiptHtml(orderRecord, {
-    eyebrow: 'Payment not completed',
-    note: "Your order is saved, nothing's lost. You can try paying again now, or come back to it later using your tracking number.",
-    extraButtonsHtml: `<button type="button" class="btn btn-solid cart-checkout-btn" id="retryPaymentBtn">Pay now</button>`
-  });
-  document.getElementById('retryPaymentBtn').addEventListener('click', () => launchPaystackPayment(orderRecord, email));
-  wireReceiptButtons(closeCart);
-}
-document.getElementById('cartBtn').addEventListener('click', openCart);
-document.getElementById('cartClose').addEventListener('click', closeCart);
-document.getElementById('cartBackdrop').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('cartBackdrop')) closeCart();
+/* ---------------- Session check on load ---------------- */
+sb.auth.getSession().then(async({data})=>{
+ if(data.session){
+  const admin=await isAdmin();
+  if(admin){ enterConsole(); }
+  else { await sb.auth.signOut(); showGate(); }
+ } else {
+  showGate();
+ }
 });
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && !document.getElementById('cartBackdrop').hidden) closeCart();
+sb.auth.onAuthStateChange((_event,session)=>{
+ if(!session){ showGate(); }
 });
-document.getElementById('cartCheckoutBtn').addEventListener('click', showCheckoutView);
-
-document.getElementById('trackOrderLink').addEventListener('click', (e) => {
-  e.preventDefault();
-  openTrackDrawer();
-});
-document.getElementById('trackClose').addEventListener('click', closeTrackDrawer);
-document.getElementById('trackBackdrop').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('trackBackdrop')) closeTrackDrawer();
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && !document.getElementById('trackBackdrop').hidden) closeTrackDrawer();
-});
-
-document.getElementById('catMenuBtn').addEventListener('click', openCatMenu);
-document.getElementById('catClose').addEventListener('click', closeCatMenu);
-document.getElementById('catBackdrop').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('catBackdrop')) closeCatMenu();
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && !document.getElementById('catBackdrop').hidden) closeCatMenu();
-});
-// Category links are re-rendered whenever the list changes, so this listener
-// is delegated on the (stable) container rather than bound per-link.
-document.getElementById('catList').addEventListener('click', (e) => {
-  if (e.target.closest('[data-cat-link]')) closeCatMenu(); // let the anchor's own href do the scroll; we just close the panel
-});
-
-document.getElementById('searchBtn').addEventListener('click', openSearchPanel);
-document.getElementById('searchClose').addEventListener('click', closeSearchPanel);
-document.getElementById('searchBackdrop').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('searchBackdrop')) closeSearchPanel();
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && !document.getElementById('searchBackdrop').hidden) closeSearchPanel();
-});
-document.getElementById('searchInput').addEventListener('input', (e) => renderProductSearchResults('searchList', e.target.value));
-document.getElementById('searchList').addEventListener('click', (e) => {
-  const link = e.target.closest('[data-search-product]');
-  if (!link) return;
-  e.preventDefault(); // open the product modal directly, rather than just jumping to its category section
-  const product = productsById[link.getAttribute('data-search-product')];
-  closeSearchPanel();
-  if (product) openModal(product);
-});
-
-loadCart();
-renderCartBadge();
-
-// Cart cloud-sync needs product details (name/price/stock) to hydrate cloud
-// rows into full cart lines, so it waits until products are loaded. It also
-// needs to know if a session already exists on page load (e.g. customer
-// signed in on a previous visit and never signed out).
-loadCategoriesAndRenderShell().then(loadProducts).then(async () => {
-  try {
-    const { data: { session } } = await sb.auth.getSession();
-    currentCustomerId = session ? session.user.id : null;
-  } catch (err) {
-    currentCustomerId = null;
-  }
-  if (currentCustomerId) await reconcileCartWithCloud();
-});
-
-// Fires on sign-in, sign-out, and token refresh across the site (including
-// after account.html signs someone in and they navigate back here).
-sb.auth.onAuthStateChange(async (event, session) => {
-  if (event === 'SIGNED_IN') {
-    currentCustomerId = session.user.id;
-    await reconcileCartWithCloud();
-  } else if (event === 'SIGNED_OUT') {
-    currentCustomerId = null;
-    // Clear the local cart on sign-out too. On a shared/borrowed device,
-    // leaving it behind meant the next person (signing in as themselves,
-    // or just browsing as a guest) could inherit whatever the previous
-    // customer had in their cart. Their cart is still safe in the cloud
-    // under their account — it'll come back next time they sign in.
-    cart = [];
-    saveCart();
-    renderCartBadge();
-    if (!document.getElementById('cartBackdrop').hidden) renderCartDrawer();
-  }
-});
-
-// If hero video has no real source, keep the gradient background only
-const heroVideo = document.querySelector('.hero-video');
-heroVideo.addEventListener('error', () => { heroVideo.style.display = 'none'; }, true);
 
 })();
 </script>
-
 </body>
 </html>
