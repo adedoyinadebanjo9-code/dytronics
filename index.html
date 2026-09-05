@@ -701,14 +701,6 @@
   .status-badge.st-shipped{color:var(--gold);}
   .status-badge.st-delivered{color:var(--green-deep);}
   .status-badge.st-cancelled{color:#a53b3b;}
-  .status-badge.st-checking{
-    color:var(--ink-soft); border-style:dashed;
-    animation:badgePulse 1.3s ease-in-out infinite;
-  }
-  @keyframes badgePulse{
-    0%, 100%{opacity:0.45;}
-    50%{opacity:1;}
-  }
 
   .receipt{padding:28px 4px; text-align:left;}
   .receipt-head{text-align:center; margin-bottom:22px;}
@@ -1650,9 +1642,14 @@ function validateCheckoutForm() {
 }
 
 // ---- Device-local order memory + receipt rendering ----
-// Convenience only, not security: anyone with access to this browser/device
-// can see this list, same as browsing history. get_dytronics_order_by_tracking already
-// excludes contact info, so nothing sensitive is exposed here either.
+// No longer surfaced as a browsable list in the track drawer (that used to
+// show every order made from this browser regardless of account — wrong on
+// a shared device, since it mixed orders across whoever last checked out
+// here). Now used only for immediate checkout/retry bookkeeping: letting a
+// shopper retry a just-placed pending_payment order if they close the popup
+// or lose connection, within the same browsing session. Convenience only,
+// not security — get_dytronics_order_by_tracking already excludes contact
+// info, so nothing sensitive is exposed here either.
 const ORDERS_KEY = 'dytronics_orders_v1';
 const STATUS_LABEL = {
   pending_payment: 'Pending payment', paid: 'Paid', shipped: 'Shipped',
@@ -1691,13 +1688,6 @@ function statusBadgeHtml(status) {
   const label = STATUS_LABEL[status] || status;
   const cls = STATUS_LABEL[status] ? status : 'pending_payment';
   return `<span class="status-badge st-${escapeHtml(cls)}">${escapeHtml(label)}</span>`;
-}
-
-// Shown in place of a cached status the moment a row paints, until the
-// background re-check (see refreshDeviceOrderStatuses) confirms the real
-// value. Never shows a status that might be wrong, even for a second.
-function skeletonBadgeHtml() {
-  return `<span class="status-badge st-checking">Checking…</span>`;
 }
 
 function fmtOrderDate(iso) {
@@ -1751,12 +1741,14 @@ function wireReceiptButtons(onDone) {
 }
 
 /* ---------------- Track-my-order drawer ---------------- */
-// Two lookup paths: (1) instant, local — orders placed from this device,
-// read from the same ORDERS_KEY localStorage list used by checkout;
-// (2) manual tracking-number entry — for a different device or cleared
-// storage, via the get_dytronics_order_by_tracking RPC (SECURITY DEFINER, excludes
-// contact info by design). Both render through the same renderReceiptHtml
-// used at checkout, for visual consistency.
+// Two lookup paths: (1) account order history — for signed-in customers,
+// via the get_my_dytronics_orders RPC (RLS/SECURITY DEFINER scoped to
+// auth.uid(), same source account.html's Order History tab uses, so a
+// shared/borrowed device never shows a previous customer's orders); (2)
+// manual tracking-number entry — works for anyone, signed in or not, via
+// get_dytronics_order_by_tracking (excludes contact info by design). Both
+// render through the same renderReceiptHtml used at checkout, for visual
+// consistency.
 
 function openTrackDrawer() {
   closeCart(); // avoid both drawers open at once (overlapping backdrops, duplicate receipt IDs)
@@ -1773,84 +1765,63 @@ function closeTrackDrawer() {
 
 function renderTrackDrawerHome() {
   const body = document.getElementById('trackBody');
-  const orders = loadDeviceOrders();
-  // Each row paints with a "Checking…" skeleton rather than the cached
-  // status — the cache can be stale (see updateDeviceOrderStatus callers),
-  // and showing it first then silently correcting it a moment later meant
-  // a wrong badge could flash on screen. refreshDeviceOrderStatuses() below
-  // fills in the real status per row once it's confirmed.
-  const listHtml = orders.length
-    ? `<div class="track-section-label">Orders placed from this device</div>` +
-      orders.map(o => `
-        <button type="button" class="device-order-row" data-tracking="${escapeHtml(o.trackingNumber)}">
-          <div class="do-info">
-            <div class="do-track">${escapeHtml(o.trackingNumber)}</div>
-            <div class="do-date">${escapeHtml(fmtOrderDate(o.createdAt))}</div>
-          </div>
-          <div class="do-right">
-            <span id="${doBadgeId(o.trackingNumber)}">${skeletonBadgeHtml()}</span>
-            <div class="do-amt">${fmtNaira(o.amountTotal)}</div>
-          </div>
-        </button>`).join('')
-    : `<div class="track-empty">No orders yet from this browser. Enter a tracking number above to look one up.</div>`;
+  const signedIn = !!currentCustomerId;
 
   body.innerHTML = `
-    <p class="track-intro">Enter your tracking number to check an order, or pick one below if you ordered from this device.</p>
+    <p class="track-intro">Enter your tracking number to check an order${signedIn ? '' : ', or <a href="account.html">sign in</a> to see your full order history'}.</p>
     <div class="track-lookup">
       <input type="text" id="trackInput" placeholder="DYT-XXXXXX" maxlength="10" autocomplete="off" spellcheck="false">
       <button type="button" class="btn btn-solid" id="trackLookupBtn">Track</button>
     </div>
-    ${listHtml}`;
+    ${signedIn ? `<div class="track-section-label">Your orders</div><div id="acctOrdersList"><p class="track-empty">Loading your orders…</p></div>` : ''}`;
 
   document.getElementById('trackLookupBtn').addEventListener('click', () => handleTrackLookup());
   const input = document.getElementById('trackInput');
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleTrackLookup(); });
   input.addEventListener('input', (e) => { e.target.value = e.target.value.toUpperCase(); });
-  body.querySelectorAll('.device-order-row').forEach(row => {
-    row.addEventListener('click', () => {
-      const tn = row.getAttribute('data-tracking');
-      // Always re-query the DB rather than trusting the cached localStorage
-      // status — the cache is only ever refreshed during the ~30s poll right
-      // after checkout, so a device-list tap later could otherwise show a
-      // stale "pending" for an order that's actually been paid since.
-      handleTrackLookup(tn);
-    });
-  });
 
-  if (orders.length) refreshDeviceOrderStatuses(orders);
+  if (signedIn) loadAccountOrders();
 }
 
-// Turns a tracking number into a safe DOM id for its badge span.
-function doBadgeId(trackingNumber) {
-  return 'do-badge-' + String(trackingNumber).replace(/[^A-Za-z0-9_-]/g, '');
-}
-
-// Background re-check for every row on the track-drawer home screen. Fires
-// once per openTrackDrawer() call, in parallel, independent of whichever row
-// the shopper eventually taps. Each row's own skeleton is only replaced once
-// its own lookup resolves — a slow one never blocks the others.
-async function refreshDeviceOrderStatuses(orders) {
-  await Promise.all(orders.map(async (o) => {
-    const badgeEl = document.getElementById(doBadgeId(o.trackingNumber));
-    if (!badgeEl) return; // drawer was closed/re-rendered before this resolved
-    try {
-      const { data, error } = await sb.rpc('get_dytronics_order_by_tracking', { p_tracking_number: o.trackingNumber });
-      const stillThere = document.getElementById(doBadgeId(o.trackingNumber));
-      if (!stillThere) return; // re-check after the await, same reason as above
-      if (!error && data && data.status) {
-        updateDeviceOrderStatus(o.trackingNumber, data.status);
-        stillThere.innerHTML = statusBadgeHtml(data.status);
-      } else {
-        // Not found or malformed response: fall back to the last-known
-        // cached status rather than leaving "Checking…" spinning forever.
-        stillThere.innerHTML = statusBadgeHtml(o.status);
-      }
-    } catch (err) {
-      console.error('Background status check failed for', o.trackingNumber, err);
-      const stillThere = document.getElementById(doBadgeId(o.trackingNumber));
-      if (stillThere) stillThere.innerHTML = statusBadgeHtml(o.status);
+// Populates the signed-in "Your orders" list. get_my_dytronics_orders is
+// RLS/SECURITY-DEFINER scoped to the calling auth.uid(), so this only ever
+// returns orders actually linked to the signed-in account — never a guest
+// order or another customer's, regardless of what's cached on this device.
+async function loadAccountOrders() {
+  const list = document.getElementById('acctOrdersList');
+  if (!list) return; // drawer closed/re-rendered before this ran
+  try {
+    const { data, error } = await sb.rpc('get_my_dytronics_orders');
+    const stillThere = document.getElementById('acctOrdersList');
+    if (!stillThere) return; // re-check after the await
+    if (error) {
+      console.error('get_my_dytronics_orders failed:', error);
+      stillThere.innerHTML = `<p class="track-empty">Couldn't load your orders — please try again.</p>`;
+      return;
     }
-  }));
+    if (!data || !data.length) {
+      stillThere.innerHTML = `<p class="track-empty">No orders linked to your account yet.</p>`;
+      return;
+    }
+    stillThere.innerHTML = data.map(o => `
+      <button type="button" class="device-order-row" data-tracking="${escapeHtml(o.tracking_number)}">
+        <div class="do-info">
+          <div class="do-track">${escapeHtml(o.tracking_number)}</div>
+          <div class="do-date">${escapeHtml(fmtOrderDate(o.created_at))}</div>
+        </div>
+        <div class="do-right">
+          ${statusBadgeHtml(o.status)}
+          <div class="do-amt">${fmtNaira(o.amount_total)}</div>
+        </div>
+      </button>`).join('');
+    stillThere.querySelectorAll('.device-order-row').forEach(row => {
+      row.addEventListener('click', () => handleTrackLookup(row.getAttribute('data-tracking')));
+    });
+  } catch (err) {
+    console.error('Loading account orders failed:', err);
+    const stillThere = document.getElementById('acctOrdersList');
+    if (stillThere) stillThere.innerHTML = `<p class="track-empty">Couldn't load your orders — please try again.</p>`;
+  }
 }
 
 async function handleTrackLookup(presetValue) {
