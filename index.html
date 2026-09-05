@@ -1246,6 +1246,15 @@ async function loadProducts() {
 // them to another device/browser. Guests (no session) get localStorage
 // only, exactly as before — this is purely additive.
 const CART_KEY = 'dytronics_cart_v1';
+// Records WHOSE cart is currently sitting in localStorage: a customer_id if
+// it was last saved while that customer was signed in, or the literal
+// string 'guest' if it was built up with nobody signed in. This is what lets
+// reconcileCartWithCloud() tell "this is genuinely an unclaimed guest cart,
+// safe to attach to whoever logs in next" apart from "this is a leftover
+// cart from a DIFFERENT account that happens to still be sitting in this
+// browser" — without it, a stale cart from a previous login on this device
+// can get handed to the next person who signs in.
+const CART_OWNER_KEY = 'dytronics_cart_owner_v1';
 let cart = [];
 
 function loadCart() {
@@ -1258,7 +1267,13 @@ function loadCart() {
   }
 }
 function saveCart() {
-  try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) { /* storage unavailable, cart stays in-memory for this session */ }
+  try {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    localStorage.setItem(CART_OWNER_KEY, currentCustomerId || 'guest');
+  } catch (e) { /* storage unavailable, cart stays in-memory for this session */ }
+}
+function getCartOwnerMarker() {
+  try { return localStorage.getItem(CART_OWNER_KEY); } catch (e) { return null; }
 }
 function cartLineKey(productId, variant) { return productId + '::' + (variant || ''); }
 
@@ -1322,11 +1337,28 @@ async function reconcileCartWithCloud() {
   if (!currentCustomerId) return;
   const cloudLines = await fetchCloudCartLines();
   if (cloudLines === null) return; // fetch failed — leave local cart untouched
+
   if (cloudLines.length > 0) {
+    // This customer already has a saved cart in the cloud — that's the
+    // source of truth, always wins.
     cart = cloudLines;
     saveCart();
   } else if (cart.length > 0) {
-    for (const line of cart) await cloudUpsertLine(line);
+    const owner = getCartOwnerMarker();
+    if (owner && owner !== 'guest' && owner !== currentCustomerId) {
+      // The local cart was last saved for a DIFFERENT signed-in customer
+      // (e.g. this is the phone owner's leftover cart and someone else has
+      // just logged in). It is not this customer's cart and must not be
+      // pushed up to their account — start them with an empty cart instead.
+      cart = [];
+      saveCart();
+    } else {
+      // Either an unclaimed guest cart (owner === 'guest'/null) or this
+      // same customer's own local cart re-syncing — safe to push up as
+      // their first cloud cart.
+      for (const line of cart) await cloudUpsertLine(line);
+      saveCart();
+    }
   }
   renderCartBadge();
   if (!document.getElementById('cartBackdrop').hidden) renderCartDrawer();
@@ -2082,8 +2114,15 @@ sb.auth.onAuthStateChange(async (event, session) => {
     await reconcileCartWithCloud();
   } else if (event === 'SIGNED_OUT') {
     currentCustomerId = null;
-    // Cart stays as whatever's in localStorage from here — that's the
-    // guest cart going forward, same as before accounts existed.
+    // Clear the local cart on sign-out too. On a shared/borrowed device,
+    // leaving it behind meant the next person (signing in as themselves,
+    // or just browsing as a guest) could inherit whatever the previous
+    // customer had in their cart. Their cart is still safe in the cloud
+    // under their account — it'll come back next time they sign in.
+    cart = [];
+    saveCart();
+    renderCartBadge();
+    if (!document.getElementById('cartBackdrop').hidden) renderCartDrawer();
   }
 });
 
