@@ -1425,6 +1425,19 @@ function removeLine(key) {
   if (line) cloudDeleteLine(line.id, line.variant);
 }
 
+// Called only once a payment is server-confirmed as 'paid' (see
+// pollPaymentStatus). Clears the local cart and, for signed-in customers,
+// the cloud cart too — otherwise the next reconcileCartWithCloud() would
+// just repopulate the local cart from the still-full cloud copy.
+function clearCart() {
+  const hadCloudLines = currentCustomerId ? cart.slice() : [];
+  cart = [];
+  saveCart();
+  renderCartBadge();
+  if (!document.getElementById('cartBackdrop').hidden) renderCartDrawer();
+  for (const line of hadCloudLines) cloudDeleteLine(line.id, line.variant);
+}
+
 function cartCount() { return cart.reduce((sum, l) => sum + l.qty, 0); }
 function cartSubtotal() { return cart.reduce((sum, l) => sum + l.qty * l.price, 0); }
 
@@ -2039,6 +2052,7 @@ async function pollPaymentStatus(orderRecord, attempt) {
     if (!error && data && data.status === 'paid') {
       orderRecord.status = 'paid';
       updateDeviceOrderStatus(orderRecord.trackingNumber, 'paid');
+      clearCart(); // only now — payment is server-confirmed, not just submitted
       const badge = document.getElementById('receiptStatusBadge');
       const note = document.getElementById('receiptNote');
       if (badge) badge.innerHTML = statusBadgeHtml('paid');
