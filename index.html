@@ -2036,7 +2036,7 @@ function renderTrackDrawerHome() {
   body.innerHTML = `
     <p class="track-intro">Enter your tracking number to check an order${signedIn ? '' : ', or <a href="account.html">sign in</a> to see your full order history'}.</p>
     <div class="track-lookup">
-      <input type="text" id="trackInput" placeholder="DYT-XXXXXX" maxlength="10" autocomplete="off" spellcheck="false">
+      <input type="text" id="trackInput" placeholder="DYT-XXXXX-XXXXX" maxlength="16" autocomplete="off" spellcheck="false">
       <button type="button" class="btn btn-solid" id="trackLookupBtn">Track</button>
     </div>
     ${signedIn ? `<div class="track-section-label">Your orders</div><div id="acctOrdersList"><p class="track-empty">Loading your orders…</p></div>` : ''}`;
@@ -2107,7 +2107,7 @@ async function handleTrackLookup(presetValue) {
     // !data is our "not found" signal.
     const { data, error } = await sb.rpc('get_dytronics_order_by_tracking', { p_tracking_number: raw });
     if (error || !data) {
-      renderTrackLookupMessage("We couldn't find an order with that tracking number. Double check it, it should look like DYT-XXXXXX.");
+      renderTrackLookupMessage("We couldn't find an order with that tracking number. Double check it, it should look like DYT-XXXXX-XXXXX.");
       return;
     }
     showTrackReceipt(adaptTrackingResult(data));
