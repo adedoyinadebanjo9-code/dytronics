@@ -29,121 +29,6 @@
     margin: 0 0 16px 0;
   }
 
-  /* ---------- Price filter ---------- */
-  .price-filter-bar{
-    background:var(--paper-deep);
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-    padding:18px 5vw;
-  }
-  .price-filter-inner{
-    max-width:560px;
-    margin:0 auto;
-    display:flex;
-    align-items:center;
-    gap:14px;
-    flex-wrap:wrap;
-  }
-  .price-filter-label{
-    font-family:'Inter', sans-serif;
-    font-size:11px;
-    letter-spacing:0.16em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-    white-space:nowrap;
-  }
-  .price-filter-range{
-    flex:1;
-    min-width:220px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  .price-filter-value{
-    font-family:'Inter', sans-serif;
-    font-size:13px;
-    font-weight:600;
-    color:var(--ink);
-    min-width:72px;
-    text-align:center;
-    white-space:nowrap;
-  }
-  .price-filter-sliders{
-    position:relative;
-    flex:1;
-    height:28px;
-  }
-  .price-filter-track{
-    position:absolute;
-    top:50%;
-    left:0;
-    right:0;
-    height:3px;
-    background:var(--line);
-    transform:translateY(-50%);
-    border-radius:99px;
-  }
-  .price-filter-track-fill{
-    position:absolute;
-    top:0;
-    height:100%;
-    background:var(--gold);
-    border-radius:99px;
-  }
-  .price-range-input{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    margin:0;
-    height:28px;
-    background:transparent;
-    pointer-events:none;
-    -webkit-appearance:none;
-    appearance:none;
-  }
-  .price-range-input::-webkit-slider-runnable-track{ background:transparent; }
-  .price-range-input::-moz-range-track{ background:transparent; }
-  .price-range-input::-webkit-slider-thumb{
-    pointer-events:auto;
-    -webkit-appearance:none;
-    appearance:none;
-    width:16px;
-    height:16px;
-    border-radius:50%;
-    background:var(--ink);
-    border:2px solid var(--paper);
-    box-shadow:0 0 0 1px var(--line);
-    cursor:pointer;
-  }
-  .price-range-input::-moz-range-thumb{
-    pointer-events:auto;
-    width:16px;
-    height:16px;
-    border-radius:50%;
-    background:var(--ink);
-    border:2px solid var(--paper);
-    box-shadow:0 0 0 1px var(--line);
-    cursor:pointer;
-  }
-  .price-filter-reset{
-    font-family:'Inter', sans-serif;
-    font-size:11px;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-    background:none;
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:6px 12px;
-    cursor:pointer;
-    white-space:nowrap;
-  }
-  .price-filter-reset:hover{ color:var(--ink); border-color:var(--ink-soft); }
-  .card.price-hidden{ display:none !important; }
-  @media (max-width: 640px){
-    .price-filter-label{ width:100%; }
-  }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
@@ -924,7 +809,7 @@
   </header>
 
   <section class="hero" id="top">
-    <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg">
       <source src="hero.mp4" type="video/mp4">
     </video>
     <div class="hero-inner">
@@ -949,23 +834,6 @@
   <div class="intro">
     <span class="eyebrow">Bring your projects and innovations to life🙂‍↔️</span>
     <h2>These are not used Nigerian components <em>these are</em> the reason engineering is possible in nigeria.</h2>
-  </div>
-
-  <!-- Price filter: narrows visible products across all category sections below -->
-  <div class="price-filter-bar" id="priceFilterBar">
-    <div class="price-filter-inner">
-      <span class="price-filter-label">Filter by price</span>
-      <div class="price-filter-range">
-        <span class="price-filter-value" id="priceMinLabel">₦0</span>
-        <div class="price-filter-sliders">
-          <div class="price-filter-track"><div class="price-filter-track-fill" id="priceFilterFill"></div></div>
-          <input type="range" id="priceMinInput" class="price-range-input" aria-label="Minimum price">
-          <input type="range" id="priceMaxInput" class="price-range-input" aria-label="Maximum price">
-        </div>
-        <span class="price-filter-value" id="priceMaxLabel">₦0</span>
-      </div>
-      <button class="price-filter-reset" id="priceFilterReset" hidden>Reset</button>
-    </div>
   </div>
 
   <!-- Category sections are rendered dynamically from dytronics_categories -->
@@ -1309,126 +1177,6 @@ document.getElementById('categorySections').addEventListener('click', (e) => {
   const product = productsById[card.dataset.id];
   if (product) openModal(product);
 });
-
-/* ---------------- Price filter ---------------- */
-// Range is derived from whatever products actually loaded, so it stays
-// accurate as the catalog's price spread changes over time instead of
-// a hardcoded range going stale.
-function initPriceFilter() {
-  const minInput = document.getElementById('priceMinInput');
-  const maxInput = document.getElementById('priceMaxInput');
-  const resetBtn = document.getElementById('priceFilterReset');
-  if (!minInput || !maxInput) return;
-
-  const prices = Object.values(productsById)
-    .map(p => Number(p.price))
-    .filter(n => !isNaN(n) && n > 0);
-  if (!prices.length) {
-    document.getElementById('priceFilterBar').style.display = 'none';
-    return;
-  }
-
-  const floor = Math.floor(Math.min(...prices) / 100) * 100;
-  const ceil = Math.ceil(Math.max(...prices) / 100) * 100;
-  const step = Math.max(1, Math.round((ceil - floor) / 100)) || 1;
-
-  [minInput, maxInput].forEach(el => {
-    el.min = floor;
-    el.max = ceil;
-    el.step = step;
-  });
-  minInput.value = floor;
-  maxInput.value = ceil;
-
-  updatePriceFilterUI();
-
-  minInput.addEventListener('input', () => {
-    if (Number(minInput.value) > Number(maxInput.value) - step) {
-      minInput.value = Number(maxInput.value) - step;
-    }
-    updatePriceFilterUI();
-    applyPriceFilter();
-  });
-  maxInput.addEventListener('input', () => {
-    if (Number(maxInput.value) < Number(minInput.value) + step) {
-      maxInput.value = Number(minInput.value) + step;
-    }
-    updatePriceFilterUI();
-    applyPriceFilter();
-  });
-  resetBtn.addEventListener('click', () => {
-    minInput.value = floor;
-    maxInput.value = ceil;
-    updatePriceFilterUI();
-    applyPriceFilter();
-  });
-}
-
-function updatePriceFilterUI() {
-  const minInput = document.getElementById('priceMinInput');
-  const maxInput = document.getElementById('priceMaxInput');
-  const minLabel = document.getElementById('priceMinLabel');
-  const maxLabel = document.getElementById('priceMaxLabel');
-  const fill = document.getElementById('priceFilterFill');
-  const resetBtn = document.getElementById('priceFilterReset');
-  if (!minInput || !maxInput) return;
-
-  const floor = Number(minInput.min);
-  const ceil = Number(minInput.max);
-  const curMin = Number(minInput.value);
-  const curMax = Number(maxInput.value);
-
-  minLabel.textContent = NGN(curMin);
-  maxLabel.textContent = NGN(curMax);
-
-  const range = (ceil - floor) || 1;
-  const leftPct = ((curMin - floor) / range) * 100;
-  const rightPct = ((curMax - floor) / range) * 100;
-  fill.style.left = leftPct + '%';
-  fill.style.width = (rightPct - leftPct) + '%';
-
-  const isDefault = curMin <= floor && curMax >= ceil;
-  resetBtn.hidden = isDefault;
-}
-
-function applyPriceFilter() {
-  const minInput = document.getElementById('priceMinInput');
-  const maxInput = document.getElementById('priceMaxInput');
-  if (!minInput || !maxInput) return;
-  const curMin = Number(minInput.value);
-  const curMax = Number(maxInput.value);
-
-  document.querySelectorAll('.category[data-category]').forEach(section => {
-    const grid = section.querySelector('[data-grid]');
-    const countEl = section.querySelector('[data-count]');
-    if (!grid) return;
-    const cards = grid.querySelectorAll('.card[data-id]');
-    if (!cards.length) return; // section already showing its own empty/error note
-
-    let visible = 0;
-    cards.forEach(card => {
-      const product = productsById[card.dataset.id];
-      const price = product ? Number(product.price) : NaN;
-      const inRange = isNaN(price) || (price >= curMin && price <= curMax);
-      card.classList.toggle('price-hidden', !inRange);
-      if (inRange) visible++;
-    });
-
-    let emptyNote = grid.querySelector('.price-empty-note');
-    if (visible === 0) {
-      if (!emptyNote) {
-        emptyNote = document.createElement('div');
-        emptyNote.className = 'empty-note price-empty-note';
-        emptyNote.textContent = 'No pieces in this price range.';
-        grid.appendChild(emptyNote);
-      }
-    } else if (emptyNote) {
-      emptyNote.remove();
-    }
-
-    if (countEl) countEl.textContent = pluralize(visible);
-  });
-}
 
 async function loadCategoriesAndRenderShell() {
   try {
@@ -2512,7 +2260,7 @@ renderCartBadge();
 // rows into full cart lines, so it waits until products are loaded. It also
 // needs to know if a session already exists on page load (e.g. customer
 // signed in on a previous visit and never signed out).
-loadCategoriesAndRenderShell().then(loadProducts).then(initPriceFilter).then(async () => {
+loadCategoriesAndRenderShell().then(loadProducts).then(async () => {
   try {
     const { data: { session } } = await sb.auth.getSession();
     currentCustomerId = session ? session.user.id : null;
@@ -2545,6 +2293,25 @@ sb.auth.onAuthStateChange(async (event, session) => {
 // If hero video has no real source, keep the gradient background only
 const heroVideo = document.querySelector('.hero-video');
 heroVideo.addEventListener('error', () => { heroVideo.style.display = 'none'; }, true);
+
+// Autoplay hardening. Some phones (iOS Low Power Mode, data savers, battery
+// savers) refuse to autoplay even muted video. Set muted via the property (iOS
+// can ignore the attribute alone), try play(), and retry on the first touch,
+// scroll, key press or tab return. The poster frame shows in the meantime.
+(function keepHeroPlaying() {
+  heroVideo.muted = true;
+  heroVideo.defaultMuted = true;
+  const tryPlay = () => {
+    if (!heroVideo.paused) return;
+    const p = heroVideo.play();
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+  };
+  tryPlay();
+  heroVideo.addEventListener('loadeddata', tryPlay);
+  ['touchstart', 'pointerdown', 'scroll', 'keydown'].forEach(ev =>
+    window.addEventListener(ev, tryPlay, { once: true, passive: true }));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) tryPlay(); });
+})();
 
 })();
 </script>
