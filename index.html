@@ -1468,6 +1468,20 @@ async function loadCategoriesAndRenderShell() {
     .map(c => `<a href="#${escapeHtml(c.slug)}">${escapeHtml(c.label)}</a>`).join('');
 }
 
+// Deep link: /?product=<product id> opens that product's popup. Used by the
+// "View in shop" button on the static product pages (/p/<slug>/).
+// Unknown or missing ids are ignored, so a stale link just shows the shop.
+function openProductFromUrl() {
+  try {
+    const id = new URLSearchParams(window.location.search).get('product');
+    if (!id) return;
+    const product = productsById[id];
+    if (product) openModal(product);
+  } catch (err) {
+    console.error('Product deep link failed:', err);
+  }
+}
+
 async function loadProducts() {
   const sections = document.querySelectorAll('.category[data-category]');
   try {
@@ -1497,6 +1511,7 @@ async function loadProducts() {
       grid.innerHTML = items.map(cardHtml).join('');
       revealCards(grid);
     });
+    openProductFromUrl();
   } catch (err) {
     sections.forEach(section => {
       const grid = section.querySelector('[data-grid]');

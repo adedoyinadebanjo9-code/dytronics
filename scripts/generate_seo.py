@@ -253,7 +253,7 @@ def product_page(p, slug, cat_label):
             + (f'<span class="eyebrow">{e(cat_label)}</span>\n' if cat_label else "")
             + f'<h1>{e(p["name"])}</h1>\n{price_html}\n{stock_html}\n'
             f'<div class="cta"><a class="btn btn-solid" href="{e(whatsapp_link(p))}" rel="noopener">Order on WhatsApp</a>'
-            '<a class="btn" href="/#shop">View in shop</a></div>\n'
+            f'<a class="btn" href="/?product={e(p["id"])}">View in shop</a></div>\n'
             f'{desc_html}{spec_html}<h2>Delivery</h2><p>{e(DELIVERY)}</p>'
             f'<h2>Returns</h2><p>{e(RETURNS)}</p>\n</div>\n</div>\n</main>')
     return page(title, meta_desc, url, "product", image, [jsonld(product_ld), jsonld(crumbs_ld)], body)
