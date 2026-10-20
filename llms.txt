@@ -1,0 +1,17 @@
+# DYTRONICS
+
+> DYTRONICS is a Lagos, Nigeria electronics shop selling components, modules, tools and repair parts. Same-day dispatch in Lagos and nationwide shipping.
+
+## Key pages
+- [Home and shop](https://www.dytronics.name.ng/): storefront with category browsing and cart
+- [All products](https://www.dytronics.name.ng/products/): every product with its price
+- [Sitemap](https://www.dytronics.name.ng/sitemap.xml)
+- [Privacy](https://www.dytronics.name.ng/privacy.html)
+- [Terms](https://www.dytronics.name.ng/terms.html)
+
+## Good to know
+- Every product has its own page at https://www.dytronics.name.ng/p/<product-name>/ with price, stock status and description.
+- Prices are in Nigerian naira (NGN).
+- Orders can be placed through the website cart or on WhatsApp (+234 705 437 8193).
+- Delivery: Lagos usually 1-3 days after order confirmation; nationwide typically 3-5 working days.
+- The account and admin pages are private and not meant for indexing.
