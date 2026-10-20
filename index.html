@@ -1071,6 +1071,9 @@
 const SUPABASE_URL = "https://oqlbtbdmobhgxpqbyaeq.supabase.co";
 const SUPABASE_KEY = "sb_publishable_wS7kpnC5GOcHNkgEhbp1eQ_ND2DxAnN";
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// Order limits (mirror create_dytronics_order in the database)
+const MAX_LINE_QTY = 500;   // per product line
+const MAX_CART_LINES = 30;  // distinct lines per order
 
 // Tracks whether a customer is signed in and who they are, so the cart
 // logic below knows whether to also write through to the cloud
@@ -1249,7 +1252,7 @@ function updateModalCta(product) {
       note.textContent = 'Added to cart.';
       note.style.color = '';
     } else {
-      note.textContent = "Can't add more. You already have the most we have in stock in your cart.";
+      note.textContent = cartLimitMessage(result.reason, "Can't add more. You already have the most we have in stock in your cart.");
       note.style.color = '#a53b3b';
     }
   };
@@ -1273,7 +1276,7 @@ function handleCardAddToCart(product) {
   }
   const result = addToCart(product, null, 1);
   if (!result.ok) {
-    alert("Can't add more. That's the most we have in stock.");
+    alert(cartLimitMessage(result.reason, "Can't add more. That's the most we have in stock."));
   } else {
     openCart();
   }
@@ -1573,7 +1576,7 @@ async function fetchCloudCartLines() {
       const stock = (product.stock === null || product.stock === undefined) ? Infinity : Number(product.stock);
       return {
         id: product.id, name: product.name, price: Number(product.price) || 0,
-        variant: r.variant || null, qty: Math.min(r.quantity, stock), image_url: product.image_url || '', stock
+        variant: r.variant || null, qty: Math.min(r.quantity, stock, MAX_LINE_QTY), image_url: product.image_url || '', stock
       };
     }).filter(Boolean);
   } catch (err) {
@@ -1617,13 +1620,20 @@ async function reconcileCartWithCloud() {
   if (!document.getElementById('cartBackdrop').hidden) renderCartDrawer();
 }
 
+function cartLimitMessage(reason, fallback) {
+  if (reason === 'lines') return 'Your cart is full (' + MAX_CART_LINES + ' different items max per order). Place this order first, then start another.';
+  if (reason === 'max') return 'Maximum ' + MAX_LINE_QTY + ' of one item per order. For bigger quantities, message us on WhatsApp.';
+  return fallback;
+}
+
 function addToCart(product, variant, qty) {
   const stock = (product.stock === null || product.stock === undefined) ? Infinity : Number(product.stock);
   const key = cartLineKey(product.id, variant);
   const line = cart.find(l => cartLineKey(l.id, l.variant) === key);
   const currentQty = line ? line.qty : 0;
-  const nextQty = Math.min(currentQty + qty, stock);
-  if (nextQty <= currentQty) return { ok: false, reason: 'stock' };
+  const nextQty = Math.min(currentQty + qty, stock, MAX_LINE_QTY);
+  if (!line && cart.length >= MAX_CART_LINES) return { ok: false, reason: 'lines' };
+  if (nextQty <= currentQty) return { ok: false, reason: (currentQty >= MAX_LINE_QTY ? 'max' : 'stock') };
   let resultLine;
   if (line) {
     line.qty = nextQty;
@@ -1658,7 +1668,7 @@ function changeQty(key, delta) {
     renderCartBadge();
     cloudDeleteLine(line.id, line.variant);
     return;
-  } else if (next > stock) {
+  } else if (next > stock || next > MAX_LINE_QTY) {
     return; // + button is disabled at the cap already; this is a safety no-op
   } else {
     line.qty = next;
@@ -1712,7 +1722,7 @@ function renderCartDrawer() {
   foot.hidden = false;
   body.innerHTML = cart.map(line => {
     const key = cartLineKey(line.id, line.variant);
-    const atStockCap = line.qty >= line.stock;
+    const atStockCap = line.qty >= line.stock || line.qty >= MAX_LINE_QTY;
     return `
       <div class="cart-row" data-key="${escapeHtml(key)}">
         <img src="${escapeHtml(line.image_url)}" alt="">
@@ -1723,7 +1733,7 @@ function renderCartDrawer() {
           <div class="qty-stepper">
             <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
             <span>${line.qty}</span>
-            <button type="button" data-qty="1" ${atStockCap ? 'disabled' : ''} aria-label="Increase quantity" title="${atStockCap ? 'Only ' + line.stock + ' in stock' : ''}">+</button>
+            <button type="button" data-qty="1" ${atStockCap ? 'disabled' : ''} aria-label="Increase quantity" title="${atStockCap ? (line.qty >= MAX_LINE_QTY ? 'Maximum ' + MAX_LINE_QTY + ' per item' : 'Only ' + line.stock + ' in stock') : ''}">+</button>
           </div>
           ${atStockCap ? `<div class="cart-stock-note">Max available stock reached.</div>` : ''}
           <button type="button" class="cart-remove" data-remove>Remove</button>
@@ -1852,22 +1862,22 @@ function checkoutFormHtml() {
     <form id="checkoutForm" novalidate>
       <div class="checkout-field" data-field="name">
         <label for="co_name">Full name</label>
-        <input id="co_name" type="text" autocomplete="name">
+        <input id="co_name" type="text" autocomplete="name" maxlength="100">
         <div class="err-msg">Enter your full name.</div>
       </div>
       <div class="checkout-field" data-field="phone">
         <label for="co_phone">Phone number</label>
-        <input id="co_phone" type="tel" autocomplete="tel" placeholder="e.g. 0811 641 2960">
+        <input id="co_phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="e.g. 0811 641 2960">
         <div class="err-msg">Enter a phone number we can reach you on.</div>
       </div>
       <div class="checkout-field" data-field="email">
         <label for="co_email">Email</label>
-        <input id="co_email" type="email" autocomplete="email">
+        <input id="co_email" type="email" autocomplete="email" maxlength="254">
         <div class="err-msg">Enter a valid email. It's needed to process payment.</div>
       </div>
       <div class="checkout-field" data-field="address">
         <label for="co_address">Shipping address</label>
-        <textarea id="co_address" autocomplete="street-address" placeholder="Street, area, city, state"></textarea>
+        <textarea id="co_address" autocomplete="street-address" maxlength="500" placeholder="Street, area, city, state"></textarea>
         <div class="err-msg">Enter the address we should ship to.</div>
       </div>
       <p class="checkout-submit-err" id="checkoutSubmitErr"></p>
@@ -1885,26 +1895,105 @@ function showCheckoutView() {
   view.innerHTML = checkoutFormHtml();
   document.getElementById('checkoutBack').addEventListener('click', showCartItemsView);
   document.getElementById('checkoutForm').addEventListener('submit', submitCheckout);
+  wireCheckoutLiveValidation();
 }
 
-function setFieldError(field, hasError) {
+function setFieldError(field, hasError, msg) {
   const el = document.querySelector(`.checkout-field[data-field="${field}"]`);
-  if (el) el.classList.toggle('has-error', !!hasError);
+  if (!el) return;
+  el.classList.toggle('has-error', !!hasError);
+  if (hasError && msg) {
+    const m = el.querySelector('.err-msg');
+    if (m) m.textContent = msg;
+  }
 }
+
+// Nigerian mobile numbers: 0 + [789] + [01] + 8 digits (070x, 080x, 081x, 090x, 091x),
+// e.g. 0811 641 2960. Also accepts +234 / 234 forms and a missing leading 0, and
+// returns the local 11-digit form ("08116412960"), or null if it isn't valid.
+function normalizeNgPhone(raw) {
+  let d = String(raw || '').trim().replace(/[\s\-().]/g, '');
+  if (d.startsWith('+')) d = d.slice(1);
+  if (!/^\d+$/.test(d)) return null;
+  if (/^234\d{10}$/.test(d)) d = '0' + d.slice(3);
+  else if (/^[789]\d{9}$/.test(d)) d = '0' + d;
+  return /^0[789][01]\d{8}$/.test(d) ? d : null;
+}
+
+// Rules mirror the limits enforced in create_dytronics_order (name 1-100, phone, email
+// <=254, address 5-500). Each returns '' when OK, else a friendly message.
+const CHECKOUT_RULES = {
+  name(v) {
+    v = v.trim();
+    if (v.length < 2) return 'Enter your full name.';
+    if (v.length > 100) return 'That name is too long (100 characters max).';
+    return '';
+  },
+  phone(v) {
+    v = v.trim();
+    if (!v) return 'Enter a phone number we can reach you on.';
+    return normalizeNgPhone(v) ? '' : 'Enter a valid Nigerian mobile number, e.g. 0811 641 2960 or +234 811 641 2960.';
+  },
+  email(v) {
+    v = v.trim();
+    if (!v) return "Enter your email. It's needed to process payment.";
+    if (v.length > 254) return 'That email is too long.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "That email doesn't look right. Check for typos, e.g. name@gmail.com.";
+    return '';
+  },
+  address(v) {
+    v = v.trim();
+    if (v.length < 10) return 'Enter the full address: street, area, city and state.';
+    if (v.length > 500) return 'That address is too long (500 characters max).';
+    return '';
+  }
+};
 
 function validateCheckoutForm() {
-  const name = document.getElementById('co_name').value.trim();
-  const phone = document.getElementById('co_phone').value.trim();
-  const email = document.getElementById('co_email').value.trim();
-  const address = document.getElementById('co_address').value.trim();
-  const emailValid = !!email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const fields = ['name', 'phone', 'email', 'address'];
+  const val = {};
+  fields.forEach(f => { val[f] = document.getElementById('co_' + f).value.trim(); });
 
-  setFieldError('name', !name);
-  setFieldError('phone', !phone);
-  setFieldError('address', !address);
-  setFieldError('email', !emailValid);
+  let firstBad = null;
+  fields.forEach(f => {
+    const msg = CHECKOUT_RULES[f](val[f]);
+    setFieldError(f, !!msg, msg);
+    if (msg && !firstBad) firstBad = f;
+  });
+  if (firstBad) document.getElementById('co_' + firstBad).focus();
 
-  return { valid: !!name && !!phone && !!address && emailValid, name, phone, email, address };
+  return {
+    valid: !firstBad,
+    name: val.name,
+    phone: normalizeNgPhone(val.phone) || val.phone, // stored in local 11-digit form
+    email: val.email,
+    address: val.address
+  };
+}
+
+// Validate as the shopper goes: check a field when they leave it, and once a
+// field is showing an error, re-check on every keystroke so it clears as soon as it's fixed.
+function wireCheckoutLiveValidation() {
+  ['name', 'phone', 'email', 'address'].forEach(f => {
+    const input = document.getElementById('co_' + f);
+    if (!input) return;
+    const check = () => {
+      const msg = CHECKOUT_RULES[f](input.value);
+      setFieldError(f, !!msg, msg);
+    };
+    input.addEventListener('blur', () => {
+      if (!input.value.trim()) return;
+      if (f === 'phone') {
+        const n = normalizeNgPhone(input.value);
+        if (n) input.value = n.replace(/^(\d{4})(\d{3})(\d{4})$/, '$1 $2 $3');
+      }
+      check();
+    });
+    input.addEventListener('input', () => {
+      const wrap = input.closest('.checkout-field');
+      if (wrap && wrap.classList.contains('has-error')) check();
+    });
+  });
 }
 
 // ---- Device-local order memory + receipt rendering ----
@@ -2173,6 +2262,12 @@ async function submitCheckout(e) {
 
   const { valid, name, phone, email, address } = validateCheckoutForm();
   if (!valid) return;
+
+  if (cart.length > MAX_CART_LINES || cart.some(l => l.qty > MAX_LINE_QTY)) {
+    errEl.textContent = 'Your cart is over the order limit (' + MAX_CART_LINES + ' items, ' + MAX_LINE_QTY + ' of each). Please trim it and try again.';
+    errEl.classList.add('show');
+    return;
+  }
 
   const btn = document.getElementById('checkoutSubmitBtn');
   btn.disabled = true;
