@@ -1881,8 +1881,8 @@ function checkoutFormHtml() {
         <div class="err-msg">Enter the address we should ship to.</div>
       </div>
       <p class="checkout-submit-err" id="checkoutSubmitErr"></p>
-      <button type="submit" class="btn btn-solid cart-checkout-btn" id="checkoutSubmitBtn">Place order</button>
-      <p class="cart-note">You won't be charged yet. This saves your order and gets you a tracking number. We'll follow up on WhatsApp to arrange payment.</p>
+      <button type="submit" class="btn btn-solid cart-checkout-btn" id="checkoutSubmitBtn">Place order &amp; pay</button>
+      <p class="cart-note">You'll pay securely with Paystack in the next step. Your order is saved first and you get a tracking number, so if the payment window closes you can retry. Unpaid orders are released after 6 hours.</p>
     </form>`;
 }
 
@@ -2342,7 +2342,7 @@ try {
     errEl.textContent = "Couldn't place your order. " + (err.message || 'Please check your connection and try again.');
     errEl.classList.add('show');
     btn.disabled = false;
-    btn.textContent = 'Place order';
+    btn.textContent = 'Place order & pay';
     console.error('Checkout failed:', err);
   }
 }
