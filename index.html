@@ -812,9 +812,7 @@
   </header>
 
   <section class="hero" id="top">
-    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg">
-      <source src="hero.mp4" type="video/mp4">
-    </video>
+    <video class="hero-video" muted loop playsinline preload="none" poster="hero-poster.jpg" data-src="hero.mp4"></video>
     <div class="hero-inner">
       <div class="hero-eyebrow">
         <p>Naija Electronics Components World</p>
@@ -944,7 +942,7 @@
     </div>
   </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2"></script>
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script>
 (() => {
@@ -2323,7 +2321,22 @@ heroVideo.addEventListener('error', () => { heroVideo.style.display = 'none'; },
     const p = heroVideo.play();
     if (p && typeof p.catch === 'function') p.catch(() => {});
   };
-  tryPlay();
+  // The poster is the first paint. The 1 MB video is attached only after the
+  // page has finished loading, and never for Save-Data or reduced-motion
+  // visitors (they keep the poster).
+  const conn = navigator.connection;
+  const skipVideo = !!(conn && conn.saveData) ||
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let attached = false;
+  const attachVideo = () => {
+    if (attached || skipVideo || !heroVideo.dataset.src) return;
+    attached = true;
+    heroVideo.src = heroVideo.dataset.src;
+    heroVideo.load();
+    tryPlay();
+  };
+  if (document.readyState === 'complete') attachVideo();
+  else window.addEventListener('load', attachVideo, { once: true });
   heroVideo.addEventListener('loadeddata', tryPlay);
   ['touchstart', 'pointerdown', 'scroll', 'keydown'].forEach(ev =>
     window.addEventListener(ev, tryPlay, { once: true, passive: true }));
