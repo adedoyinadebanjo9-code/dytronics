@@ -22,6 +22,9 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ElectronicsStore","name":"DYTRONICS","url":"https://www.dytronics.name.ng/","logo":"https://www.dytronics.name.ng/apple-touch-icon.png","image":"https://www.dytronics.name.ng/apple-touch-icon.png","description":"Lagos-based electronics parts and repair shop. Genuine components, tested before dispatch.","telephone":"+2347054378193","address":{"@type":"PostalAddress","addressLocality":"Lagos","addressCountry":"NG"},"areaServed":"NG"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://oqlbtbdmobhgxpqbyaeq.supabase.co" crossorigin>
+<link rel="preconnect" href="https://oqlbtbdmobhgxpqbyaeq.supabase.co">
+<link rel="preload" as="image" href="hero-poster.jpg" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tokens.css">
 <style>
@@ -1022,7 +1025,7 @@ function addToCartControlHtml(product) {
 
 function cardHtml(product, i) {
   const media = product.image_url
-    ? `<img src="${escapeHtml(product.image_url)}" alt="${escapeHtml(product.name)}">`
+    ? `<img src="${escapeHtml(product.image_url)}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async">`
     : `<div class="ph ${PH_CLASSES[i % PH_CLASSES.length]}"></div>`;
   const soldOut = isSoldOut(product);
   return `
@@ -1230,15 +1233,25 @@ function openProductFromUrl() {
   }
 }
 
-async function loadProducts() {
+// Starts the product query right away. Called at startup so it runs in
+// parallel with the category query instead of waiting behind it.
+// (.then() is what actually fires the request; the builder alone does not.)
+function fetchProducts() {
+  return sb
+    .from('dytronics_products')
+    .select('*')
+    .eq('active', true)
+    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: false })
+    .then(res => res);
+}
+
+// `prefetched` is the promise from fetchProducts() when the caller already
+// started it; with no argument (or anything else) it fetches fresh.
+async function loadProducts(prefetched) {
   const sections = document.querySelectorAll('.category[data-category]');
   try {
-    const { data, error } = await sb
-      .from('dytronics_products')
-      .select('*')
-      .eq('active', true)
-      .order('sort_order', { ascending: true })
-      .order('created_at', { ascending: false });
+    const { data, error } = await (prefetched && typeof prefetched.then === 'function' ? prefetched : fetchProducts());
     if (error) throw error;
 
     productsById = {};
@@ -2260,7 +2273,11 @@ renderCartBadge();
 // rows into full cart lines, so it waits until products are loaded. It also
 // needs to know if a session already exists on page load (e.g. customer
 // signed in on a previous visit and never signed out).
-loadCategoriesAndRenderShell().then(loadProducts).then(async () => {
+// Start the product query now so it overlaps the category query (one round trip
+// of waiting instead of two). The shell must still render before products fill it.
+const productsFetch = fetchProducts();
+productsFetch.catch(() => {}); // failures are handled where it is awaited, in loadProducts
+loadCategoriesAndRenderShell().then(() => loadProducts(productsFetch)).then(async () => {
   try {
     const { data: { session } } = await sb.auth.getSession();
     currentCustomerId = session ? session.user.id : null;
