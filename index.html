@@ -1,250 +1,2350 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="color-scheme" content="light">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Adedoyin Adebanjo - Fabrication and Electronics Portfolio and CV</title>
-<meta name="description" content="Fabrication technician: CO₂ laser cutting, FDM and resin 3D printing, electronics repair. Lagos, Nigeria.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DYTRONICS: Electronic Components &amp; Repairs</title>
+  <link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="description" content="DYTRONICS: electronic components, modules and repair parts. Fast Lagos delivery, nationwide shipping.">
+<link rel="canonical" href="https://www.dytronics.name.ng/">
+<meta property="og:site_name" content="DYTRONICS">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Adedoyin Adebanjo - Digital Fabrication and Electronics Technician">
-<meta property="og:description" content="CO₂ laser cutting, FDM and resin 3D printing, electronics repair. Lagos, Nigeria.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111'/%3E%3Cpath d='M6 22V10h6a4 4 0 010 8H9M20 10v12M20 16h6' stroke='%23f5a524' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta property="og:title" content="DYTRONICS: Electronic Components &amp; Repairs">
+<meta property="og:description" content="DYTRONICS: electronic components, modules and repair parts. Fast Lagos delivery, nationwide shipping.">
+<meta property="og:url" content="https://www.dytronics.name.ng/">
+<meta property="og:image" content="https://www.dytronics.name.ng/apple-touch-icon.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DYTRONICS: Electronic Components &amp; Repairs">
+<meta name="twitter:description" content="DYTRONICS: electronic components, modules and repair parts. Fast Lagos delivery, nationwide shipping.">
+<meta name="twitter:image" content="https://www.dytronics.name.ng/apple-touch-icon.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ElectronicsStore","name":"DYTRONICS","url":"https://www.dytronics.name.ng/","logo":"https://www.dytronics.name.ng/apple-touch-icon.png","image":"https://www.dytronics.name.ng/apple-touch-icon.png","description":"Lagos-based electronics parts and repair shop. Genuine components, tested before dispatch.","telephone":"+2347054378193","address":{"@type":"PostalAddress","addressLocality":"Lagos","addressCountry":"NG"},"areaServed":"NG"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://oqlbtbdmobhgxpqbyaeq.supabase.co" crossorigin>
+<link rel="preconnect" href="https://oqlbtbdmobhgxpqbyaeq.supabase.co">
+<link rel="preload" as="image" href="hero-poster.jpg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
 <style>
-:root{
-  box-sizing:border-box;
-  color-scheme:light;
-  --bg:#f6f4ef;--surface:#ffffff;--text:#1b1b1b;--muted:#5c5c58;--line:#d9d5cb;--accent:#8f5500;--term:#101214;--termtext:#d8d6d0;
-  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
-  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
-  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-}
-*,*::before,*::after{box-sizing:inherit}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.65;font-size:16px}
-main{max-width:760px;margin:0 auto;padding:0 20px}
-.head{text-align:center;padding:48px 0 28px}
-h1{font-size:clamp(30px,7vw,44px);line-height:1.1;margin:0 0 6px;letter-spacing:-.02em}
-.sub{font-family:var(--mono);color:var(--accent);font-size:clamp(14px,4vw,18px);margin:0 0 18px}
-.ico{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--line);background:var(--surface);border-radius:8px;color:var(--text);transition:.15s}
-.ico:hover{color:var(--accent);border-color:var(--accent)}
-.ico svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.ico svg.fill{fill:currentColor;stroke:none}
-section{padding:30px 0;border-top:1px solid var(--line)}
-h2{font-family:var(--mono);font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin:0 0 18px;font-weight:600}
-.contact-list{list-style:none;padding:0;margin:0;font-family:var(--mono);font-size:14px}
-.contact-list li{margin:8px 0;display:flex;align-items:center;gap:10px}
-.contact-list svg{width:18px;height:18px;fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
-.contact-list svg.fill{fill:var(--accent);stroke:none}
-.contact-list a{color:var(--text);text-decoration:none}
-.contact-list a:hover{color:var(--accent)}
-.skill{margin:0 0 14px}
-.skill .k{font-family:var(--mono);color:var(--accent);font-size:14px;display:block}
-.skill .v{color:var(--text)}
-.item{margin-bottom:22px}.item:last-child{margin-bottom:0}
-.item h3{margin:0;font-size:17px}
-.meta{font-family:var(--mono);font-size:13px;color:var(--muted);margin:2px 0 6px}
-.item p,.item ul{margin:0}
-ul{padding-left:18px}li{margin:3px 0}
-.ret{font-family:var(--mono);font-size:13px;color:var(--muted);margin:2px 0 0}
-.ret b{color:var(--accent);font-weight:400}
-.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--accent);color:var(--accent);border-radius:8px;text-decoration:none;font-family:var(--mono);font-size:13px;background:transparent}
-.btn:hover{background:var(--accent);color:var(--bg)}
-.btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.btn svg.fill{fill:currentColor;stroke:none}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:8px}
-.card h3{margin:0;font-size:15px;font-family:var(--mono)}
-.card p{margin:0;font-size:14px;color:var(--muted)}
-.card .row{display:flex;gap:8px;align-items:center;margin-top:auto;padding-top:4px;flex-wrap:wrap}
-.card .ico{width:36px;height:36px}.card .ico svg{width:17px;height:17px}
-#projects .cards{align-items:start}
-.card .thumb{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:6px;display:block;border:1px solid var(--line)}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font-family:var(--mono);font-size:12px;border:1px solid var(--line);border-radius:4px;padding:2px 8px;color:var(--muted)}
-.soon{font-family:var(--mono);font-size:12px;color:var(--muted)}
-footer{max-width:760px;margin:0 auto;padding:24px 20px 40px;border-top:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .hero-eyebrow p {
+    margin: 0 0 16px 0;
+  }
 
-.dl{margin:16px 0 0}
-.btn.primary{background:var(--accent);color:var(--bg);font-weight:600}
-.btn.primary:hover{filter:brightness(1.1)}
-.contact-list a{display:inline-flex;align-items:center;gap:10px}
-.photo{width:150px;height:auto;aspect-ratio:440/616;object-fit:cover;border-radius:12px;border:2px solid var(--accent);display:block;margin:0 auto 18px;background:var(--surface)}
-.avail{font-family:var(--mono);font-size:13px;color:var(--muted);margin:0}
-.muted{color:var(--muted)}
-.certs{list-style:none;padding:0;margin:0}
-.certs li{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:8px 0}
-.certs a{color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:13px;display:inline-flex;align-items:center;gap:6px}
-.certs svg{width:16px;height:16px}
-.gallery{columns:2 280px;column-gap:14px}
-.gallery figure{margin:0 0 14px;break-inside:avoid;background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.gallery img{display:block;width:100%;height:auto}
-.gallery figcaption{font-size:13px;color:var(--muted);padding:8px 12px 10px}
-a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-@media print{
-  :root{--bg:#fff;--surface:#fff;--text:#000;--muted:#333;--line:#bbb;--accent:#000}
-  .photo,.dl,.certs a,.thumb{display:none}
-  @page{size:A4;margin:14mm}
-  .cta,.ico,#gallery,#electronics,#sites .row,#projects .row{display:none}
-  body{font-size:10pt;line-height:1.35}
-  main{max-width:none;padding:0}
-  h1{font-size:24pt}
-  .contact-list{columns:2}
-  .contact-list li{margin:3px 0}
-  .cta{display:none}
-  .card{border:0;padding:0;background:none;break-inside:avoid}
-  footer{display:none}
-  .cards{gap:8px 18px}
-  .chips{display:none}
-  .item{break-inside:avoid}
-  .item li{margin:1px 0}
-  .head{padding:0 0 10px;text-align:left}
-  section{padding:8px 0}
-  h2{margin-bottom:8px}
-  a{color:#000}
-}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+  a{color:inherit; text-decoration:none;}
+  img{display:block; max-width:100%;}
+
+  .eyebrow{
+    font-family:'Inter', sans-serif;
+    font-size:11px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--green);
+    font-weight:600;
+  }
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 5vw;
+    color:#f4f6f9;
+    mix-blend-mode:difference;
+    font-family:'Inter', sans-serif;
+  }
+  .topbar .wordmark{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:15px;
+    letter-spacing:0.14em;
+  }
+  .topbar nav{display:flex; align-items:center; gap:16px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;}
+  .topbar nav a{opacity:0.85; transition:opacity 0.25s ease;}
+  .topbar nav a:hover{opacity:1;}
+  .topbar nav a:focus-visible, a:focus-visible, button:focus-visible{
+    outline:2px solid var(--gold); outline-offset:3px;
+  }
+  .hamburger-btn{
+    width:32px; height:32px;
+    border:1px solid rgba(244,246,249,0.5);
+    background:transparent;
+    color:#f4f6f9;
+    display:inline-flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    cursor:pointer;
+    transition:background 0.2s ease, border-color 0.2s ease;
+  }
+  .hamburger-btn:hover{border-color:#f4f6f9;}
+  .hamburger-btn svg{width:15px; height:15px; display:block;}
+  @media (max-width:640px){
+    .topbar{padding:16px 4vw; gap:10px;}
+    .topbar .wordmark{font-size:12px; flex-shrink:0;}
+    .topbar nav{gap:8px;}
+    .cart-btn{white-space:nowrap; flex-shrink:0;}
+  }
+
+  /* ---------- Category nav panel (hamburger) — plain list, no search inside ---------- */
+  .cat-backdrop{justify-content:flex-start;}
+  .cat-drawer{border-left:none; border-right:1px solid var(--line);}
+  .cat-top-links{background:rgba(20,26,21,0.02);}
+  .cat-top-link{
+    display:flex; align-items:center; gap:12px;
+    width:100%; padding:14px 22px;
+    font-family:'Inter', sans-serif; font-size:12px; letter-spacing:0.06em; text-transform:uppercase;
+    font-weight:600;
+    color:var(--ink);
+    background:none; border:none; border-bottom:1px solid var(--line);
+    text-align:left; cursor:pointer;
+  }
+  .cat-top-link svg{width:16px; height:16px; flex-shrink:0;}
+  .cat-top-link:hover{background:rgba(20,26,21,0.04);}
+  .cat-list{flex:1; min-height:0; overflow-y:auto;}
+  .cat-list a{
+    display:block; padding:14px 22px;
+    font-family:'Fraunces', serif; font-style:italic; font-size:16px;
+    color:var(--ink);
+    border-bottom:1px solid var(--line);
+    transition:background 0.15s ease;
+  }
+  .cat-list a:hover{background:rgba(20,26,21,0.03);}
+  .cat-empty{padding:44px 22px; text-align:center; font-size:13px; color:var(--ink-soft); font-style:italic;}
+
+  /* ---------- Search panel (magnifying-glass icon) — its own drawer, searches products by name ---------- */
+  .search-wrap{padding:16px 22px; border-bottom:1px solid var(--line);}
+  .search-wrap input{
+    width:100%; padding:11px 12px;
+    border:1px solid var(--line); background:#fff;
+    font:16px 'Inter', sans-serif; color:var(--ink);
+  }
+  .search-wrap input:focus{outline:none; border-color:var(--ink);}
+  .search-result{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:14px 22px;
+    font-family:'Fraunces', serif; font-style:italic; font-size:16px;
+    color:var(--ink);
+    border-bottom:1px solid var(--line);
+    transition:background 0.15s ease;
+  }
+  .search-result:hover{background:rgba(20,26,21,0.03);}
+  .search-result-name{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .search-result-price{
+    flex-shrink:0; font-family:'Inter', sans-serif; font-style:normal; font-size:13px; color:var(--ink-soft);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    height:100svh;
+    min-height:560px;
+    width:100%;
+    overflow:hidden;
+    display:flex;
+    align-items:flex-end;
+    background:
+      radial-gradient(120% 90% at 20% 0%, #2a4d73 0%, #13283f 46%, #0d1a2e 100%);
+  }
+  .hero-video{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    opacity:0.82;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(26,35,29,0.15) 0%, rgba(20,26,21,0.15) 55%, rgba(15,18,15,0.86) 100%);
+  }
+  .hero-inner{
+    position:relative; z-index:2;
+    width:100%;
+    padding:0 5vw 64px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  .hero-eyebrow{
+    color:#d9c9a8;
+    font-size:11px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    font-weight:600;
+    opacity:0;
+    animation:riseIn 0.9s 0.15s ease forwards;
+  }
+  .hero-title{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    color:#eef2f7;
+    font-size:clamp(48px, 11vw, 128px);
+    line-height:0.96;
+    letter-spacing:-0.01em;
+    opacity:0;
+    animation:riseIn 1s 0.35s ease forwards;
+  }
+  .hero-title .to{
+    font-family:'Inter', sans-serif;
+    font-style:normal;
+    font-weight:400;
+    font-size:0.28em;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    vertical-align:middle;
+    display:inline-block;
+    margin:0 0.18em;
+    color:#a8c0dd;
+  }
+  .hero-sub{
+    max-width:520px;
+    color:#dde5f0;
+    font-size:15px;
+    line-height:1.65;
+    opacity:0;
+    animation:riseIn 1s 0.55s ease forwards;
+  }
+  .hero-cta{
+    margin-top:8px;
+    opacity:0;
+    animation:riseIn 1s 0.72s ease forwards;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 26px;
+    background:transparent;
+    border:1px solid rgba(243,233,222,0.55);
+    color:#f4f6f9;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    font-weight:600;
+    cursor:pointer;
+    transition:background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .btn:hover{background:#f4f6f9; color:var(--green-deep); border-color:#f4f6f9;}
+  .btn-solid{
+    background:var(--gold);
+    border-color:var(--gold);
+    color:#0d1826;
+  }
+  .btn-solid:hover{background:#f2a733; border-color:#f2a733; color:#0d1826;}
+
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(18px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .scroll-cue{
+    position:absolute; bottom:22px; right:5vw; z-index:2;
+    display:flex; align-items:center; gap:10px;
+    color:#d9c9a8; font-size:11px; letter-spacing:0.2em; text-transform:uppercase;
+    opacity:0.85;
+  }
+  .scroll-cue .line{width:26px; height:1px; background:currentColor; display:inline-block;}
+
+  /* ---------- Category rail (signature element) ---------- */
+  .rail-wrap{
+    background:var(--green-deep);
+    border-bottom:1px solid rgba(243,233,222,0.14);
+    overflow:hidden;
+    position:relative;
+  }
+  .rail{
+    display:flex;
+    width:max-content;
+    animation:railScroll 32s linear infinite;
+  }
+  .rail-wrap:hover .rail{animation-play-state:paused;}
+  @keyframes railScroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  .rail-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:16px 34px;
+    white-space:nowrap;
+    border-right:1px solid rgba(243,233,222,0.14);
+  }
+  .rail-item a{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:19px;
+    color:#f4f6f9;
+    transition:color 0.25s ease;
+  }
+  .rail-item a:hover{color:var(--gold);}
+  .rail-num{
+    font-family:'Inter', sans-serif;
+    font-size:11px;
+    color:#7a93b3;
+    letter-spacing:0.08em;
+  }
+
+  /* ---------- Intro strip ---------- */
+  .intro{
+    max-width:760px;
+    margin:0 auto;
+    padding:110px 6vw 70px;
+    text-align:center;
+  }
+  .intro h2{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    font-size:clamp(26px, 4vw, 38px);
+    line-height:1.3;
+    color:var(--ink);
+    margin-top:16px;
+  }
+  .intro h2 em{font-style:italic; color:var(--green);}
+
+  /* ---------- Category sections ---------- */
+  .category{
+    padding:70px 5vw 30px;
+    border-top:1px solid var(--line);
+  }
+  .category-head{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:24px;
+    margin-bottom:38px;
+    flex-wrap:wrap;
+  }
+  .category-head h3{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(32px, 5vw, 52px);
+    color:var(--ink);
+    margin-top:6px;
+  }
+  .category-count{
+    font-size:12px;
+    color:var(--ink-soft);
+    letter-spacing:0.05em;
+    padding-bottom:8px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:22px;
+    padding-bottom:70px;
+  }
+  @media (max-width:980px){ .grid{grid-template-columns:repeat(2, 1fr);} }
+  @media (max-width:520px){ .grid{grid-template-columns:1fr; gap:28px;} }
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+  }
+  .card.in{opacity:1; transform:translateY(0);}
+  .card:hover{box-shadow:0 18px 34px -20px rgba(33,23,18,0.35);}
+
+  .card-media{
+    aspect-ratio:3/4;
+    width:100%;
+    position:relative;
+    overflow:hidden;
+  }
+  .card-media img{width:100%; height:100%; object-fit:cover; display:block;}
+  .card-media .ph{
+    width:100%; height:100%;
+  }
+  .card-info{
+    padding:16px 16px 18px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .card-info .name{
+    font-family:'Fraunces', serif;
+    font-size:17px;
+    color:var(--ink);
+  }
+  .card-info .price{
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .card-info .enquire{
+    margin-top:10px;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--green);
+    font-weight:600;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .card-info .enquire::after{content:"→"; transition:transform 0.25s ease;}
+  .card:hover .enquire::after{transform:translateX(4px);}
+
+  /* ---------- Product detail modal ---------- */
+  .modal-backdrop{
+    position:fixed; inset:0; z-index:100;
+    background:rgba(20,17,13,0.72);
+    display:flex; align-items:flex-start; justify-content:center;
+    padding:5vh 5vw;
+    overflow-y:auto;
+  }
+  .modal-backdrop[hidden]{display:none;}
+  .modal{
+    position:relative;
+    background:var(--card);
+    max-width:880px;
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    border:1px solid var(--line);
+  }
+  @media (max-width:760px){ .modal{grid-template-columns:1fr;} }
+  .modal-close{
+    position:absolute; top:14px; right:14px; z-index:2;
+    width:34px; height:34px;
+    border:1px solid rgba(33,23,18,0.2);
+    background:var(--card);
+    color:var(--ink);
+    font-size:20px; line-height:1;
+    cursor:pointer;
+  }
+  .modal-media{
+    background:var(--paper-deep);
+    min-height:280px;
+  }
+  .modal-media img, .modal-media .ph{width:100%; height:100%; object-fit:cover; display:block; min-height:280px;}
+  .modal-body{padding:32px 30px 36px; display:flex; flex-direction:column; gap:4px; overflow-y:auto;}
+  .modal-name{font-family:'Fraunces', serif; font-size:26px; color:var(--ink);}
+  .modal-price{font-size:15px; color:var(--ink-soft); margin-top:2px;}
+  .modal-meta{font-size:12.5px; color:var(--ink-soft); margin-top:10px; line-height:1.7;}
+  .modal-variants{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+  .variant-pill{
+    padding:7px 13px;
+    border:1px solid var(--line);
+    background:transparent;
+    font-size:12px;
+    letter-spacing:0.04em;
+    cursor:pointer;
+    color:var(--ink);
+  }
+  .variant-pill.selected{background:var(--green-deep); border-color:var(--green-deep); color:#f4f6f9;}
+  .modal-cta{margin-top:20px; justify-content:center; background:var(--green-deep); border-color:var(--green-deep); color:#f4f6f9;}
+  .modal-cta:hover{background:var(--gold); border-color:var(--gold); color:#0d1826;}
+  .accordion{margin-top:26px; border-top:1px solid var(--line);}
+  .accordion-item{border-bottom:1px solid var(--line);}
+  .accordion-item summary{
+    padding:14px 2px;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    font-weight:600;
+    color:var(--ink);
+    cursor:pointer;
+    list-style:none;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .accordion-item summary::-webkit-details-marker{display:none;}
+  .accordion-item summary::after{content:"+"; font-size:16px; font-weight:400;}
+  .accordion-item[open] summary::after{content:"–";}
+  .accordion-item p{font-size:13px; line-height:1.7; color:var(--ink-soft); padding-bottom:16px;}
+  .card{cursor:pointer;}
+
+  .empty-note{
+    grid-column:1/-1;
+    padding:40px 0;
+    font-size:13px;
+    color:var(--ink-soft);
+    font-style:italic;
+  }
+  .error-note{
+    grid-column:1/-1;
+    padding:40px 0;
+    font-size:13px;
+    color:#a53b3b;
+  }
+
+  /* placeholder art */
+  .ph1{background:linear-gradient(160deg,#c7d9ef 0%, #7fa4d1 55%, #3d6597 100%);}
+  .ph2{background:linear-gradient(160deg,#d2e0f2 0%, #6d94c4 55%, #2f5580 100%);}
+  .ph3{background:linear-gradient(160deg,#ccdbef 0%, #6a91c1 55%, #2c5079 100%);}
+  .ph4{background:linear-gradient(160deg,#d9e5f5 0%, #7fa8d8 55%, #35618f 100%);}
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--green-deep);
+    color:#cfd8e6;
+    padding:80px 5vw 34px;
+    margin-top:40px;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr;
+    gap:48px;
+    padding-bottom:56px;
+    border-bottom:1px solid rgba(230,220,199,0.16);
+  }
+  @media (max-width:760px){ .footer-grid{grid-template-columns:1fr; gap:36px;} }
+  .footer-wordmark{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:30px;
+    color:#f4f6f9;
+    margin-bottom:14px;
+  }
+  .footer-grid p{font-size:14px; line-height:1.7; color:#c9bea6; max-width:340px;}
+  .footer-col h4{
+    font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:#7a93b3; margin-bottom:16px; font-weight:600;
+  }
+  .footer-col a, .footer-col span{
+    display:block; font-size:14px; color:#cfd8e6; margin-bottom:10px;
+  }
+  .footer-col a:hover{color:var(--gold);}
+  .footer-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:28px; font-size:11px; color:#7a93b3; letter-spacing:0.03em;
+    flex-wrap:wrap; gap:10px;
+  }
+
+  /* ---------- Cart button (topbar) ---------- */
+  .cart-btn{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    background:none;
+    border:none;
+    color:inherit;
+    font:inherit;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    cursor:pointer;
+    padding:0;
+  }
+  .cart-badge{
+    position:absolute;
+    top:-9px; right:-14px;
+    background:var(--gold);
+    color:#0d1826;
+    font-size:10px;
+    font-weight:700;
+    min-width:16px;
+    height:16px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 3px;
+    line-height:1;
+  }
+  .cart-badge.hidden{display:none;}
+
+  /* ---------- Card / modal "Add to Cart" controls ---------- */
+  .card-info .addcart{
+    margin-top:8px;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink);
+    font-weight:600;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    cursor:pointer;
+    background:none;
+    border:none;
+    padding:0;
+    text-align:left;
+  }
+  .card-info .addcart:disabled{opacity:.4; cursor:not-allowed;}
+
+  .modal-addcart{
+    margin-top:10px;
+    justify-content:center;
+    background:transparent;
+    border:1px solid var(--ink);
+    color:var(--ink);
+  }
+  .modal-addcart:hover:not(:disabled){background:var(--ink); color:#f4f6f9;}
+  .modal-addcart:disabled{opacity:.45; cursor:not-allowed; border-color:var(--line); color:var(--ink-soft);}
+  .modal-cart-note{font-size:11.5px; color:var(--green); margin-top:8px;}
+
+  /* ---------- Cart drawer ---------- */
+  .cart-backdrop{
+    position:fixed; inset:0; z-index:110;
+    background:rgba(20,17,13,0.55);
+    display:flex; justify-content:flex-end;
+  }
+  .cart-backdrop[hidden]{display:none;}
+  .cart-drawer{
+    width:min(420px, 100%);
+    height:100%;
+    background:var(--card);
+    display:flex;
+    flex-direction:column;
+    border-left:1px solid var(--line);
+  }
+  .cart-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 22px;
+    border-bottom:1px solid var(--line);
+  }
+  .cart-head h3{font-family:'Fraunces', serif; font-weight:400; font-size:20px;}
+  .cart-close{
+    width:32px; height:32px;
+    border:1px solid rgba(33,23,18,0.2);
+    background:var(--card);
+    color:var(--ink);
+    font-size:18px; line-height:1;
+    cursor:pointer;
+  }
+  .cart-body{flex:1; min-height:0; overflow-y:auto; padding:6px 22px;}
+  .cart-empty{padding:50px 0; text-align:center; font-size:13px; color:var(--ink-soft); font-style:italic;}
+  .cart-row{display:flex; gap:12px; padding:16px 0; border-bottom:1px solid var(--line);}
+  .cart-row img{width:64px; height:80px; object-fit:cover; background:#eee; flex-shrink:0;}
+  .ci-info{flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;}
+  .ci-name{font-family:'Fraunces', serif; font-size:14.5px; color:var(--ink);}
+  .ci-meta{font-size:11.5px; color:var(--ink-soft);}
+  .ci-price{font-size:12px; color:var(--ink-soft);}
+  .qty-stepper{display:flex; align-items:center; gap:10px; margin-top:6px;}
+  .qty-stepper button{
+    width:24px; height:24px;
+    border:1px solid var(--line);
+    background:transparent;
+    font-size:14px;
+    line-height:1;
+    cursor:pointer;
+    color:var(--ink);
+  }
+  .qty-stepper button:disabled{opacity:.35; cursor:not-allowed;}
+  .qty-stepper span{font-size:12.5px; min-width:14px; text-align:center;}
+  .cart-stock-note{font-size:10.5px; color:#a53b3b; margin-top:3px;}
+  .cart-remove{
+    font-size:11px; color:#a53b3b; text-decoration:underline;
+    cursor:pointer; margin-top:6px; align-self:flex-start;
+    background:none; border:none; padding:0;
+  }
+  .cart-foot{border-top:1px solid var(--line); padding:18px 22px; display:flex; flex-direction:column; gap:12px;}
+  .cart-foot[hidden]{display:none;}
+  .cart-total-row{display:flex; justify-content:space-between; align-items:baseline; font-size:13px; color:var(--ink-soft);}
+  .cart-total-row .amt{font-family:'Fraunces', serif; font-size:19px; color:var(--ink);}
+  .cart-checkout-btn{width:100%; justify-content:center;}
+  .cart-note{font-size:11px; color:var(--ink-soft); line-height:1.55;}
+  .cart-note a{text-decoration:underline;}
+
+  /* ---------- Checkout form (inline in cart drawer) ---------- */
+  .checkout-view{flex:1; overflow-y:auto; padding:18px 22px;}
+  .checkout-view[hidden]{display:none;}
+  .checkout-back{
+    background:none; border:none; padding:0;
+    font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--ink-soft); cursor:pointer; margin-bottom:16px;
+  }
+  .checkout-back:hover{color:var(--ink);}
+  .checkout-summary{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-size:13px; color:var(--ink-soft);
+    padding-bottom:14px; margin-bottom:16px;
+    border-bottom:1px solid var(--line);
+  }
+  .checkout-summary .amt{font-family:'Fraunces', serif; font-size:18px; color:var(--ink);}
+  .checkout-field{margin-bottom:14px;}
+  .checkout-field label{
+    display:block; font-size:11px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px;
+  }
+  .checkout-field input, .checkout-field textarea{
+    width:100%; padding:11px 12px;
+    border:1px solid var(--line); background:#fff;
+    font:16px 'Inter', sans-serif; color:var(--ink);
+  }
+  @media (max-width:420px){
+    .checkout-view{padding:16px 16px;}
+  }
+  .checkout-field textarea{min-height:64px; resize:vertical;}
+  .checkout-field input:focus, .checkout-field textarea:focus{outline:none; border-color:var(--ink);}
+  .checkout-field .err-msg{font-size:10.5px; color:#a53b3b; margin-top:4px; display:none;}
+  .checkout-field.has-error input, .checkout-field.has-error textarea{border-color:#a53b3b;}
+  .checkout-field.has-error .err-msg{display:block;}
+  .checkout-submit-err{
+    font-size:12px; color:#a53b3b; margin:2px 0 14px;
+    padding:10px 12px; border:1px solid #a53b3b;
+    background:rgba(165,59,59,0.06); display:none;
+  }
+  .checkout-submit-err.show{display:block;}
+  .checkout-success{padding:36px 4px; text-align:center;}
+  .checkout-success .track-label{
+    font-size:11px; text-transform:uppercase; letter-spacing:0.1em;
+    color:var(--ink-soft); margin-top:20px;
+  }
+  .checkout-success .track-num{
+    font-family:'Fraunces', serif; font-style:italic; font-size:30px;
+    color:var(--ink); margin-top:6px; letter-spacing:0.02em;
+  }
+  .checkout-success p.note{font-size:12.5px; color:var(--ink-soft); margin-top:18px; line-height:1.65;}
+
+  /* ---------- Receipt (post-checkout + track-my-order) ---------- */
+  /* Status badge palette matches admin.html's .status-select.st-* exactly, for consistency. */
+  .status-badge{
+    display:inline-block; padding:4px 10px; border-radius:3px;
+    font-size:11px; font-weight:600; letter-spacing:0.02em;
+    border:1px solid currentColor;
+  }
+  .status-badge.st-pending_payment{color:#6b7a90;}
+  .status-badge.st-paid{color:#1e3a5f;}
+  .status-badge.st-shipped{color:var(--gold);}
+  .status-badge.st-delivered{color:var(--green-deep);}
+  .status-badge.st-cancelled{color:#a53b3b;}
+
+  .receipt{padding:28px 4px; text-align:left;}
+  .receipt-head{text-align:center; margin-bottom:22px;}
+  .receipt-head .track-label{
+    font-size:11px; text-transform:uppercase; letter-spacing:0.1em;
+    color:var(--ink-soft); margin-top:14px;
+  }
+  .receipt-head .track-num{
+    font-family:'Fraunces', serif; font-style:italic; font-size:28px;
+    color:var(--ink); margin-top:4px; letter-spacing:0.02em;
+  }
+  .receipt-head .receipt-date{font-size:11.5px; color:var(--ink-soft); margin-top:8px;}
+  .receipt-head .status-badge{margin-top:12px;}
+  .receipt-items{border-top:1px solid var(--line); margin-top:20px; padding-top:6px;}
+  .receipt-item{
+    display:flex; justify-content:space-between; gap:10px;
+    padding:12px 0; border-bottom:1px solid var(--line);
+    font-size:12.5px;
+  }
+  .receipt-item .ri-name{font-family:'Fraunces', serif; font-size:14px; color:var(--ink);}
+  .receipt-item .ri-meta{color:var(--ink-soft); font-size:11.5px; margin-top:2px;}
+  .receipt-item .ri-amt{color:var(--ink-soft); white-space:nowrap; text-align:right;}
+  .receipt-total-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding-top:16px; font-size:13px; color:var(--ink-soft);
+  }
+  .receipt-total-row .amt{font-family:'Fraunces', serif; font-size:19px; color:var(--ink);}
+  .receipt-note{font-size:12.5px; color:var(--ink-soft); margin-top:18px; line-height:1.65;}
+  .receipt-actions{display:flex; flex-direction:column; gap:10px; margin-top:24px;}
+
+  /* ---------- Track-my-order drawer (reuses .cart-backdrop/.cart-drawer pattern) ---------- */
+  .track-body{flex:1; overflow-y:auto; padding:18px 22px;}
+  .track-intro{font-size:12.5px; color:var(--ink-soft); line-height:1.6; margin-bottom:18px;}
+  .track-lookup{display:flex; gap:8px; margin-bottom:26px;}
+  .track-lookup input{
+    flex:1; padding:11px 12px; border:1px solid var(--line); background:#fff;
+    font:15px 'Inter', sans-serif; color:var(--ink); text-transform:uppercase; letter-spacing:0.03em;
+  }
+  .track-lookup input:focus{outline:none; border-color:var(--ink);}
+  .track-lookup button{white-space:nowrap;}
+  .track-section-label{
+    font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--ink-soft); margin-bottom:12px;
+  }
+  .device-order-row{
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+    padding:14px 0; border-bottom:1px solid var(--line);
+    cursor:pointer; background:none; border-left:none; border-right:none; border-top:none;
+    width:100%; text-align:left; font:inherit;
+  }
+  .device-order-row:hover .do-track{color:var(--gold);}
+  .do-info{display:flex; flex-direction:column; gap:3px; min-width:0;}
+  .do-track{font-family:'Fraunces', serif; font-size:14px; color:var(--ink);}
+  .do-date{font-size:11px; color:var(--ink-soft);}
+  .do-right{display:flex; flex-direction:column; align-items:flex-end; gap:6px;}
+  .do-amt{font-size:12.5px; color:var(--ink-soft);}
+  .track-empty{padding:40px 0; text-align:center; font-size:13px; color:var(--ink-soft); font-style:italic;}
+  .track-lookup-state{padding:24px 4px; text-align:center;}
+  .track-lookup-state .note{font-size:12.5px; color:var(--ink-soft); line-height:1.6;}
+  .track-back{
+    background:none; border:none; padding:0;
+    font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--ink-soft); cursor:pointer; margin-bottom:16px;
+  }
+  .track-back:hover{color:var(--ink);}
+
+  /* ---------- Print (receipt only) ---------- */
+  /* Class-based, not ID-based: renderReceiptHtml is used in two places
+     (checkout view + track drawer), so an element with this class can
+     exist twice in the DOM at once. Whichever one isn't [hidden] by an
+     ancestor is the one that actually renders in print — display:none
+     from [hidden] isn't overridden by visibility:visible here. */
+  @media print{
+    body *{visibility:hidden;}
+    .receipt, .receipt *{visibility:visible;}
+    .receipt{position:absolute; top:0; left:0; width:100%; padding:20px;}
+    .receipt-actions{display:none;}
+  }
 </style>
 </head>
 <body>
-<main>
-  <header class="head">
-    <img class="photo" src="images/profile-photo.jpg" width="150" height="210" alt="Portrait of Adedoyin Adebanjo">
-    <h1>Adedoyin Adebanjo</h1>
-    <p class="sub">Digital Fabrication Technician / Electronics Technician</p>
-    <p class="avail">Lagos, Nigeria · Open to engineering and technical roles</p>
-    <p class="dl"><a class="btn primary" href="Adedoyin-Adebanjo-CV.pdf" download="Adedoyin-Adebanjo-CV.pdf"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 4v10M8 10l4 4 4-4M5 19h14"/></svg>Download CV (PDF)</a></p>
+
+  <header class="topbar">
+    <button class="hamburger-btn" id="catMenuBtn" type="button" aria-label="Open category menu" aria-haspopup="dialog" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <a href="#top" class="wordmark">DYTRONICS</a>
+   <nav>
+  <button class="cart-btn" id="cartBtn" type="button" aria-label="Open cart">
+    Cart<span class="cart-badge hidden" id="cartBadge">0</span>
+  </button>
+</nav>
   </header>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <ul class="contact-list">
-      <li><a href="mailto:adedoyinadebanjo9@gmail.com"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>adedoyinadebanjo9@gmail.com</a></li>
-      <li><a href="tel:+2347054378193"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>+234 705 437 8193</a></li>
-      <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Ikeja%2C%20Lagos%2C%20Nigeria" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Ikeja, Lagos, Nigeria</a></li>
-      <li><a href="https://linkedin.com/in/doyin-adebanjo-b15761421" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" class="fill" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 110 5 2.5 2.5 0 010-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2 3.77-2 4 0 4.77 2.6 4.77 6V21h-4v-4.9c0-1.2 0-2.7-1.7-2.7-1.7 0-1.9 1.3-1.9 2.6V21h-4z"/></svg>linkedin.com/in/doyin-adebanjo-b15761421</a></li>
-      <li><a href="https://github.com/adedoyinadebanjo9-code" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" class="fill" viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg>github.com/adedoyinadebanjo9-code</a></li>
-    </ul>
-    <div class="cta"><a class="btn" href="tel:+2347054378193"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>Call</a><a class="btn" href="mailto:adedoyinadebanjo9@gmail.com"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Email</a><a class="btn" href="https://wa.me/2347054378193" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" class="fill" viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.4.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 .9c.3.1.5.2.5.3.1.1.1.6-.1 1z"/></svg>WhatsApp</a></div>
-  </section>
-
-  <section id="summary">
-    <h2>Professional Summary</h2>
-    <p>Fabrication technician running 150W/200W CO₂ lasers and FDM/MSLA 3D printers in a production factory, handling up to 30 jobs a week. Background in component-level electronics repair, a National Diploma in Electrical &amp; Electronics Engineering (YABATECH, 2026), and currently studying for a B.Eng. in Electronics and Computer Engineering at LASU.</p>
-    <p>Also builds web tools for quoting, storefronts and workflow automation.</p>
-  </section>
-
-  <section id="work">
-    <h2>Work Experience</h2>
-    <div class="item">
-      <h3>Digital Fabrication Technician</h3>
-      <p class="meta">META IV, Lagos · Jan 2026 - Present</p>
-      <ul>
-        <li>Run up to 30 jobs per week across 150W/200W CO₂ lasers and FDM/MSLA printers; prepare production files, focus machines and frame jobs.</li>
-        <li>Cut and engrave acrylic (2-15 mm), plywood, carton and PETG; print in PLA, PETG, ABS and MSLA resins, slicing in Bambu Studio.</li>
-        <li>Print and electronically assemble finished products, including fitting headlights and wireless charging.</li>
-        <li>Created the factory's first CO₂ laser speed/power/pass reference, plus a nesting formula that cut material wastage by 40%.</li>
-        <li>Track jobs in the internal ERP, complete shift handovers, and carry out scheduled maintenance and corrective repairs.</li>
-      </ul>
+  <section class="hero" id="top">
+    <video class="hero-video" muted loop playsinline preload="none" poster="hero-poster.jpg" data-src="hero.mp4"></video>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">
+        <p>Naija Electronics Components World</p>
+        <p>Genuine parts &amp; repairs</p> 
+      <p>Same-day dispatch</p>
+      </div>
+     <h1 class="hero-title"><span class="to">Welcome to </span>DYTRONICS</h1>
+      <p class="hero-sub">Resistors, ICs, sensors, modules and repair parts, sourced right and shipped fast. This is DYTRONICS.</p>
+      <div class="hero-cta">
+        <a href="#shop" class="btn btn-solid">Shop components</a>
+      </div>
     </div>
-    <div class="item">
-      <h3>Gas Plant Operations Manager</h3>
-      <p class="meta">Integrity Oil &amp; Gas, Lagos · Jul 2023 - Mar 2024</p>
-      <ul><li>Managed procurement, inventory, sales, delivery logistics, agent settlement and operational reporting.</li></ul>
+    <div class="scroll-cue"><span class="line"></span> Scroll</div>
+  </section>
+
+  <div class="rail-wrap" id="shop" aria-label="Shop by category">
+    <div class="rail" id="railTrack"></div>
+  </div>
+
+  <div class="intro">
+    <span class="eyebrow">Bring your projects and innovations to life🙂‍↔️</span>
+    <h2>These are not used Nigerian components <em>these are</em> the reason engineering is possible in nigeria.</h2>
+  </div>
+
+  <!-- Category sections are rendered dynamically from dytronics_categories -->
+  <div id="categorySections"></div>
+
+  <!-- Product detail modal -->
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      <div class="modal-media" id="modalMedia"></div>
+      <div class="modal-body">
+        <div class="modal-name" id="modalName"></div>
+        <div class="modal-price" id="modalPrice"></div>
+        <div class="modal-meta" id="modalMeta"></div>
+        <div class="modal-variants" id="modalVariants"></div>
+        <a href="#" class="btn btn-solid modal-cta" id="modalCta" target="_blank" rel="noopener">Order on WhatsApp</a>
+        <button type="button" class="btn modal-addcart" id="modalAddCart" disabled>Select a variant to add to cart</button>
+        <p class="modal-cart-note" id="modalCartNote" style="display:none"></p>
+        <div class="accordion" id="modalAccordion"></div>
+      </div>
     </div>
-    <div class="item">
-      <h3>Electronics Repair Technician</h3>
-      <p class="meta">Fadiga Electronics, Lagos · May 2019 - Jun 2023</p>
-      <ul>
-        <li>Repaired LCD/LED TVs (19-55 inch) and audio equipment, including PA amplifiers used in mosques and churches, DJ units and home theatre systems.</li>
-        <li>Performed component-level diagnostics and PCB fault tracing using an oscilloscope, multimeter, bench power supply and soldering tools.</li>
-        <li>Completed up to 10 repairs on a busy day with a 90% success rate, backed by warranty.</li>
-        <li>Implemented a job-tracking system in Excel and Word to log each repair and monitor its status.</li>
-      </ul>
+  </div>
+
+  <!-- Cart drawer -->
+  <div class="cart-backdrop" id="cartBackdrop" hidden>
+    <div class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cartHeading">
+      <div class="cart-head">
+        <h3 id="cartHeading">Your cart</h3>
+        <button class="cart-close" id="cartClose" aria-label="Close cart">×</button>
+      </div>
+      <div class="cart-body" id="cartBody"></div>
+      <div class="checkout-view" id="checkoutView" hidden></div>
+      <div class="cart-foot" id="cartFoot" hidden>
+        <div class="cart-total-row"><span>Subtotal</span><span class="amt" id="cartSubtotal"></span></div>
+        <button class="btn btn-solid cart-checkout-btn" id="cartCheckoutBtn" type="button">Checkout</button>
+        <p class="cart-note">Shipping is calculated at checkout. Have a question first? <a href="https://wa.me/2347054378193?text=Hi%20DYTRONICS%2C%20I%20have%20a%20question%20about%20an%20order." target="_blank" rel="noopener">Message us on WhatsApp</a>.</p>
+      </div>
     </div>
-  </section>
+  </div>
 
-  <section id="projects">
-    <h2>Selected Projects</h2>
-    <div class="cards">
-      <div class="card"><img class="thumb" src="images/stack-of-finished-tanker-shaped-3d.webp" alt="Stack of finished tanker-shaped 3D-printed units, painted white, black and blue" loading="lazy" decoding="async"><img class="thumb" src="images/finished-tanker-shaped-product-with-a.jpg" alt="Finished tanker-shaped product with a white 3D-printed tank section and a wireless charging pad on a yellow mount" loading="lazy" decoding="async"><h3>Tanker-Shaped Product with Wireless Charging</h3><p>Delivered 100 pieces at short notice: 3D printed a petrol-tanker-shaped product and assembled working headlights and a wireless charging pad on top.</p><div class="chips"><span class="chip">3D printing</span><span class="chip">Electronics</span></div><div class="row"><a class="ico" href="mailto:adedoyinadebanjo9@gmail.com?subject=About%20your%20project%3A%20Tanker-Shaped%20Product%20with%20Wireless%20Charging" aria-label="Ask about Tanker-Shaped Product with Wireless Charging" title="Ask about Tanker-Shaped Product with Wireless Charging"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div></div>
-      <div class="card"><img class="thumb" src="images/acrylic-test-card-with-a-grid.webp" alt="Acrylic test card with a grid of squares cut at varying power and speed" loading="lazy" decoding="async"><h3>CO₂ Laser Parameter Reference and Nesting Formula</h3><p>Built the factory&#x27;s first speed, power and pass reference, replacing trial runs on every job, and a nesting formula that cut material wastage by 40%.</p><div class="chips"><span class="chip">Laser</span><span class="chip">Process</span></div><div class="row"><a class="ico" href="mailto:adedoyinadebanjo9@gmail.com?subject=About%20your%20project%3A%20CO%E2%82%82%20Laser%20Parameter%20Reference%20and%20Nesting%20Formula" aria-label="Ask about CO₂ Laser Parameter Reference and Nesting Formula" title="Ask about CO₂ Laser Parameter Reference and Nesting Formula"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div></div>
-      <div class="card"><h3>Audio Power Amplifier Repair</h3><p>Restored a failed amplifier by building a discrete replacement board with a 2SC5200 transistor.</p><div class="chips"><span class="chip">Analog</span><span class="chip">PCB</span></div><div class="row"><a class="ico" href="mailto:adedoyinadebanjo9@gmail.com?subject=About%20your%20project%3A%20Audio%20Power%20Amplifier%20Repair" aria-label="Ask about Audio Power Amplifier Repair" title="Ask about Audio Power Amplifier Repair"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div></div>
-      <div class="card"><img class="thumb" src="images/black-carton-flat-patterns-with-cut.webp" alt="Black carton flat patterns with cut and fold lines" loading="lazy" decoding="async"><img class="thumb" src="images/stacks-of-die-cut-navy-carton.jpg" alt="Stacks of die-cut navy carton blanks with perforated fold lines, tape-labelled 53 and 62" loading="lazy" decoding="async"><h3>Corrugated Carton Prototypes</h3><p>Generated flat-pattern DXFs from custom inputs (width, height, tab size, tolerance) and laser-cut cartons used for products.</p><div class="chips"><span class="chip">DXF</span><span class="chip">Laser</span></div><div class="row"><a class="ico" href="mailto:adedoyinadebanjo9@gmail.com?subject=About%20your%20project%3A%20Corrugated%20Carton%20Prototypes" aria-label="Ask about Corrugated Carton Prototypes" title="Ask about Corrugated Carton Prototypes"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div></div>
+  <div class="cart-backdrop cat-backdrop" id="catBackdrop" hidden>
+    <div class="cart-drawer cat-drawer" role="dialog" aria-modal="true" aria-labelledby="catHeading">
+      <div class="cart-head">
+        <h3 id="catHeading">Categories</h3>
+        <button class="cart-close" id="catClose" aria-label="Close category menu">×</button>
+      </div>
+      <div class="cat-top-links">
+        <a href="account.html" class="cat-top-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Account
+        </a>
+        <button class="cat-top-link" id="searchBtn" type="button" aria-haspopup="dialog" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Search products
+        </button>
+      </div>
+      <div class="cat-list" id="catList"></div>
     </div>
-  </section>
+  </div>
 
-  <section id="sites">
-    <h2>Websites Built</h2>
-    <div class="cards">
-      <div class="card"><h3>DYTRONICS</h3><p>Electronics components storefront with a device repair service.</p><div class="chips"><span class="chip">Supabase</span><span class="chip">Paystack</span></div><div class="row"><a class="ico" href="https://www.dytronics.name.ng" target="_blank" rel="noopener" aria-label="Open DYTRONICS" title="Open DYTRONICS"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg></a></div></div>
-      <div class="card"><h3>FabQuote Lagos</h3><p>Web app for quoting fabrication jobs.</p><div class="chips"><span class="chip">HTML</span><span class="chip">Supabase</span></div><div class="row"><a class="ico" href="https://adedoyinadebanjo9-code.github.io/Fabquote/" target="_blank" rel="noopener" aria-label="Open FabQuote Lagos" title="Open FabQuote Lagos"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg></a></div></div>
-      <div class="card"><h3>Wunmi Alagbo</h3><p>Single-file site hosted on GitHub Pages.</p><div class="chips"><span class="chip">HTML</span><span class="chip">GitHub Pages</span></div><div class="row"><a class="ico" href="https://wunmialagbo.github.io/wunmi-alagbo/" target="_blank" rel="noopener" aria-label="Open Wunmi Alagbo" title="Open Wunmi Alagbo"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg></a></div></div>
-      <div class="card"><h3>Clipwise</h3><p>Free in-browser tool that turns long videos into short, captioned vertical clips.</p><div class="chips"><span class="chip">Web app</span><span class="chip">Video</span></div><div class="row"><a class="ico" href="https://adedoyinadebanjo9-code.github.io/clip/autotest.html" target="_blank" rel="noopener" aria-label="Open Clipwise" title="Open Clipwise"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg></a></div></div>
+  <div class="cart-backdrop" id="searchBackdrop" hidden>
+    <div class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="searchHeading">
+      <div class="cart-head">
+        <h3 id="searchHeading">Search products</h3>
+        <button class="cart-close" id="searchClose" aria-label="Close search">×</button>
+      </div>
+      <div class="search-wrap">
+        <input type="text" id="searchInput" placeholder="Search products…" aria-label="Search products">
+      </div>
+      <div class="cat-list" id="searchList"></div>
     </div>
-  </section>
+  </div>
 
-  <section id="skills">
-    <h2>Technical Skills</h2>
-    <p class="skill"><span class="k">Fabrication:</span><span class="v">CO₂ laser cutting and engraving (150W/200W), FDM and MSLA 3D printing, DXF/SVG/STL prep, nesting, slicing</span></p>
-    <p class="skill"><span class="k">Electronics:</span><span class="v">Component-level diagnostics, PCB fault tracing, schematic analysis, product electronics assembly</span></p>
-    <p class="skill"><span class="k">Tools:</span><span class="v">LightBurn, Ruida, Inkscape, Bambu Studio, KiCad, FreeCAD, oscilloscope, multimeter, Git/GitHub</span></p>
-  </section>
-
-  <section id="gallery">
-    <h2>Work Photos</h2>
-    <div class="gallery">
-    <figure><img src="images/laser-head-cutting-densely-nested-parts.webp" width="1000" height="1091" alt="Laser head cutting densely nested parts from a 3 mm acrylic sheet" loading="lazy" decoding="async"><figcaption>CO₂ laser cutting nested parts from 3 mm acrylic, protective film still on.</figcaption></figure>
-    <figure><img src="images/clear-acrylic-panels-cut-on-a.webp" width="1000" height="1139" alt="Clear acrylic panels cut on a large-format laser bed" loading="lazy" decoding="async"><figcaption>Clear acrylic panels cut on the large-format CO₂ bed.</figcaption></figure>
-    <figure><img src="images/white-3d-printed-hands-cradling-a.jpg" width="900" height="1200" alt="White 3D-printed hands cradling a translucent tree on a yellow base" loading="lazy" decoding="async"><figcaption>White FDM-printed hands and yellow FDM base with a window cut-out, cradling a translucent tree printed in MSLA resin.</figcaption></figure>
-    <figure><img src="images/tall-translucent-yellow-green-figure-with.jpg" width="900" height="1200" alt="Tall translucent yellow-green figure with raised arms holding an openwork emblem" loading="lazy" decoding="async"><figcaption>Tall translucent yellow-green figure with raised arms, holding an openwork emblem overhead. MSLA resin print.</figcaption></figure>
-    <figure><img src="images/two-boxes-of-3d-printed-obito.jpg" width="900" height="1599" alt="Two boxes of 3D-printed Obito masks, one purple and one lime green" loading="lazy" decoding="async"><figcaption>Obito masks FDM-printed in purple and lime green for a client's custom bulk order.</figcaption></figure>
-    <figure><img src="images/stack-of-four-cell-square-frames.jpg" width="900" height="1200" alt="Stack of four-cell square frames printed in black and grey" loading="lazy" decoding="async"><figcaption>Four-cell square frames FDM-printed in black and grey, with slotted edges and screw holes. Printed for engineering purposes.</figcaption></figure>
-    <figure><img src="images/at-work-laser-workstation.jpg" width="1000" height="750" alt="Operator at a laptop beside a large-format CO₂ laser, setting up a cutting job" loading="lazy" decoding="async"><figcaption>Preparing a cutting job on the laser workstation at META IV.</figcaption></figure>
-    <figure><img src="images/at-work-print-prep.jpg" width="1000" height="750" alt="Operator at a laptop with a slicer open next to a CO₂ laser" loading="lazy" decoding="async"><figcaption>Preparing a 3D print job at the workstation.</figcaption></figure>
-    <figure><img src="images/at-work-slicer.jpg" width="1000" height="750" alt="Laptop screen showing a slicer with a green cup model on a Prusa print bed" loading="lazy" decoding="async"><figcaption>Slicing a test print: 0.10 mm layers, ABS, 15% infill.</figcaption></figure>
-    <figure><img src="images/at-work-laser-file.jpg" width="1000" height="750" alt="Operator at the laser workstation with design software open on the laptop" loading="lazy" decoding="async"><figcaption>Setting up a laser job file before cutting.</figcaption></figure>
+  <div class="cart-backdrop" id="trackBackdrop" hidden>
+    <div class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="trackHeading">
+      <div class="cart-head">
+        <h3 id="trackHeading">Track your order</h3>
+        <button class="cart-close" id="trackClose" aria-label="Close">×</button>
+      </div>
+      <div class="track-body" id="trackBody"></div>
     </div>
-  </section>
+  </div>
 
-  <section id="electronics">
-    <h2>Electronics</h2>
-    <div class="gallery">
-    <figure><img src="images/bench-with-a-red-uni-t.jpg" width="900" height="952" alt="Bench with a red UNI-T UT136B+ multimeter and a bench power supply reading 4.299 V" loading="lazy" decoding="async"><figcaption>Bench setup with a UNI-T UT136B+ multimeter and a bench power supply reading 4.299 V.</figcaption></figure>
-    <figure><img src="images/inside-the-electrical-cabinet-of-a.jpg" width="900" height="675" alt="Inside the electrical cabinet of a CO₂ laser machine: controller, stepper drivers and switching power supplies" loading="lazy" decoding="async"><figcaption>Electrical cabinet of a CO₂ laser machine at META IV, where I repaired the USB port panel.</figcaption></figure>
-    <figure><img src="images/extractor-fan-with-a-red-housing.jpg" width="900" height="1200" alt="Extractor fan with a red housing and a guard grille" loading="lazy" decoding="async"><figcaption>Extractor fan I repaired for the factory's surface finishing department.</figcaption></figure>
-    <figure><img src="images/close-up-of-the-extractor-fan.jpg" width="900" height="1200" alt="Close-up of the extractor fan motor and capacitor behind the guard grille" loading="lazy" decoding="async"><figcaption>Motor and capacitor of the extractor fan, close-up.</figcaption></figure>
-    <figure><img src="images/kicad-schematic-with-a-dc-jack.jpg" width="900" height="505" alt="KiCad schematic with a DC jack, two voltage regulators, diodes, capacitors, a battery, a MOSFET and a DC motor" loading="lazy" decoding="async"><figcaption>KiCad schematic from my battery charger and motor controller circuits: DC jack input, L7815 and L7812 regulators, 1N4007 diodes, 1000 µF capacitors, a battery, and an IRLZ44N MOSFET with a DC motor.</figcaption></figure>
-    <figure><img src="images/kicad-3d-view-of-a-pcb.jpg" width="900" height="715" alt="KiCad 3D view of a PCB layout with a screw terminal block, a TO-220 part, a capacitor and a jack" loading="lazy" decoding="async"><figcaption>KiCad 3D view of a PCB layout with a multi-way screw terminal, a TO-220 part, an electrolytic capacitor and a jack. Part of my battery charger and motor controller circuit work.</figcaption></figure>
-    <figure><img src="images/kicad-3d-view-of-a-pcb-2.jpg" width="900" height="505" alt="KiCad 3D view of a PCB layout with two electrolytic capacitors and small surface-mount parts" loading="lazy" decoding="async"><figcaption>KiCad 3D view of a PCB layout with two electrolytic capacitors and several small parts. Part of my battery charger and motor controller circuit work.</figcaption></figure>
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-wordmark">DYTRONICS</div>
+        <p>DYTRONICS is a Lagos-based electronics parts and repair shop. Genuine components, tested before dispatch.</p>
+      </div>
+      <div class="footer-col" id="footerShopCol">
+        <h4>Shop</h4>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="https://wa.me/2347054378193?text=Hi%20DYTRONICS%2C%20I%27d%20like%20to%20know%20more%20about%20your%20parts.">WhatsApp</a>
+        <a href="https://instagram.com/">Instagram</a>
+        <a href="/products/">All products</a>
+        <a href="#" id="trackOrderLink">Track your order</a>
+        <span>Lagos, Nigeria</span>
+      </div>
     </div>
-  </section>
+    <div class="footer-bottom">
+      <span>© 2026 DYTRONICS. All rights reserved.</span>
+      <span>Welcome to DYTRONICS</span>
+    </div>
+  </footer>
 
-  <section id="education">
-    <h2>Education</h2>
-    <div class="item"><h3>B.Eng. Electronics and Computer Engineering</h3><p class="meta">Lagos State University (LASU) · In progress</p></div>
-    <div class="item"><h3>National Diploma, Electrical &amp; Electronics Engineering</h3><p class="meta">YABATECH · Graduated January 2026</p></div>
-  </section>
-
-  <section id="certs">
-    <h2>Certifications</h2>
-    <ul class="certs">
-      <li><span>3D Printing Technology <span class="muted">· HP LIFE, 2026</span></span><a href="https://www.life-global.org/certificate/80e4656c-6747-470f-a693-82db27de9763" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:6px"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg>View</a></li>
-      <li><span>Laser Cutting: Design for Fabrication <span class="muted">· LinkedIn Learning, 2026</span></span><a href="https://www.linkedin.com/learning/certificates/3ac3f01d868e5d9504c639d16fde55041609935b6e3b16751ae6dd63057e061c/" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:6px"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg>View</a></li>
-      <li><span>Mill and Lathe Operation <span class="muted">· LinkedIn Learning, 2026</span></span><a href="https://www.linkedin.com/learning/certificates/ffbbb725d8bbbd370dec50eb1574749b4cc37a0032ced3ca517eec9c0534e113/" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:6px"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg>View</a></li>
-      <li><span>AI Fluency <span class="muted">· Anthropic, 2026</span></span><a href="https://verify.skilljar.com/c/eu3x6s6eick8" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:6px"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 01-1 1H5a1 1 0 01-1-1V7a1 1 0 011-1h5"/></svg>View</a></li>
-      </ul>
-  </section>
-</main>
-
-<footer>
-  <span>© <span id="yr">2026</span> Adedoyin Adebanjo</span>
-</footer>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
 <script>
-(function(){
-  var y=document.getElementById("yr");if(y)y.textContent=new Date().getFullYear();
+(() => {
+'use strict';
+
+// Same project the admin console writes to — public/anon key only, reads are
+// restricted by Row Level Security to active=true products (see schema.sql).
+const SUPABASE_URL = "https://oqlbtbdmobhgxpqbyaeq.supabase.co";
+const SUPABASE_KEY = "sb_publishable_wS7kpnC5GOcHNkgEhbp1eQ_ND2DxAnN";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+// Order limits (mirror create_dytronics_order in the database)
+const MAX_LINE_QTY = 500;   // per product line
+const MAX_CART_LINES = 30;  // distinct lines per order
+
+// Tracks whether a customer is signed in and who they are, so the cart
+// logic below knows whether to also write through to the cloud
+// (dytronics_cart_items) or stay purely localStorage (guests).
+let currentCustomerId = null;
+
+// Public/publishable key — safe client-side by design. The matching secret
+// key lives only as an Edge Function secret (verify-payment), never here.
+const PAYSTACK_PUBLIC_KEY = "pk_live_aa99f67b92a1f81fa63cc4d94a66d90534b5da4e";
+
+const WHATSAPP_NUMBER = "2347054378193"; // +234 811 641 2960
+
+// Store-wide policy text — same for every product. Edit these strings any
+// time; no database change needed since these aren't per-product.
+const SITE_INFO = {
+  variantGuide: "Where a part has multiple variants (value, voltage, package, etc.) pick the one you need. Not sure which spec fits your project? Message us on WhatsApp with your requirements and we'll confirm before you order.",
+  delivery: "Lagos: door delivery, usually within 1–3 days of order confirmation. Nationwide: delivered via courier partners, typically 3–5 working days. Delivery cost is calculated separately from the item price and shared with you on WhatsApp.",
+  returns: "Components are tested before dispatch. If an item arrives faulty, DOA, or doesn't match what was agreed, message us within 48 hours of delivery and we'll repair, replace or refund it. Please check compatibility before ordering, since we don't accept returns for wrong part selection."
+};
+
+const NGN = n => (n === null || n === undefined || n === '')
+  ? '₦—'
+  : '₦' + Math.max(0, Math.round(Number(n) || 0)).toLocaleString('en-NG');
+
+let categoriesCache = [];
+function catLabelOf(slug) {
+  const c = categoriesCache.find(c => c.slug === slug);
+  return c ? c.label : slug;
+}
+const PH_CLASSES = ['ph1', 'ph2', 'ph3', 'ph4'];
+
+let productsById = {};
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function variantList(product) {
+  return (product.variants || '').split(',').map(s => s.trim()).filter(Boolean);
+}
+
+function whatsappLink(product, variant) {
+  const priceText = product.price ? `(${NGN(product.price)})` : '(price on request)';
+  const variantText = variant ? ` — ${variant}` : '';
+  const message = `Hi DYTRONICS, I'm interested in the ${product.name} ${priceText}${variantText}. I'd like to know availability and delivery options.`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+function isSoldOut(product) {
+  return product.stock !== null && product.stock !== undefined && Number(product.stock) <= 0;
+}
+function hasNoPrice(product) {
+  return product.price === null || product.price === undefined || product.price === '';
+}
+
+function addToCartControlHtml(product) {
+  if (hasNoPrice(product)) {
+    return `<button type="button" class="addcart" disabled title="Price on request. Contact us on WhatsApp.">Add to Cart</button>`;
+  }
+  if (isSoldOut(product)) {
+    return `<button type="button" class="addcart" disabled title="Currently out of stock">Add to Cart</button>`;
+  }
+  return `<button type="button" class="addcart" data-cart-add="${product.id}">Add to Cart</button>`;
+}
+
+function cardHtml(product, i) {
+  const media = product.image_url
+    ? `<img src="${escapeHtml(product.image_url)}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async">`
+    : `<div class="ph ${PH_CLASSES[i % PH_CLASSES.length]}"></div>`;
+  const soldOut = isSoldOut(product);
+  return `
+    <article class="card" data-id="${product.id}">
+      <div class="card-media">${media}</div>
+      <div class="card-info">
+        <div class="name">${escapeHtml(product.name)}</div>
+        <div class="price">${soldOut ? 'Sold out' : NGN(product.price)}</div>
+        <a href="${whatsappLink(product)}" class="enquire" onclick="event.stopPropagation()">Enquire on WhatsApp</a>
+        ${addToCartControlHtml(product)}
+      </div>
+    </article>`;
+}
+
+function pluralize(n) { return n === 1 ? '1 item' : `${n} items`; }
+
+function revealCards(scopeEl) {
+  const cards = scopeEl.querySelectorAll('.card');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('in'), (i % 4) * 80);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach(c => io.observe(c));
+}
+
+/* ---------------- Product detail modal ---------------- */
+const backdrop = document.getElementById('modalBackdrop');
+let selectedVariant = null;
+
+function openModal(product) {
+  selectedVariant = null;
+  document.getElementById('modalCartNote').style.display = 'none';
+  const soldOut = product.stock !== null && product.stock !== undefined && Number(product.stock) <= 0;
+
+  document.getElementById('modalMedia').innerHTML = product.image_url
+    ? `<img src="${escapeHtml(product.image_url)}" alt="${escapeHtml(product.name)}">`
+    : `<div class="ph ph1"></div>`;
+  document.getElementById('modalName').textContent = product.name;
+  document.getElementById('modalPrice').textContent = soldOut ? 'Sold out' : NGN(product.price);
+
+  const metaParts = [];
+  if (product.spec_notes) metaParts.push(`Specs: ${product.spec_notes}`);
+  metaParts.push(`Lead time: ${product.production_time || 'In stock, ships within 1–2 days'}`);
+  metaParts.push('Delivery: Lagos / Nationwide');
+  document.getElementById('modalMeta').innerHTML = metaParts.map(escapeHtml).join('<br>');
+
+  const variants = variantList(product);
+  const variantsEl = document.getElementById('modalVariants');
+  variantsEl.innerHTML = variants.length
+    ? variants.map(v => `<button type="button" class="variant-pill" data-variant="${escapeHtml(v)}">${escapeHtml(v)}</button>`).join('')
+    : '';
+  variantsEl.querySelectorAll('.variant-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      variantsEl.querySelectorAll('.variant-pill').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedVariant = btn.dataset.variant;
+      updateModalCta(product);
+    });
+  });
+
+  updateModalCta(product);
+
+  const descBlock = product.description
+    ? `<div class="accordion-item"><details><summary>Description</summary><p>${escapeHtml(product.description)}</p></details></div>`
+    : '';
+  document.getElementById('modalAccordion').innerHTML = `
+    ${descBlock}
+    <div class="accordion-item"><details><summary>Variants &amp; compatibility</summary><p>${SITE_INFO.variantGuide}</p></details></div>
+    <div class="accordion-item"><details><summary>Specs &amp; handling</summary><p>${product.spec_notes ? escapeHtml(product.spec_notes) + '. ' : ''}Store in a dry, static-safe place. Check pinout/voltage/compatibility with your project before powering it on.</p></details></div>
+    <div class="accordion-item"><details><summary>Delivery</summary><p>${SITE_INFO.delivery}</p></details></div>
+    <div class="accordion-item"><details><summary>Returns</summary><p>${SITE_INFO.returns}</p></details></div>
+  `;
+
+  backdrop.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+
+function updateModalCta(product) {
+  document.getElementById('modalCta').href = whatsappLink(product, selectedVariant);
+
+  const addCartBtn = document.getElementById('modalAddCart');
+  const variants = variantList(product);
+  const needsVariant = variants.length > 0 && !selectedVariant;
+
+  if (hasNoPrice(product)) {
+    addCartBtn.disabled = true;
+    addCartBtn.textContent = 'Message us for pricing';
+  } else if (isSoldOut(product)) {
+    addCartBtn.disabled = true;
+    addCartBtn.textContent = 'Out of stock';
+  } else if (needsVariant) {
+    addCartBtn.disabled = true;
+    addCartBtn.textContent = 'Select a variant to add to cart';
+  } else {
+    addCartBtn.disabled = false;
+    addCartBtn.textContent = 'Add to Cart';
+  }
+
+  addCartBtn.onclick = () => {
+    const result = addToCart(product, selectedVariant, 1);
+    const note = document.getElementById('modalCartNote');
+    note.style.display = 'block';
+    if (result.ok) {
+      note.textContent = 'Added to cart.';
+      note.style.color = '';
+    } else {
+      note.textContent = cartLimitMessage(result.reason, "Can't add more. You already have the most we have in stock in your cart.");
+      note.style.color = '#a53b3b';
+    }
+  };
+}
+
+function closeModal() {
+  backdrop.hidden = true;
+  document.body.style.overflow = '';
+}
+document.getElementById('modalClose').addEventListener('click', closeModal);
+backdrop.addEventListener('click', (e) => { if (e.target === backdrop) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !backdrop.hidden) closeModal(); });
+
+function handleCardAddToCart(product) {
+  const variants = variantList(product);
+  if (variants.length > 0) {
+    // Variant is required — send them into the modal to pick one rather than
+    // guessing, same variant-picker used everywhere else.
+    openModal(product);
+    return;
+  }
+  const result = addToCart(product, null, 1);
+  if (!result.ok) {
+    alert(cartLimitMessage(result.reason, "Can't add more. That's the most we have in stock."));
+  } else {
+    openCart();
+  }
+}
+
+document.getElementById('categorySections').addEventListener('click', (e) => {
+  const grid = e.target.closest('.grid[data-grid]');
+  if (!grid) return;
+  const addBtn = e.target.closest('[data-cart-add]');
+  if (addBtn) {
+    const product = productsById[addBtn.dataset.cartAdd];
+    if (product) handleCardAddToCart(product);
+    return;
+  }
+  const card = e.target.closest('.card');
+  if (!card) return;
+  const product = productsById[card.dataset.id];
+  if (product) openModal(product);
+});
+
+async function loadCategoriesAndRenderShell() {
+  try {
+    const { data, error } = await sb
+      .from('dytronics_categories')
+      .select('*')
+      .eq('active', true)
+      .order('sort_order', { ascending: true });
+    if (error) throw error;
+    categoriesCache = data || [];
+  } catch (err) {
+    console.error('Category load failed:', err);
+    categoriesCache = [];
+  }
+
+  renderCategoryLinks('catList');
+
+  const railItemsHtml = categoriesCache
+    .map((c, i) => `<div class="rail-item"><span class="rail-num">${String(i + 1).padStart(2, '0')}</span><a href="#${escapeHtml(c.slug)}">${escapeHtml(c.label)}</a></div>`)
+    .join('');
+  document.getElementById('railTrack').innerHTML = railItemsHtml + railItemsHtml;
+
+  document.getElementById('categorySections').innerHTML = categoriesCache.map((c, i) => `
+    <section class="category" id="${escapeHtml(c.slug)}" data-category="${escapeHtml(c.slug)}">
+      <div class="category-head">
+        <div>
+          <span class="eyebrow">${String(i + 1).padStart(2, '0')} — Category</span>
+          <h3>${escapeHtml(c.label)}</h3>
+        </div>
+        <div class="category-count" data-count>Loading…</div>
+      </div>
+      <div class="grid" data-grid></div>
+    </section>`).join('');
+
+  const footerCol = document.getElementById('footerShopCol');
+  footerCol.innerHTML = '<h4>Shop</h4>' + categoriesCache
+    .map(c => `<a href="#${escapeHtml(c.slug)}">${escapeHtml(c.label)}</a>`).join('');
+}
+
+// Deep link: /?product=<product id> opens that product's popup. Used by the
+// "View in shop" button on the static product pages (/p/<slug>/).
+// Unknown or missing ids are ignored, so a stale link just shows the shop.
+function openProductFromUrl() {
+  try {
+    const id = new URLSearchParams(window.location.search).get('product');
+    if (!id) return;
+    const product = productsById[id];
+    if (product) openModal(product);
+  } catch (err) {
+    console.error('Product deep link failed:', err);
+  }
+}
+
+// Starts the product query right away. Called at startup so it runs in
+// parallel with the category query instead of waiting behind it.
+// (.then() is what actually fires the request; the builder alone does not.)
+function fetchProducts() {
+  return sb
+    .from('dytronics_products')
+    .select('*')
+    .eq('active', true)
+    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: false })
+    .then(res => res);
+}
+
+// `prefetched` is the promise from fetchProducts() when the caller already
+// started it; with no argument (or anything else) it fetches fresh.
+async function loadProducts(prefetched) {
+  const sections = document.querySelectorAll('.category[data-category]');
+  try {
+    const { data, error } = await (prefetched && typeof prefetched.then === 'function' ? prefetched : fetchProducts());
+    if (error) throw error;
+
+    productsById = {};
+    (data || []).forEach(p => { productsById[p.id] = p; });
+
+    sections.forEach(section => {
+      const cat = section.getAttribute('data-category');
+      const grid = section.querySelector('[data-grid]');
+      const countEl = section.querySelector('[data-count]');
+      const items = (data || []).filter(p => p.category === cat);
+
+      countEl.textContent = pluralize(items.length);
+
+      if (!items.length) {
+        grid.innerHTML = `<div class="empty-note">New pieces coming soon. Check back shortly, or ask on WhatsApp.</div>`;
+        return;
+      }
+      grid.innerHTML = items.map(cardHtml).join('');
+      revealCards(grid);
+    });
+    openProductFromUrl();
+  } catch (err) {
+    sections.forEach(section => {
+      const grid = section.querySelector('[data-grid]');
+      const countEl = section.querySelector('[data-count]');
+      countEl.textContent = '';
+      grid.innerHTML = `<div class="error-note">Couldn't load pieces right now. Please check back soon.</div>`;
+    });
+    console.error('Product load failed:', err);
+  }
+}
+
+/* ---------------- Cart ---------------- */
+// Always mirrored to localStorage so it survives a refresh even offline.
+// When a customer is signed in (currentCustomerId set), every mutation is
+// ALSO written through to dytronics_cart_items, so the same cart follows
+// them to another device/browser. Guests (no session) get localStorage
+// only, exactly as before — this is purely additive.
+const CART_KEY = 'dytronics_cart_v1';
+// Records WHOSE cart is currently sitting in localStorage: a customer_id if
+// it was last saved while that customer was signed in, or the literal
+// string 'guest' if it was built up with nobody signed in. This is what lets
+// reconcileCartWithCloud() tell "this is genuinely an unclaimed guest cart,
+// safe to attach to whoever logs in next" apart from "this is a leftover
+// cart from a DIFFERENT account that happens to still be sitting in this
+// browser" — without it, a stale cart from a previous login on this device
+// can get handed to the next person who signs in.
+const CART_OWNER_KEY = 'dytronics_cart_owner_v1';
+let cart = [];
+
+function loadCart() {
+  try {
+    const raw = localStorage.getItem(CART_KEY);
+    cart = raw ? JSON.parse(raw) : [];
+    if (!Array.isArray(cart)) cart = [];
+  } catch (e) {
+    cart = [];
+  }
+}
+function saveCart() {
+  try {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    localStorage.setItem(CART_OWNER_KEY, currentCustomerId || 'guest');
+  } catch (e) { /* storage unavailable, cart stays in-memory for this session */ }
+}
+function getCartOwnerMarker() {
+  try { return localStorage.getItem(CART_OWNER_KEY); } catch (e) { return null; }
+}
+function cartLineKey(productId, variant) { return productId + '::' + (variant || ''); }
+
+// ---- Cloud cart sync (signed-in customers only) ----
+// Best-effort and non-blocking: if any of this fails (offline, RLS hiccup,
+// etc.) the local cart still works exactly as before — nothing here can
+// break checkout.
+async function cloudUpsertLine(line) {
+  if (!currentCustomerId) return;
+  try {
+    await sb.from('dytronics_cart_items').upsert({
+      customer_id: currentCustomerId,
+      product_id: line.id,
+      variant: line.variant || '',
+      quantity: line.qty
+    }, { onConflict: 'customer_id,product_id,variant' });
+  } catch (err) {
+    console.error('Cart cloud sync (upsert) failed, local cart unaffected:', err);
+  }
+}
+async function cloudDeleteLine(productId, variant) {
+  if (!currentCustomerId) return;
+  try {
+    let q = sb.from('dytronics_cart_items').delete().eq('customer_id', currentCustomerId).eq('product_id', productId);
+    q = variant ? q.eq('variant', variant) : q.eq('variant', '');
+    await q;
+  } catch (err) {
+    console.error('Cart cloud sync (delete) failed, local cart unaffected:', err);
+  }
+}
+
+// Pulls the customer's cloud cart and hydrates it into full cart lines
+// using productsById (name/price/image/stock aren't stored server-side —
+// only product_id/variant/qty are, so we look the rest up from what's
+// already loaded on the page).
+async function fetchCloudCartLines() {
+  if (!currentCustomerId) return [];
+  try {
+    const { data, error } = await sb.from('dytronics_cart_items').select('product_id, variant, quantity');
+    if (error) throw error;
+    return (data || []).map(r => {
+      const product = productsById[r.product_id];
+      if (!product) return null; // no longer available — drop silently
+      const stock = (product.stock === null || product.stock === undefined) ? Infinity : Number(product.stock);
+      return {
+        id: product.id, name: product.name, price: Number(product.price) || 0,
+        variant: r.variant || null, qty: Math.min(r.quantity, stock, MAX_LINE_QTY), image_url: product.image_url || '', stock
+      };
+    }).filter(Boolean);
+  } catch (err) {
+    console.error('Cloud cart fetch failed, falling back to local cart:', err);
+    return null; // signals "couldn't check" — caller should keep local cart as-is
+  }
+}
+
+// Called right after sign-in resolves (and once on page load if already
+// signed in). Cloud cart wins if it has anything; otherwise, if this
+// browser has a guest cart, it's the first sync — push it up to become
+// the account's cart. Either way both copies end up in agreement.
+async function reconcileCartWithCloud() {
+  if (!currentCustomerId) return;
+  const cloudLines = await fetchCloudCartLines();
+  if (cloudLines === null) return; // fetch failed — leave local cart untouched
+
+  if (cloudLines.length > 0) {
+    // This customer already has a saved cart in the cloud — that's the
+    // source of truth, always wins.
+    cart = cloudLines;
+    saveCart();
+  } else if (cart.length > 0) {
+    const owner = getCartOwnerMarker();
+    if (owner && owner !== 'guest' && owner !== currentCustomerId) {
+      // The local cart was last saved for a DIFFERENT signed-in customer
+      // (e.g. this is the phone owner's leftover cart and someone else has
+      // just logged in). It is not this customer's cart and must not be
+      // pushed up to their account — start them with an empty cart instead.
+      cart = [];
+      saveCart();
+    } else {
+      // Either an unclaimed guest cart (owner === 'guest'/null) or this
+      // same customer's own local cart re-syncing — safe to push up as
+      // their first cloud cart.
+      for (const line of cart) await cloudUpsertLine(line);
+      saveCart();
+    }
+  }
+  renderCartBadge();
+  if (!document.getElementById('cartBackdrop').hidden) renderCartDrawer();
+}
+
+function cartLimitMessage(reason, fallback) {
+  if (reason === 'lines') return 'Your cart is full (' + MAX_CART_LINES + ' different items max per order). Place this order first, then start another.';
+  if (reason === 'max') return 'Maximum ' + MAX_LINE_QTY + ' of one item per order. For bigger quantities, message us on WhatsApp.';
+  return fallback;
+}
+
+function addToCart(product, variant, qty) {
+  const stock = (product.stock === null || product.stock === undefined) ? Infinity : Number(product.stock);
+  const key = cartLineKey(product.id, variant);
+  const line = cart.find(l => cartLineKey(l.id, l.variant) === key);
+  const currentQty = line ? line.qty : 0;
+  const nextQty = Math.min(currentQty + qty, stock, MAX_LINE_QTY);
+  if (!line && cart.length >= MAX_CART_LINES) return { ok: false, reason: 'lines' };
+  if (nextQty <= currentQty) return { ok: false, reason: (currentQty >= MAX_LINE_QTY ? 'max' : 'stock') };
+  let resultLine;
+  if (line) {
+    line.qty = nextQty;
+    resultLine = line;
+  } else {
+    resultLine = {
+      id: product.id,
+      name: product.name,
+      price: Number(product.price) || 0,
+      variant: variant || null,
+      qty: nextQty,
+      image_url: product.image_url || '',
+      stock
+    };
+    cart.push(resultLine);
+  }
+  saveCart();
+  renderCartBadge();
+  cloudUpsertLine(resultLine);
+  return { ok: true };
+}
+
+function changeQty(key, delta) {
+  const line = cart.find(l => cartLineKey(l.id, l.variant) === key);
+  if (!line) return;
+  const stock = (line.stock === undefined || line.stock === null) ? Infinity : line.stock;
+  const next = line.qty + delta;
+  if (next <= 0) {
+    cart = cart.filter(l => cartLineKey(l.id, l.variant) !== key);
+    saveCart();
+    renderCartDrawer();
+    renderCartBadge();
+    cloudDeleteLine(line.id, line.variant);
+    return;
+  } else if (next > stock || next > MAX_LINE_QTY) {
+    return; // + button is disabled at the cap already; this is a safety no-op
+  } else {
+    line.qty = next;
+  }
+  saveCart();
+  renderCartDrawer();
+  renderCartBadge();
+  cloudUpsertLine(line);
+}
+
+function removeLine(key) {
+  const line = cart.find(l => cartLineKey(l.id, l.variant) === key);
+  cart = cart.filter(l => cartLineKey(l.id, l.variant) !== key);
+  saveCart();
+  renderCartDrawer();
+  renderCartBadge();
+  if (line) cloudDeleteLine(line.id, line.variant);
+}
+
+// Called only once a payment is server-confirmed as 'paid' (see
+// pollPaymentStatus). Clears the local cart and, for signed-in customers,
+// the cloud cart too — otherwise the next reconcileCartWithCloud() would
+// just repopulate the local cart from the still-full cloud copy.
+function clearCart() {
+  const hadCloudLines = currentCustomerId ? cart.slice() : [];
+  cart = [];
+  saveCart();
+  renderCartBadge();
+  if (!document.getElementById('cartBackdrop').hidden) renderCartDrawer();
+  for (const line of hadCloudLines) cloudDeleteLine(line.id, line.variant);
+}
+
+function cartCount() { return cart.reduce((sum, l) => sum + l.qty, 0); }
+function cartSubtotal() { return cart.reduce((sum, l) => sum + l.qty * l.price, 0); }
+
+function renderCartBadge() {
+  const badge = document.getElementById('cartBadge');
+  const count = cartCount();
+  badge.textContent = count;
+  badge.classList.toggle('hidden', count === 0);
+}
+
+function renderCartDrawer() {
+  const body = document.getElementById('cartBody');
+  const foot = document.getElementById('cartFoot');
+  if (!cart.length) {
+    body.innerHTML = `<div class="cart-empty">Your cart is empty. Browse the catalog and add the part you need.</div>`;
+    foot.hidden = true;
+    return;
+  }
+  foot.hidden = false;
+  body.innerHTML = cart.map(line => {
+    const key = cartLineKey(line.id, line.variant);
+    const atStockCap = line.qty >= line.stock || line.qty >= MAX_LINE_QTY;
+    return `
+      <div class="cart-row" data-key="${escapeHtml(key)}">
+        <img src="${escapeHtml(line.image_url)}" alt="">
+        <div class="ci-info">
+          <div class="ci-name">${escapeHtml(line.name)}</div>
+          <div class="ci-meta">${line.variant ? 'Variant ' + escapeHtml(line.variant) : ''}</div>
+          <div class="ci-price">${NGN(line.price)} each</div>
+          <div class="qty-stepper">
+            <button type="button" data-qty="-1" aria-label="Decrease quantity">−</button>
+            <span>${line.qty}</span>
+            <button type="button" data-qty="1" ${atStockCap ? 'disabled' : ''} aria-label="Increase quantity" title="${atStockCap ? (line.qty >= MAX_LINE_QTY ? 'Maximum ' + MAX_LINE_QTY + ' per item' : 'Only ' + line.stock + ' in stock') : ''}">+</button>
+          </div>
+          ${atStockCap ? `<div class="cart-stock-note">Max available stock reached.</div>` : ''}
+          <button type="button" class="cart-remove" data-remove>Remove</button>
+        </div>
+      </div>`;
+  }).join('');
+
+  body.querySelectorAll('[data-qty]').forEach(btn => {
+    btn.addEventListener('click', () => changeQty(btn.closest('.cart-row').dataset.key, Number(btn.dataset.qty)));
+  });
+  body.querySelectorAll('[data-remove]').forEach(btn => {
+    btn.addEventListener('click', () => removeLine(btn.closest('.cart-row').dataset.key));
+  });
+
+  document.getElementById('cartSubtotal').textContent = NGN(cartSubtotal());
+}
+
+function openCart() {
+  closeTrackDrawer(); // avoid both drawers open at once (overlapping backdrops, duplicate receipt IDs)
+  closeCatMenu();
+  closeSearchPanel();
+  showCartItemsView();
+  document.getElementById('cartBackdrop').hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+function closeCart() {
+  document.getElementById('cartBackdrop').hidden = true;
+  document.body.style.overflow = '';
+}
+
+/* ---------------- Category menu (hamburger panel) — plain list, no filtering ---------------- */
+// Renders the full, unfiltered category list — used by the hamburger panel only.
+function renderCategoryLinks(containerId) {
+  const list = document.getElementById(containerId);
+  list.innerHTML = categoriesCache
+    .map(c => `<a href="#${escapeHtml(c.slug)}" data-cat-link>${escapeHtml(c.label)}</a>`).join('');
+}
+
+// Search panel results: matches products by name (not categories — those
+// already have their own dedicated list in the hamburger menu).
+function renderProductSearchResults(containerId, filter) {
+  const list = document.getElementById(containerId);
+  const q = (filter || '').trim().toLowerCase();
+
+  if (!q) {
+    list.innerHTML = `<div class="cat-empty">Start typing to search products…</div>`;
+    return;
+  }
+
+  const matches = Object.values(productsById)
+    .filter(p => p.name && p.name.toLowerCase().includes(q));
+
+  if (matches.length === 0) {
+    list.innerHTML = `<div class="cat-empty">No matching products</div>`;
+    return;
+  }
+
+  list.innerHTML = matches.map(p => `
+    <a href="#${escapeHtml(p.category)}" class="search-result" data-search-product="${p.id}">
+      <span class="search-result-name">${escapeHtml(p.name)}</span>
+      <span class="search-result-price">${isSoldOut(p) ? 'Sold out' : NGN(p.price)}</span>
+    </a>`).join('');
+}
+
+function openCatMenu() {
+  closeCart();
+  closeTrackDrawer();
+  closeSearchPanel();
+  renderCategoryLinks('catList'); // always the full list — no search box in this panel
+  document.getElementById('catBackdrop').hidden = false;
+  document.getElementById('catMenuBtn').setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+function closeCatMenu() {
+  const backdrop = document.getElementById('catBackdrop');
+  if (backdrop.hidden) return;
+  backdrop.hidden = true;
+  document.getElementById('catMenuBtn').setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+  document.getElementById('catMenuBtn').focus(); // keyboard focus returns to the trigger, never trapped
+}
+
+/* ---------------- Search panel (magnifying-glass icon) — searches products ---------------- */
+function openSearchPanel() {
+  closeCart();
+  closeTrackDrawer();
+  closeCatMenu();
+  const input = document.getElementById('searchInput');
+  input.value = '';
+  renderProductSearchResults('searchList');
+  document.getElementById('searchBackdrop').hidden = false;
+  document.getElementById('searchBtn').setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+  input.focus(); // this panel exists to type into, unlike the plain list — the keyboard showing up here is expected
+}
+function closeSearchPanel() {
+  const backdrop = document.getElementById('searchBackdrop');
+  if (backdrop.hidden) return;
+  backdrop.hidden = true;
+  document.getElementById('searchBtn').setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+  document.getElementById('searchBtn').focus();
+}
+
+
+/* ---------------- Checkout (inline in cart drawer) ---------------- */
+// Unconfirmed assumption, flagged to Adedoyin: reopening the cart after
+// leaving mid-checkout resets to the items view rather than resuming the
+// form. Cart contents themselves are untouched either way (still in
+// localStorage) — only the checkout form's typed fields would be lost.
+
+function showCartItemsView() {
+  document.getElementById('checkoutView').hidden = true;
+  document.getElementById('checkoutView').innerHTML = '';
+  document.getElementById('cartBody').hidden = false;
+  renderCartDrawer();
+}
+
+function checkoutFormHtml() {
+  return `
+    <button type="button" class="checkout-back" id="checkoutBack">&larr; Back to cart</button>
+    <div class="checkout-summary">
+      <span>${cartCount()} item${cartCount() === 1 ? '' : 's'} &middot; Subtotal</span>
+      <span class="amt">${NGN(cartSubtotal())}</span>
+    </div>
+    <form id="checkoutForm" novalidate>
+      <div class="checkout-field" data-field="name">
+        <label for="co_name">Full name</label>
+        <input id="co_name" type="text" autocomplete="name" maxlength="100">
+        <div class="err-msg">Enter your full name.</div>
+      </div>
+      <div class="checkout-field" data-field="phone">
+        <label for="co_phone">Phone number</label>
+        <input id="co_phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="e.g. 0811 641 2960">
+        <div class="err-msg">Enter a phone number we can reach you on.</div>
+      </div>
+      <div class="checkout-field" data-field="email">
+        <label for="co_email">Email</label>
+        <input id="co_email" type="email" autocomplete="email" maxlength="254">
+        <div class="err-msg">Enter a valid email. It's needed to process payment.</div>
+      </div>
+      <div class="checkout-field" data-field="address">
+        <label for="co_address">Shipping address</label>
+        <textarea id="co_address" autocomplete="street-address" maxlength="500" placeholder="Street, area, city, state"></textarea>
+        <div class="err-msg">Enter the address we should ship to.</div>
+      </div>
+      <p class="checkout-submit-err" id="checkoutSubmitErr"></p>
+      <button type="submit" class="btn btn-solid cart-checkout-btn" id="checkoutSubmitBtn">Place order &amp; pay</button>
+      <p class="cart-note">You'll pay securely with Paystack in the next step. Your order is saved first and you get a tracking number, so if the payment window closes you can retry. Unpaid orders are released after 6 hours.</p>
+    </form>`;
+}
+
+function showCheckoutView() {
+  if (!cart.length) return; // safety no-op — button isn't reachable with an empty cart anyway
+  document.getElementById('cartBody').hidden = true;
+  document.getElementById('cartFoot').hidden = true;
+  const view = document.getElementById('checkoutView');
+  view.hidden = false;
+  view.innerHTML = checkoutFormHtml();
+  document.getElementById('checkoutBack').addEventListener('click', showCartItemsView);
+  document.getElementById('checkoutForm').addEventListener('submit', submitCheckout);
+  wireCheckoutLiveValidation();
+}
+
+function setFieldError(field, hasError, msg) {
+  const el = document.querySelector(`.checkout-field[data-field="${field}"]`);
+  if (!el) return;
+  el.classList.toggle('has-error', !!hasError);
+  if (hasError && msg) {
+    const m = el.querySelector('.err-msg');
+    if (m) m.textContent = msg;
+  }
+}
+
+// Nigerian mobile numbers: 0 + [789] + [01] + 8 digits (070x, 080x, 081x, 090x, 091x),
+// e.g. 0811 641 2960. Also accepts +234 / 234 forms and a missing leading 0, and
+// returns the local 11-digit form ("08116412960"), or null if it isn't valid.
+function normalizeNgPhone(raw) {
+  let d = String(raw || '').trim().replace(/[\s\-().]/g, '');
+  if (d.startsWith('+')) d = d.slice(1);
+  if (!/^\d+$/.test(d)) return null;
+  if (/^234\d{10}$/.test(d)) d = '0' + d.slice(3);
+  else if (/^[789]\d{9}$/.test(d)) d = '0' + d;
+  return /^0[789][01]\d{8}$/.test(d) ? d : null;
+}
+
+// Rules mirror the limits enforced in create_dytronics_order (name 1-100, phone, email
+// <=254, address 5-500). Each returns '' when OK, else a friendly message.
+const CHECKOUT_RULES = {
+  name(v) {
+    v = v.trim();
+    if (v.length < 2) return 'Enter your full name.';
+    if (v.length > 100) return 'That name is too long (100 characters max).';
+    return '';
+  },
+  phone(v) {
+    v = v.trim();
+    if (!v) return 'Enter a phone number we can reach you on.';
+    return normalizeNgPhone(v) ? '' : 'Enter a valid Nigerian mobile number, e.g. 0811 641 2960 or +234 811 641 2960.';
+  },
+  email(v) {
+    v = v.trim();
+    if (!v) return "Enter your email. It's needed to process payment.";
+    if (v.length > 254) return 'That email is too long.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "That email doesn't look right. Check for typos, e.g. name@gmail.com.";
+    return '';
+  },
+  address(v) {
+    v = v.trim();
+    if (v.length < 10) return 'Enter the full address: street, area, city and state.';
+    if (v.length > 500) return 'That address is too long (500 characters max).';
+    return '';
+  }
+};
+
+function validateCheckoutForm() {
+  const fields = ['name', 'phone', 'email', 'address'];
+  const val = {};
+  fields.forEach(f => { val[f] = document.getElementById('co_' + f).value.trim(); });
+
+  let firstBad = null;
+  fields.forEach(f => {
+    const msg = CHECKOUT_RULES[f](val[f]);
+    setFieldError(f, !!msg, msg);
+    if (msg && !firstBad) firstBad = f;
+  });
+  if (firstBad) document.getElementById('co_' + firstBad).focus();
+
+  return {
+    valid: !firstBad,
+    name: val.name,
+    phone: normalizeNgPhone(val.phone) || val.phone, // stored in local 11-digit form
+    email: val.email,
+    address: val.address
+  };
+}
+
+// Validate as the shopper goes: check a field when they leave it, and once a
+// field is showing an error, re-check on every keystroke so it clears as soon as it's fixed.
+function wireCheckoutLiveValidation() {
+  ['name', 'phone', 'email', 'address'].forEach(f => {
+    const input = document.getElementById('co_' + f);
+    if (!input) return;
+    const check = () => {
+      const msg = CHECKOUT_RULES[f](input.value);
+      setFieldError(f, !!msg, msg);
+    };
+    input.addEventListener('blur', () => {
+      if (!input.value.trim()) return;
+      if (f === 'phone') {
+        const n = normalizeNgPhone(input.value);
+        if (n) input.value = n.replace(/^(\d{4})(\d{3})(\d{4})$/, '$1 $2 $3');
+      }
+      check();
+    });
+    input.addEventListener('input', () => {
+      const wrap = input.closest('.checkout-field');
+      if (wrap && wrap.classList.contains('has-error')) check();
+    });
+  });
+}
+
+// ---- Device-local order memory + receipt rendering ----
+// No longer surfaced as a browsable list in the track drawer (that used to
+// show every order made from this browser regardless of account — wrong on
+// a shared device, since it mixed orders across whoever last checked out
+// here). Now used only for immediate checkout/retry bookkeeping: letting a
+// shopper retry a just-placed pending_payment order if they close the popup
+// or lose connection, within the same browsing session. Convenience only,
+// not security — get_dytronics_order_by_tracking already excludes contact
+// info, so nothing sensitive is exposed here either.
+const ORDERS_KEY = 'dytronics_orders_v1';
+const STATUS_LABEL = {
+  pending_payment: 'Pending payment', paid: 'Paid', shipped: 'Shipped',
+  delivered: 'Delivered', cancelled: 'Cancelled'
+};
+
+function loadDeviceOrders() {
+  try {
+    const raw = localStorage.getItem(ORDERS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) { return []; } // storage unavailable (e.g. private browsing) — device list stays empty, manual lookup still works
+}
+
+function saveDeviceOrders(orders) {
+  try { localStorage.setItem(ORDERS_KEY, JSON.stringify(orders)); } catch (e) { /* storage unavailable, ignore */ }
+}
+
+// Saved at order creation (not just on 'paid'), so a customer can find and
+// retry a pending_payment order from their own device even if payment fails
+// or the popup is closed.
+function saveOrderToDevice(orderRecord) {
+  const orders = loadDeviceOrders();
+  const existingIdx = orders.findIndex(o => o.trackingNumber === orderRecord.trackingNumber);
+  if (existingIdx >= 0) orders[existingIdx] = orderRecord;
+  else orders.unshift(orderRecord);
+  saveDeviceOrders(orders);
+}
+
+function updateDeviceOrderStatus(trackingNumber, newStatus) {
+  const orders = loadDeviceOrders();
+  const idx = orders.findIndex(o => o.trackingNumber === trackingNumber);
+  if (idx >= 0) { orders[idx].status = newStatus; saveDeviceOrders(orders); }
+}
+
+function statusBadgeHtml(status) {
+  const label = STATUS_LABEL[status] || status;
+  const cls = STATUS_LABEL[status] ? status : 'pending_payment';
+  return `<span class="status-badge st-${escapeHtml(cls)}">${escapeHtml(label)}</span>`;
+}
+
+function fmtOrderDate(iso) {
+  try {
+    return new Date(iso).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  } catch (e) { return iso; }
+}
+
+function fmtNaira(n) {
+  return '₦' + Number(n).toLocaleString('en-NG');
+}
+
+// Shared receipt markup — used by the post-checkout confirmation screen AND
+// the track-my-order drawer, so both stay visually identical.
+function renderReceiptHtml(orderRecord, opts) {
+  opts = opts || {};
+  const itemsHtml = (orderRecord.items || []).map(item => `
+    <div class="receipt-item">
+      <div>
+        <div class="ri-name">${escapeHtml(item.name)}</div>
+        <div class="ri-meta">${item.variant ? 'Variant ' + escapeHtml(item.variant) + ' · ' : ''}Qty ${escapeHtml(String(item.qty))} · ${fmtNaira(item.unitPrice)} each</div>
+      </div>
+      <div class="ri-amt">${fmtNaira(item.subtotal)}</div>
+    </div>`).join('');
+
+  return `
+    <div class="receipt" id="printReceiptArea">
+      <div class="receipt-head">
+        <span class="eyebrow" style="color:var(--green)">${escapeHtml(opts.eyebrow || 'Order receipt')}</span>
+        <div class="track-label">Tracking number</div>
+        <div class="track-num">${escapeHtml(orderRecord.trackingNumber)}</div>
+        <div class="receipt-date">${escapeHtml(fmtOrderDate(orderRecord.createdAt))}</div>
+        <div id="receiptStatusBadge">${statusBadgeHtml(orderRecord.status)}</div>
+      </div>
+      <div class="receipt-items">${itemsHtml}</div>
+      <div class="receipt-total-row"><span>Total</span><span class="amt">${fmtNaira(orderRecord.amountTotal)}</span></div>
+      <p class="receipt-note" id="receiptNote">${escapeHtml(opts.note || '')}</p>
+      <div class="receipt-actions">
+        ${opts.extraButtonsHtml || ''}
+        <button type="button" class="btn modal-addcart cart-checkout-btn" id="receiptPrintBtn">Print / Save as PDF</button>
+        <button type="button" class="btn modal-addcart cart-checkout-btn" id="receiptDoneBtn">Done</button>
+      </div>
+    </div>`;
+}
+
+function wireReceiptButtons(onDone) {
+  const printBtn = document.getElementById('receiptPrintBtn');
+  if (printBtn) printBtn.addEventListener('click', () => window.print());
+  const doneBtn = document.getElementById('receiptDoneBtn');
+  if (doneBtn) doneBtn.addEventListener('click', onDone);
+}
+
+/* ---------------- Track-my-order drawer ---------------- */
+// Two lookup paths: (1) account order history — for signed-in customers,
+// via the get_my_dytronics_orders RPC (RLS/SECURITY DEFINER scoped to
+// auth.uid(), same source account.html's Order History tab uses, so a
+// shared/borrowed device never shows a previous customer's orders); (2)
+// manual tracking-number entry — works for anyone, signed in or not, via
+// get_dytronics_order_by_tracking (excludes contact info by design). Both
+// render through the same renderReceiptHtml used at checkout, for visual
+// consistency.
+
+function openTrackDrawer() {
+  closeCart(); // avoid both drawers open at once (overlapping backdrops, duplicate receipt IDs)
+  closeCatMenu();
+  closeSearchPanel();
+  renderTrackDrawerHome();
+  document.getElementById('trackBackdrop').hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+function closeTrackDrawer() {
+  document.getElementById('trackBackdrop').hidden = true;
+  document.body.style.overflow = '';
+}
+
+function renderTrackDrawerHome() {
+  const body = document.getElementById('trackBody');
+  const signedIn = !!currentCustomerId;
+
+  body.innerHTML = `
+    <p class="track-intro">Enter your tracking number to check an order${signedIn ? '' : ', or <a href="account.html">sign in</a> to see your full order history'}.</p>
+    <div class="track-lookup">
+      <input type="text" id="trackInput" placeholder="DYT-XXXXX-XXXXX" maxlength="16" autocomplete="off" spellcheck="false">
+      <button type="button" class="btn btn-solid" id="trackLookupBtn">Track</button>
+    </div>
+    ${signedIn ? `<div class="track-section-label">Your orders</div><div id="acctOrdersList"><p class="track-empty">Loading your orders…</p></div>` : ''}`;
+
+  document.getElementById('trackLookupBtn').addEventListener('click', () => handleTrackLookup());
+  const input = document.getElementById('trackInput');
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleTrackLookup(); });
+  input.addEventListener('input', (e) => { e.target.value = e.target.value.toUpperCase(); });
+
+  if (signedIn) loadAccountOrders();
+}
+
+// Populates the signed-in "Your orders" list. get_my_dytronics_orders is
+// RLS/SECURITY-DEFINER scoped to the calling auth.uid(), so this only ever
+// returns orders actually linked to the signed-in account — never a guest
+// order or another customer's, regardless of what's cached on this device.
+async function loadAccountOrders() {
+  const list = document.getElementById('acctOrdersList');
+  if (!list) return; // drawer closed/re-rendered before this ran
+  try {
+    const { data, error } = await sb.rpc('get_my_dytronics_orders');
+    const stillThere = document.getElementById('acctOrdersList');
+    if (!stillThere) return; // re-check after the await
+    if (error) {
+      console.error('get_my_dytronics_orders failed:', error);
+      stillThere.innerHTML = `<p class="track-empty">Couldn't load your orders — please try again.</p>`;
+      return;
+    }
+    if (!data || !data.length) {
+      stillThere.innerHTML = `<p class="track-empty">No orders linked to your account yet.</p>`;
+      return;
+    }
+    stillThere.innerHTML = data.map(o => `
+      <button type="button" class="device-order-row" data-tracking="${escapeHtml(o.tracking_number)}">
+        <div class="do-info">
+          <div class="do-track">${escapeHtml(o.tracking_number)}</div>
+          <div class="do-date">${escapeHtml(fmtOrderDate(o.created_at))}</div>
+        </div>
+        <div class="do-right">
+          ${statusBadgeHtml(o.status)}
+          <div class="do-amt">${fmtNaira(o.amount_total)}</div>
+        </div>
+      </button>`).join('');
+    stillThere.querySelectorAll('.device-order-row').forEach(row => {
+      row.addEventListener('click', () => handleTrackLookup(row.getAttribute('data-tracking')));
+    });
+  } catch (err) {
+    console.error('Loading account orders failed:', err);
+    const stillThere = document.getElementById('acctOrdersList');
+    if (stillThere) stillThere.innerHTML = `<p class="track-empty">Couldn't load your orders — please try again.</p>`;
+  }
+}
+
+async function handleTrackLookup(presetValue) {
+  const input = document.getElementById('trackInput');
+  const raw = presetValue || (input ? input.value.trim() : '');
+  if (!raw) return;
+
+  const body = document.getElementById('trackBody');
+  body.innerHTML = `
+    <button type="button" class="track-back" id="trackBackBtn">← Back</button>
+    <div class="track-lookup-state"><p class="note">Looking that up…</p></div>`;
+  document.getElementById('trackBackBtn').addEventListener('click', renderTrackDrawerHome);
+
+  try {
+    // get_dytronics_order_by_tracking now returns a scalar jsonb value
+    // (null when no match) rather than SETOF jsonb, so no .single() —
+    // !data is our "not found" signal.
+    const { data, error } = await sb.rpc('get_dytronics_order_by_tracking', { p_tracking_number: raw });
+    if (error || !data) {
+      renderTrackLookupMessage("We couldn't find an order with that tracking number. Double check it, it should look like DYT-XXXXX-XXXXX.");
+      return;
+    }
+    showTrackReceipt(adaptTrackingResult(data));
+  } catch (err) {
+    console.error('Tracking lookup failed:', err);
+    renderTrackLookupMessage("Something went wrong checking that. Please check your connection and try again.");
+  }
+}
+
+function renderTrackLookupMessage(text) {
+  const body = document.getElementById('trackBody');
+  body.innerHTML = `
+    <button type="button" class="track-back" id="trackBackBtn">← Back</button>
+    <div class="track-lookup-state"><p class="note">${escapeHtml(text)}</p></div>`;
+  document.getElementById('trackBackBtn').addEventListener('click', renderTrackDrawerHome);
+}
+
+// Adapts get_dytronics_order_by_tracking's return shape (tracking_number, status,
+// amount_total, currency, created_at, items: [{product_name, variant,
+// quantity, unit_price}]) to the {trackingNumber, createdAt, items:
+// [{name, variant, qty, unitPrice, subtotal}], amountTotal, status} shape
+// renderReceiptHtml expects. (Previously this silently received undefined
+// for every field because the RPC was declared SETOF jsonb — fixed via the
+// fix_setof_jsonb_rpc_wrapping migration, which also removed the .single()
+// calls on this RPC that were compensating for the old wrapped shape.)
+function adaptTrackingResult(data) {
+  const items = (data.items || []).map(it => ({
+    name: it.product_name, variant: it.variant, qty: it.quantity,
+    unitPrice: it.unit_price, subtotal: (Number(it.unit_price) || 0) * (Number(it.quantity) || 0)
+  }));
+  return {
+    trackingNumber: data.tracking_number,
+    createdAt: data.created_at,
+    items: items,
+    amountTotal: data.amount_total,
+    status: data.status
+  };
+}
+
+function showTrackReceipt(orderRecord) {
+  const body = document.getElementById('trackBody');
+  const noteByStatus = {
+    pending_payment: 'Payment is still pending on this order. If you started paying, it can take a minute to confirm.',
+    paid: "We'll update this as your order moves along. Message us on WhatsApp any time.",
+    shipped: "Your order is on its way. Message us on WhatsApp if you need anything.",
+    delivered: 'Delivered. Thank you for shopping with us!',
+    cancelled: 'This order was cancelled.'
+  };
+  body.innerHTML = `<button type="button" class="track-back" id="trackBackBtn">← Back</button>` +
+    renderReceiptHtml(orderRecord, {
+      eyebrow: 'Order receipt',
+      note: noteByStatus[orderRecord.status] || ''
+    });
+  document.getElementById('trackBackBtn').addEventListener('click', renderTrackDrawerHome);
+  wireReceiptButtons(renderTrackDrawerHome);
+}
+
+async function submitCheckout(e) {
+  e.preventDefault();
+  const errEl = document.getElementById('checkoutSubmitErr');
+  errEl.classList.remove('show');
+  errEl.textContent = '';
+
+  const { valid, name, phone, email, address } = validateCheckoutForm();
+  if (!valid) return;
+
+  if (cart.length > MAX_CART_LINES || cart.some(l => l.qty > MAX_LINE_QTY)) {
+    errEl.textContent = 'Your cart is over the order limit (' + MAX_CART_LINES + ' items, ' + MAX_LINE_QTY + ' of each). Please trim it and try again.';
+    errEl.classList.add('show');
+    return;
+  }
+
+  const btn = document.getElementById('checkoutSubmitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Placing order…';
+
+try {
+    // Only product_id, variant, and quantity go to the server — price and
+    // product_name are NOT sent, because create_dytronics_order now looks those up
+    // itself from dytronics_products. This closes a price-tampering gap:
+    // previously the client computed and sent the price/total directly.
+    const itemsPayload = cart.map(line => ({
+      product_id: line.id,
+      variant: line.variant,
+      quantity: line.qty
+    }));
+
+    // Single atomic Postgres function (create_dytronics_order) — inserts the order
+    // and its line items in one transaction. It also recomputes
+    // price/name/total server-side and returns the authoritative amount —
+    // that's what we use below for both the receipt and the actual
+    // Paystack charge.
+    // NOTE: this function returns a scalar `jsonb` value (not SETOF jsonb),
+    // so no .single() here — PostgREST already hands back the object
+    // directly. Adding .single() to a SETOF jsonb version of this function
+    // used to silently wrap the result as {create_dytronics_order: {...}},
+    // which is why every field below used to read as undefined.
+    const { data: order, error: orderErr } = await sb
+      .rpc('create_dytronics_order', {
+        p_customer_name: name,
+        p_customer_phone: phone,
+        p_customer_email: email || null,
+        p_shipping_address: address,
+        p_currency: 'NGN',
+        p_items: itemsPayload
+      });
+    if (orderErr || !order) throw (orderErr || new Error('Order could not be created.'));
+
+    // Receipt items come back from the server (order.items), built from
+    // the same authoritative product lookup — not the client's cart
+    // snapshot — so what's shown always matches what was charged.
+    const receiptItems = (order.items || []).map(it => ({
+      name: it.product_name, variant: it.variant, qty: it.quantity,
+      unitPrice: it.unit_price, subtotal: it.subtotal
+    }));
+
+    // Saved to this device immediately — before payment resolves — so a
+    // customer can find and retry a pending_payment order even if the
+    // Paystack popup fails or is closed without paying.
+    const orderRecord = {
+      trackingNumber: order.tracking_number,
+      createdAt: new Date().toISOString(),
+      items: receiptItems,
+      amountTotal: order.amount_total, // server-computed, not client cartSubtotal()
+      status: 'pending_payment'
+    };
+    saveOrderToDevice(orderRecord);
+
+    // If the shopper is signed in to their account, silently link this new
+    // order to it so it shows up in Order History. Safe no-op for guests
+    // (no session) — never blocks or fails the checkout itself.
+    try {
+      const { data: { session } } = await sb.auth.getSession();
+      if (session) {
+        await sb.rpc('claim_dytronics_order', { p_tracking_number: order.tracking_number });
+      }
+    } catch (linkErr) {
+      console.error('Order-to-account linking failed (non-fatal):', linkErr);
+    }
+
+    launchPaystackPayment(orderRecord, email);
+  } catch (err) {
+    errEl.textContent = "Couldn't place your order. " + (err.message || 'Please check your connection and try again.');
+    errEl.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = 'Place order & pay';
+    console.error('Checkout failed:', err);
+  }
+}
+
+// ---- Payment (Paystack Inline JS) ----
+// Order already exists in the DB at this point (status: pending_payment).
+// Nothing here ever marks an order "paid" directly — that only happens
+// server-side, via the verify-payment Edge Function reacting to Paystack's
+// webhook. This flow only ever shows honest in-progress/retry states.
+
+function launchPaystackPayment(orderRecord, email) {
+  const handler = PaystackPop.setup({
+    key: PAYSTACK_PUBLIC_KEY,
+    email: email,
+    amount: Math.round(orderRecord.amountTotal * 100), // Paystack expects kobo
+    currency: 'NGN',
+    ref: orderRecord.trackingNumber, // matches dytronics_orders.tracking_number — verify-payment looks orders up by this
+    callback: function (response) {
+      // This only means the popup itself finished — NOT that payment is
+      // verified. Real confirmation is server-side (webhook). Show an
+      // honest "submitted" state and poll for the real status.
+      showPaymentSubmitted(orderRecord, email);
+    },
+    onClose: function () {
+      // Customer closed the popup without completing payment. The order
+      // is untouched in the DB (still pending_payment) — nothing lost.
+      showPaymentRetry(orderRecord, email);
+    }
+  });
+  handler.openIframe();
+}
+
+function showPaymentSubmitted(orderRecord, email) {
+  const view = document.getElementById('checkoutView');
+  view.innerHTML = renderReceiptHtml(orderRecord, {
+    eyebrow: 'Payment submitted',
+    note: 'Confirming your payment. This usually takes just a few seconds…'
+  });
+  wireReceiptButtons(closeCart);
+  pollPaymentStatus(orderRecord, 0);
+}
+
+async function pollPaymentStatus(orderRecord, attempt) {
+  const MAX_ATTEMPTS = 10; // ~30s total at 3s apart — a UI courtesy only,
+                            // the webhook keeps working after this stops polling
+  if (attempt >= MAX_ATTEMPTS) {
+    const note = document.getElementById('receiptNote');
+    if (note) {
+      note.textContent = "Still confirming. This can occasionally take a bit longer. Your order and tracking number are saved either way; check back shortly or message us on WhatsApp if you don't hear from us.";
+    }
+    return;
+  }
+  try {
+    const { data, error } = await sb.rpc('get_dytronics_order_by_tracking', { p_tracking_number: orderRecord.trackingNumber });
+    if (!error && data && data.status === 'paid') {
+      orderRecord.status = 'paid';
+      updateDeviceOrderStatus(orderRecord.trackingNumber, 'paid');
+      clearCart(); // only now — payment is server-confirmed, not just submitted
+      const badge = document.getElementById('receiptStatusBadge');
+      const note = document.getElementById('receiptNote');
+      if (badge) badge.innerHTML = statusBadgeHtml('paid');
+      if (note) note.textContent = "Payment confirmed, thank you! We'll be in touch on WhatsApp to arrange production and delivery.";
+      return; // stop polling — done
+    }
+  } catch (err) {
+    console.error('Payment status check failed:', err);
+  }
+  setTimeout(() => pollPaymentStatus(orderRecord, attempt + 1), 3000);
+}
+
+function showPaymentRetry(orderRecord, email) {
+  const view = document.getElementById('checkoutView');
+  view.innerHTML = renderReceiptHtml(orderRecord, {
+    eyebrow: 'Payment not completed',
+    note: "Your order is saved, nothing's lost. You can try paying again now, or come back to it later using your tracking number.",
+    extraButtonsHtml: `<button type="button" class="btn btn-solid cart-checkout-btn" id="retryPaymentBtn">Pay now</button>`
+  });
+  document.getElementById('retryPaymentBtn').addEventListener('click', () => launchPaystackPayment(orderRecord, email));
+  wireReceiptButtons(closeCart);
+}
+document.getElementById('cartBtn').addEventListener('click', openCart);
+document.getElementById('cartClose').addEventListener('click', closeCart);
+document.getElementById('cartBackdrop').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('cartBackdrop')) closeCart();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !document.getElementById('cartBackdrop').hidden) closeCart();
+});
+document.getElementById('cartCheckoutBtn').addEventListener('click', showCheckoutView);
+
+document.getElementById('trackOrderLink').addEventListener('click', (e) => {
+  e.preventDefault();
+  openTrackDrawer();
+});
+document.getElementById('trackClose').addEventListener('click', closeTrackDrawer);
+document.getElementById('trackBackdrop').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('trackBackdrop')) closeTrackDrawer();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !document.getElementById('trackBackdrop').hidden) closeTrackDrawer();
+});
+
+document.getElementById('catMenuBtn').addEventListener('click', openCatMenu);
+document.getElementById('catClose').addEventListener('click', closeCatMenu);
+document.getElementById('catBackdrop').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('catBackdrop')) closeCatMenu();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !document.getElementById('catBackdrop').hidden) closeCatMenu();
+});
+// Category links are re-rendered whenever the list changes, so this listener
+// is delegated on the (stable) container rather than bound per-link.
+document.getElementById('catList').addEventListener('click', (e) => {
+  if (e.target.closest('[data-cat-link]')) closeCatMenu(); // let the anchor's own href do the scroll; we just close the panel
+});
+
+document.getElementById('searchBtn').addEventListener('click', openSearchPanel);
+document.getElementById('searchClose').addEventListener('click', closeSearchPanel);
+document.getElementById('searchBackdrop').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('searchBackdrop')) closeSearchPanel();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !document.getElementById('searchBackdrop').hidden) closeSearchPanel();
+});
+document.getElementById('searchInput').addEventListener('input', (e) => renderProductSearchResults('searchList', e.target.value));
+document.getElementById('searchList').addEventListener('click', (e) => {
+  const link = e.target.closest('[data-search-product]');
+  if (!link) return;
+  e.preventDefault(); // open the product modal directly, rather than just jumping to its category section
+  const product = productsById[link.getAttribute('data-search-product')];
+  closeSearchPanel();
+  if (product) openModal(product);
+});
+
+loadCart();
+renderCartBadge();
+
+// Cart cloud-sync needs product details (name/price/stock) to hydrate cloud
+// rows into full cart lines, so it waits until products are loaded. It also
+// needs to know if a session already exists on page load (e.g. customer
+// signed in on a previous visit and never signed out).
+// Start the product query now so it overlaps the category query (one round trip
+// of waiting instead of two). The shell must still render before products fill it.
+const productsFetch = fetchProducts();
+productsFetch.catch(() => {}); // failures are handled where it is awaited, in loadProducts
+loadCategoriesAndRenderShell().then(() => loadProducts(productsFetch)).then(async () => {
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    currentCustomerId = session ? session.user.id : null;
+  } catch (err) {
+    currentCustomerId = null;
+  }
+  if (currentCustomerId) await reconcileCartWithCloud();
+});
+
+// Fires on sign-in, sign-out, and token refresh across the site (including
+// after account.html signs someone in and they navigate back here).
+sb.auth.onAuthStateChange(async (event, session) => {
+  if (event === 'SIGNED_IN') {
+    currentCustomerId = session.user.id;
+    await reconcileCartWithCloud();
+  } else if (event === 'SIGNED_OUT') {
+    currentCustomerId = null;
+    // Clear the local cart on sign-out too. On a shared/borrowed device,
+    // leaving it behind meant the next person (signing in as themselves,
+    // or just browsing as a guest) could inherit whatever the previous
+    // customer had in their cart. Their cart is still safe in the cloud
+    // under their account — it'll come back next time they sign in.
+    cart = [];
+    saveCart();
+    renderCartBadge();
+    if (!document.getElementById('cartBackdrop').hidden) renderCartDrawer();
+  }
+});
+
+// If hero video has no real source, keep the gradient background only
+const heroVideo = document.querySelector('.hero-video');
+heroVideo.addEventListener('error', () => { heroVideo.style.display = 'none'; }, true);
+
+// Autoplay hardening. Some phones (iOS Low Power Mode, data savers, battery
+// savers) refuse to autoplay even muted video. Set muted via the property (iOS
+// can ignore the attribute alone), try play(), and retry on the first touch,
+// scroll, key press or tab return. The poster frame shows in the meantime.
+(function keepHeroPlaying() {
+  heroVideo.muted = true;
+  heroVideo.defaultMuted = true;
+  const tryPlay = () => {
+    if (!heroVideo.paused) return;
+    const p = heroVideo.play();
+    if (p && typeof p.catch === 'function') p.catch(() => {});
+  };
+  // The poster is the first paint. The 1 MB video is attached only after the
+  // page has finished loading, and never for Save-Data or reduced-motion
+  // visitors (they keep the poster).
+  const conn = navigator.connection;
+  const skipVideo = !!(conn && conn.saveData) ||
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let attached = false;
+  const attachVideo = () => {
+    if (attached || skipVideo || !heroVideo.dataset.src) return;
+    attached = true;
+    heroVideo.src = heroVideo.dataset.src;
+    heroVideo.load();
+    tryPlay();
+  };
+  if (document.readyState === 'complete') attachVideo();
+  else window.addEventListener('load', attachVideo, { once: true });
+  heroVideo.addEventListener('loadeddata', tryPlay);
+  ['touchstart', 'pointerdown', 'scroll', 'keydown'].forEach(ev =>
+    window.addEventListener(ev, tryPlay, { once: true, passive: true }));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) tryPlay(); });
+})();
+
 })();
 </script>
+
 </body>
 </html>
