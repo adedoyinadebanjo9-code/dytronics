@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ff6a00">
 <title>DYTRONICS: Electronic Components &amp; Repairs</title>
   <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -24,8 +25,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://oqlbtbdmobhgxpqbyaeq.supabase.co" crossorigin>
 <link rel="preconnect" href="https://oqlbtbdmobhgxpqbyaeq.supabase.co">
-<link rel="preload" as="image" href="hero-poster.jpg" fetchpriority="high">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tokens.css">
 <style>
   .hero-eyebrow p {
@@ -796,45 +796,184 @@
     .receipt-actions{display:none;}
   }
 </style>
+<style id="bright-theme">
+/* ===== DYTRONICS bright marketplace theme (overrides) ===== */
+:root{
+  --ink:#1f2933; --ink-soft:#5b6670; --paper:#f4f5f7; --paper-deep:#eceef1; --card:#fff;
+  --green:#ff6a00; --green-deep:#1f2933; --gold:#ff6a00; --line:#e4e7eb; --radius:10px;
+  --brand:#ff6a00; --brand-dark:#e25a00; --brand-soft:#fff1e6;
+}
+body, body *{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif !important; font-style:normal !important;}
+body{background:var(--paper); color:var(--ink);}
+.eyebrow{color:var(--brand);}
+
+/* header */
+.topbar{position:sticky; top:0; left:auto; right:auto; mix-blend-mode:normal; background:#fff; color:var(--ink);
+  padding:0; border-bottom:1px solid var(--line); box-shadow:0 1px 8px rgba(0,0,0,.04); z-index:60; display:block;}
+.topbar-row{max-width:1320px; margin:0 auto; display:flex; align-items:center; gap:14px; padding:12px 24px;}
+.topbar .wordmark{font-size:22px; font-weight:800; letter-spacing:-.01em; color:var(--ink); flex-shrink:0;}
+.topbar .wordmark span{color:var(--brand);}
+.hamburger-btn{width:40px; height:40px; border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--ink); flex-shrink:0;}
+.hamburger-btn:hover{border-color:var(--brand); color:var(--brand);}
+.hamburger-btn svg{width:20px; height:20px;}
+.hsearch{flex:1; min-width:0; display:flex; align-items:center; gap:10px; height:44px; padding:0 4px 0 14px; border:2px solid var(--brand);
+  border-radius:999px; background:#fff; color:var(--ink-soft); cursor:text; text-align:left; font-size:14px; font-weight:400;}
+.hsearch svg{width:18px; height:18px; flex-shrink:0; color:var(--ink-soft);}
+.hsearch span{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.hsearch b{background:var(--brand); color:#fff; border-radius:999px; padding:0 22px; height:34px; display:inline-flex; align-items:center; font-weight:700; font-size:14px;}
+.hsearch:hover b{background:var(--brand-dark);}
+.topbar nav{gap:6px; text-transform:none; letter-spacing:0; font-size:14px; flex-shrink:0;}
+.acct-link, .cart-btn{display:inline-flex; align-items:center; gap:6px; height:40px; padding:0 12px; border-radius:10px; color:var(--ink); font-weight:600; font-size:14px; text-transform:none; letter-spacing:0; opacity:1;}
+.acct-link:hover, .cart-btn:hover{background:var(--brand-soft); color:var(--brand);}
+.acct-link svg, .cart-btn svg{width:22px; height:22px;}
+.cart-btn{position:relative;}
+.cart-badge{top:2px; right:2px; background:var(--brand); color:#fff;}
+
+/* hero */
+.hero{min-height:0; height:auto; display:block; background:linear-gradient(120deg,#ff6a00 0%,#ff8a2b 55%,#ffb04a 100%); color:#fff; padding:0; overflow:hidden;}
+.hero::after, .hero::before{display:none;}
+.hero-inner{position:static; max-width:1320px; margin:0 auto; padding:44px 24px 36px; display:grid; grid-template-columns:1.2fr 1fr; gap:32px; align-items:center; transform:none; opacity:1;}
+.hero-tag{display:inline-block; background:rgba(255,255,255,.2); border-radius:999px; padding:6px 14px; font-size:12px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; margin-bottom:16px;}
+.hero-title{font-size:clamp(30px,4.6vw,52px); line-height:1.08; font-weight:800; letter-spacing:-.02em; color:#fff; margin:0 0 14px; text-transform:none;}
+.hero-title em{color:#1f2933;}
+.hero-sub{font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:rgba(255,255,255,.95); max-width:520px; margin:0 0 24px;}
+.hero .btn-solid{background:#1f2933; border-color:#1f2933; color:#fff;}
+.hero .btn-solid:hover{background:#000; border-color:#000; color:#fff;}
+.hero-points{list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+.hero-points li{background:rgba(255,255,255,.96); color:var(--ink); border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:4px; box-shadow:0 6px 18px rgba(150,60,0,.18);}
+.hero-points b{font-size:15px; font-weight:700;}
+.hero-points span{font-size:13px; color:var(--ink-soft);}
+
+/* buttons */
+.btn{border-radius:999px; text-transform:none; letter-spacing:0; font-size:15px; font-weight:700; padding:13px 26px; color:var(--ink); border:1.5px solid var(--line); background:#fff;}
+.btn:hover{background:var(--brand-soft); color:var(--brand); border-color:var(--brand);}
+.btn-solid{background:var(--brand); border-color:var(--brand); color:#fff;}
+.btn-solid:hover{background:var(--brand-dark); border-color:var(--brand-dark); color:#fff;}
+
+/* category chips */
+.rail-wrap{background:#fff; border-bottom:1px solid var(--line); overflow:visible; position:sticky; top:68px; z-index:40;}
+.rail{display:flex; width:auto; max-width:1320px; margin:0 auto; animation:none; gap:8px; padding:10px 24px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;}
+.rail::-webkit-scrollbar{display:none;}
+.rail-item{flex:0 0 auto; display:inline-flex; padding:8px 16px; border:1px solid var(--line); border-radius:999px; background:#fff; font-size:14px; font-weight:600; color:var(--ink); white-space:nowrap;}
+.rail-item:hover{border-color:var(--brand); color:var(--brand); background:var(--brand-soft);}
+
+/* sections */
+.category{max-width:1320px; margin:20px auto 0; padding:20px 24px 4px; background:#fff; border-radius:16px; scroll-margin-top:130px;}
+.category-head{display:flex; align-items:center; justify-content:space-between; padding:0 0 14px; border:0; margin:0;}
+.category-head h3{font-size:22px; font-weight:800; letter-spacing:-.01em; color:var(--ink); padding-left:12px; border-left:4px solid var(--brand); line-height:1.1;}
+.category-count{font-size:13px; color:var(--ink-soft); background:var(--paper); padding:4px 10px; border-radius:999px; font-weight:600;}
+.grid{grid-template-columns:repeat(6,1fr); gap:14px; padding-bottom:20px;}
+@media (max-width:1180px){.grid{grid-template-columns:repeat(4,1fr);}}
+@media (max-width:820px){.grid{grid-template-columns:repeat(3,1fr);}}
+@media (max-width:560px){.grid{grid-template-columns:repeat(2,1fr); gap:10px;}}
+.grid.collapsed .card:nth-child(n+13){display:none;}
+.show-more{display:block; margin:0 auto 22px; padding:11px 26px; border-radius:999px; border:1.5px solid var(--brand); background:#fff; color:var(--brand); font-weight:700; font-size:14px; cursor:pointer;}
+.show-more:hover{background:var(--brand); color:#fff;}
+
+/* cards */
+.card{background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; transform:none; opacity:0; transition:opacity .35s ease, box-shadow .2s ease, border-color .2s ease;}
+.card.in{opacity:1;}
+.card:hover{box-shadow:0 8px 22px -10px rgba(0,0,0,.25); border-color:#ffc99e;}
+.card-media{aspect-ratio:1/1; background:#f1f3f5;}
+.card-media img{object-fit:contain; background:#fff;}
+.ph, .card-media .ph{background:#f1f3f5 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%23b8c0c8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='18' y='18' width='28' height='28' rx='3'/%3E%3Cpath d='M26 18v-8M32 18v-8M38 18v-8M26 54v-8M32 54v-8M38 54v-8M18 26h-8M18 32h-8M18 38h-8M54 26h-8M54 32h-8M54 38h-8'/%3E%3C/svg%3E") center/42% no-repeat !important;}
+.card-info{padding:10px 12px 12px; gap:4px; flex:1;}
+.card-info .name{font-size:13.5px; font-weight:500; line-height:1.35; color:var(--ink); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; min-height:2.7em;}
+.card-info .price{font-size:17px; font-weight:800; color:var(--brand); margin-top:2px;}
+.card-info .enquire{display:none;}
+.card-info .addcart{margin-top:auto; width:100%; justify-content:center; padding:9px 10px; border-radius:999px; background:var(--brand); color:#fff; font-size:13px; font-weight:700; letter-spacing:0; text-transform:none; border:0;}
+.card-info .addcart:hover:not(:disabled){background:var(--brand-dark);}
+.card-info .addcart:disabled{background:#d5d9de; color:#7b858f; opacity:1;}
+
+/* modal / cart / drawers */
+.modal, .cart-drawer{border-radius:14px; background:#fff; color:var(--ink);}
+.cat-drawer{border-radius:0 14px 14px 0;}
+.cart-drawer{border-radius:14px 0 0 14px;}
+.modal-price{color:var(--brand); font-weight:800;}
+.modal-media .ph{background-color:#f1f3f5;}
+.cat-list a{font-size:15px; font-weight:500;}
+.cat-list a:hover, .cat-top-link:hover{background:var(--brand-soft); color:var(--brand);}
+.cat-top-links{background:var(--paper);}
+.cart-badge{color:#fff;}
+
+/* footer */
+footer{background:#1f2933; color:#cfd6dd; margin-top:28px; padding-top:44px;}
+.footer-wordmark{font-weight:800; font-size:22px; color:#fff; letter-spacing:-.01em;}
+.footer-grid p{color:#aab4be;}
+.footer-col h4{color:#fff; font-weight:700; letter-spacing:.02em;}
+.footer-col a, .footer-col span{color:#cfd6dd;}
+.footer-col a:hover{color:#ff9a4d;}
+.footer-bottom{color:#8a96a3; border-color:rgba(255,255,255,.1);}
+
+/* phone */
+@media (max-width:820px){
+  .hero-inner{grid-template-columns:1fr; padding:26px 16px 22px; gap:20px;}
+  .hero-points{grid-template-columns:1fr 1fr; gap:10px;}
+  .hero-points li{padding:12px;}
+  .hero-points b{font-size:13.5px;} .hero-points span{font-size:12px;}
+}
+@media (max-width:640px){
+  .topbar-row{flex-wrap:wrap; padding:10px 12px; gap:10px 8px;}
+  .topbar .wordmark{font-size:20px; margin-right:auto;}
+  .hsearch{order:5; flex:1 1 100%; height:42px;}
+  .hsearch b{display:none;}
+  .cart-label{display:none;}
+  .acct-link, .cart-btn{padding:0 8px;}
+  .rail-wrap{top:104px;}
+  .rail{padding:10px 12px;}
+  .category{margin:12px 8px 0; padding:14px 10px 2px; border-radius:14px; scroll-margin-top:160px;}
+  .category-head h3{font-size:19px;}
+  .card-info{padding:8px 9px 10px;}
+  .card-info .name{font-size:13px;}
+  .card-info .price{font-size:16px;}
+}
+
+</style>
 </head>
 <body>
 
   <header class="topbar">
-    <button class="hamburger-btn" id="catMenuBtn" type="button" aria-label="Open category menu" aria-haspopup="dialog" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
-    <a href="#top" class="wordmark">DYTRONICS</a>
-   <nav>
-  <button class="cart-btn" id="cartBtn" type="button" aria-label="Open cart">
-    Cart<span class="cart-badge hidden" id="cartBadge">0</span>
-  </button>
-</nav>
+    <div class="topbar-row">
+      <button class="hamburger-btn" id="catMenuBtn" type="button" aria-label="Open category menu" aria-haspopup="dialog" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <a href="#top" class="wordmark" aria-label="DYTRONICS home">DY<span>TRONICS</span></a>
+      <button class="hsearch" id="headerSearch" type="button" aria-label="Search products">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span>Search resistors, sensors, Arduino, modules…</span>
+        <b>Search</b>
+      </button>
+      <nav>
+        <a class="acct-link" href="account.html" aria-label="Account">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+        <button class="cart-btn" id="cartBtn" type="button" aria-label="Open cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+          <span class="cart-label">Cart</span><span class="cart-badge hidden" id="cartBadge">0</span>
+        </button>
+      </nav>
+    </div>
   </header>
 
   <section class="hero" id="top">
-    <video class="hero-video" muted loop playsinline preload="none" poster="hero-poster.jpg" data-src="hero.mp4"></video>
     <div class="hero-inner">
-      <div class="hero-eyebrow">
-        <p>Naija Electronics Components World</p>
-        <p>Genuine parts &amp; repairs</p> 
-      <p>Same-day dispatch</p>
-      </div>
-     <h1 class="hero-title"><span class="to">Welcome to </span>DYTRONICS</h1>
-      <p class="hero-sub">Resistors, ICs, sensors, modules and repair parts, sourced right and shipped fast. This is DYTRONICS.</p>
-      <div class="hero-cta">
+      <div class="hero-copy">
+        <span class="hero-tag">Naija electronics components world</span>
+        <h1 class="hero-title">Genuine electronic parts, <em>shipped fast.</em></h1>
+        <p class="hero-sub">Resistors, ICs, sensors, modules and repair parts. Tested before dispatch, delivered across Lagos and Nigeria.</p>
         <a href="#shop" class="btn btn-solid">Shop components</a>
       </div>
+      <ul class="hero-points" aria-label="Why shop with us">
+        <li><b>Genuine parts</b><span>Tested before dispatch</span></li>
+        <li><b>Same-day dispatch</b><span>Lagos orders</span></li>
+        <li><b>Nationwide</b><span>Delivery across Nigeria</span></li>
+        <li><b>WhatsApp support</b><span>Ask before you buy</span></li>
+      </ul>
     </div>
-    <div class="scroll-cue"><span class="line"></span> Scroll</div>
   </section>
 
   <div class="rail-wrap" id="shop" aria-label="Shop by category">
     <div class="rail" id="railTrack"></div>
-  </div>
-
-  <div class="intro">
-    <span class="eyebrow">Bring your projects and innovations to life🙂‍↔️</span>
-    <h2>These are not used Nigerian components <em>these are</em> the reason engineering is possible in nigeria.</h2>
   </div>
 
   <!-- Category sections are rendered dynamically from dytronics_categories -->
@@ -1196,15 +1335,14 @@ async function loadCategoriesAndRenderShell() {
   renderCategoryLinks('catList');
 
   const railItemsHtml = categoriesCache
-    .map((c, i) => `<div class="rail-item"><span class="rail-num">${String(i + 1).padStart(2, '0')}</span><a href="#${escapeHtml(c.slug)}">${escapeHtml(c.label)}</a></div>`)
+    .map((c, i) => `<a class="rail-item" href="#${escapeHtml(c.slug)}">${escapeHtml(c.label)}</a>`)
     .join('');
-  document.getElementById('railTrack').innerHTML = railItemsHtml + railItemsHtml;
+  document.getElementById('railTrack').innerHTML = railItemsHtml;
 
   document.getElementById('categorySections').innerHTML = categoriesCache.map((c, i) => `
     <section class="category" id="${escapeHtml(c.slug)}" data-category="${escapeHtml(c.slug)}">
       <div class="category-head">
         <div>
-          <span class="eyebrow">${String(i + 1).padStart(2, '0')} — Category</span>
           <h3>${escapeHtml(c.label)}</h3>
         </div>
         <div class="category-count" data-count>Loading…</div>
@@ -1269,6 +1407,20 @@ async function loadProducts(prefetched) {
       }
       grid.innerHTML = items.map(cardHtml).join('');
       revealCards(grid);
+      const LIMIT = 12;
+      if (items.length > LIMIT) {
+        grid.classList.add('collapsed');
+        const more = document.createElement('button');
+        more.type = 'button';
+        more.className = 'show-more';
+        more.textContent = `View all ${items.length} in ${section.querySelector('h3').textContent}`;
+        more.addEventListener('click', () => {
+          const open = grid.classList.toggle('collapsed');
+          grid.querySelectorAll('.card').forEach(c => c.classList.add('in'));
+          more.textContent = open ? `View all ${items.length} in ${section.querySelector('h3').textContent}` : 'Show fewer';
+        });
+        grid.after(more);
+      }
     });
     openProductFromUrl();
   } catch (err) {
@@ -2247,6 +2399,7 @@ document.getElementById('catList').addEventListener('click', (e) => {
 });
 
 document.getElementById('searchBtn').addEventListener('click', openSearchPanel);
+document.getElementById('headerSearch').addEventListener('click', openSearchPanel);
 document.getElementById('searchClose').addEventListener('click', closeSearchPanel);
 document.getElementById('searchBackdrop').addEventListener('click', (e) => {
   if (e.target === document.getElementById('searchBackdrop')) closeSearchPanel();
@@ -2304,44 +2457,6 @@ sb.auth.onAuthStateChange(async (event, session) => {
     if (!document.getElementById('cartBackdrop').hidden) renderCartDrawer();
   }
 });
-
-// If hero video has no real source, keep the gradient background only
-const heroVideo = document.querySelector('.hero-video');
-heroVideo.addEventListener('error', () => { heroVideo.style.display = 'none'; }, true);
-
-// Autoplay hardening. Some phones (iOS Low Power Mode, data savers, battery
-// savers) refuse to autoplay even muted video. Set muted via the property (iOS
-// can ignore the attribute alone), try play(), and retry on the first touch,
-// scroll, key press or tab return. The poster frame shows in the meantime.
-(function keepHeroPlaying() {
-  heroVideo.muted = true;
-  heroVideo.defaultMuted = true;
-  const tryPlay = () => {
-    if (!heroVideo.paused) return;
-    const p = heroVideo.play();
-    if (p && typeof p.catch === 'function') p.catch(() => {});
-  };
-  // The poster is the first paint. The 1 MB video is attached only after the
-  // page has finished loading, and never for Save-Data or reduced-motion
-  // visitors (they keep the poster).
-  const conn = navigator.connection;
-  const skipVideo = !!(conn && conn.saveData) ||
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let attached = false;
-  const attachVideo = () => {
-    if (attached || skipVideo || !heroVideo.dataset.src) return;
-    attached = true;
-    heroVideo.src = heroVideo.dataset.src;
-    heroVideo.load();
-    tryPlay();
-  };
-  if (document.readyState === 'complete') attachVideo();
-  else window.addEventListener('load', attachVideo, { once: true });
-  heroVideo.addEventListener('loadeddata', tryPlay);
-  ['touchstart', 'pointerdown', 'scroll', 'keydown'].forEach(ev =>
-    window.addEventListener(ev, tryPlay, { once: true, passive: true }));
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) tryPlay(); });
-})();
 
 })();
 </script>
