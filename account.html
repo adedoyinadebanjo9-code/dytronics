@@ -11,7 +11,7 @@
 <meta name="description" content="Manage your DYTRONICS account: order history and saved addresses.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tokens.css">
 <style>
   *{box-sizing:border-box; margin:0; padding:0;}
@@ -115,13 +115,11 @@
 
   @media(max-width:640px){ .wrap{padding:40px 5vw 80px;} }
 </style>
+<link rel="stylesheet" href="/theme.css">
 </head>
 <body>
 
-  <header class="topbar">
-    <a href="index.html" class="wordmark">DYTRONICS</a>
-    <a href="index.html" class="back">&larr; Back to shop</a>
-  </header>
+  <header class="site-header"><div class="site-header-in"><a class="wordmark" href="/" aria-label="DYTRONICS home">DY<span>TRONICS</span></a><nav><a href="/products/">Products</a><a href="/account.html">Account</a><a class="shop-cta" href="/#shop">Shop</a></nav></div></header>
 
   <!-- Logged-out: auth gate -->
   <div class="wrap" id="authWrap">

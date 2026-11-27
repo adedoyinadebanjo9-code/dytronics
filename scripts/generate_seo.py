@@ -78,7 +78,7 @@ HEAD_COMMON = (
     '<link rel="apple-touch-icon" href="/apple-touch-icon.png">\n'
     '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-    '<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">\n'
+    '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">\n'
     '<link rel="stylesheet" href="/tokens.css">'
 )
 
@@ -192,9 +192,8 @@ def page(head_title, desc, canonical, og_type, image, jsonlds, body, extra_head=
     ]
     head = "\n".join(tags) + "\n" + extra_head + "\n".join(jsonlds)
     return (f'<!DOCTYPE html>\n{MARKER}\n<html lang="en">\n<head>\n{HEAD_COMMON}\n{head}\n'
-            f'<style>{CSS}</style>\n</head>\n<body>\n'
-            '<header class="bar"><a class="wordmark" href="/">DYTRONICS</a>'
-            '<nav><a href="/#shop">Shop</a><a href="/products/">All products</a></nav></header>\n'
+            f'<style>{CSS}</style>\n<link rel="stylesheet" href="/theme.css">\n</head>\n<body>\n'
+            '<header class="site-header"><div class="site-header-in"><a class="wordmark" href="/" aria-label="DYTRONICS home">DY<span>TRONICS</span></a><nav><a href="/products/">Products</a><a href="/account.html">Account</a><a class="shop-cta" href="/#shop">Shop</a></nav></div></header>\n'
             f'{body}\n'
             '<footer>\u00a9 2026 DYTRONICS \u00b7 Lagos, Nigeria \u00b7 <a href="/privacy.html">Privacy</a> \u00b7 '
             '<a href="/terms.html">Terms</a></footer>\n</body>\n</html>\n')
