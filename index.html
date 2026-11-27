@@ -794,6 +794,18 @@
     .receipt, .receipt *{visibility:visible;}
     .receipt{position:absolute; top:0; left:0; width:100%; padding:20px;}
     .receipt-actions{display:none;}
+    /* Receipt print fix: visibility:hidden keeps the hidden page's height, so the
+       whole shop printed as dozens of blank pages. printReceipt() marks everything
+       that is not the receipt with .print-hide (removed from layout entirely). */
+    body.print-active .print-hide{display:none !important;}
+    body.print-active .print-path{
+      position:static !important; display:block !important; overflow:visible !important;
+      width:auto !important; height:auto !important; min-height:0 !important; max-height:none !important;
+      transform:none !important; box-shadow:none !important; background:none !important;
+      margin:0 !important; padding:0 !important; border:0 !important; animation:none !important;
+    }
+    body.print-active .receipt{position:static !important; padding:20px !important;}
+    body.print-active{background:#fff !important; margin:0 !important;}
   }
 </style>
 <style id="bright-theme">
@@ -2027,9 +2039,41 @@ function renderReceiptHtml(orderRecord, opts) {
     </div>`;
 }
 
+// Prints only the receipt. Everything outside the receipt is taken out of the
+// layout while printing (see the @media print block) so the page's length no
+// longer decides how many sheets come out.
+function printReceipt() {
+  const receipt = Array.from(document.querySelectorAll('.receipt'))
+    .find(r => r.getClientRects().length > 0);
+  if (!receipt) { window.print(); return; }
+  const hidden = [], path = [];
+  let node = receipt;
+  while (node && node !== document.body) {
+    path.push(node);
+    const parent = node.parentElement;
+    if (parent) Array.from(parent.children).forEach(sib => { if (sib !== node) hidden.push(sib); });
+    node = parent;
+  }
+  hidden.forEach(el => el.classList.add('print-hide'));
+  path.forEach(el => el.classList.add('print-path'));
+  document.body.classList.add('print-active');
+  let cleaned = false;
+  const cleanup = () => {
+    if (cleaned) return; cleaned = true;
+    hidden.forEach(el => el.classList.remove('print-hide'));
+    path.forEach(el => el.classList.remove('print-path'));
+    document.body.classList.remove('print-active');
+    window.removeEventListener('afterprint', cleanup);
+  };
+  window.addEventListener('afterprint', cleanup);
+  window.print();
+  // Some mobile browsers never fire afterprint; restore the page after a while.
+  setTimeout(cleanup, 60000);
+}
+
 function wireReceiptButtons(onDone) {
   const printBtn = document.getElementById('receiptPrintBtn');
-  if (printBtn) printBtn.addEventListener('click', () => window.print());
+  if (printBtn) printBtn.addEventListener('click', printReceipt);
   const doneBtn = document.getElementById('receiptDoneBtn');
   if (doneBtn) doneBtn.addEventListener('click', onDone);
 }
